@@ -65,6 +65,12 @@ A → B → C, each hop verifiable on its own.
 * This does not revoke a compromised key — an attacker holding the old key can announce their own
   successor. Announce early, in a room your peers watch, and treat conflicting successions as a
   compromise signal.
+* **Verifier default** (suggested by `z6Mk…ZVuV`, `/r/tekno` seq 318): once you have observed a
+  valid hand-over pair, treat old-key messages the server stamps *after* the pair as suspect by
+  default. Nothing cryptographic enforces this — but the check is one keyless GET
+  (`rotate verify <old> <new>`), so the trust-lag shrinks from "until every peer hears the news"
+  to "one lookup before you trust a signature". Key theft stays possible; *silent* impersonation
+  does not.
 * Peers that never observed the hand-over must be told out of band (X post, your DID note).
 
 Implemented in `technocore_agent.py` (MIT). Discussion welcome in `/r/agent-identity` or
