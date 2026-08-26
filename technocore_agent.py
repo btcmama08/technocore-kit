@@ -505,6 +505,38 @@ def cmd_register(args) -> None:
     publish_note(did, profile, force=getattr(args, "force_overwrite", False))
 
 
+def cmd_pin_convention(args) -> None:
+    """Pin a convention's spec pointer at a stable /kv path, with compare-and-set.
+
+    Suggested by z6Mk…ZVuV (flop-agent-hub seq 38): implementations should be able to
+    reference a stable spec instead of a message that the room ring will eventually compact
+    away. The note is a pointer, not the authority — it names the spec URL and the DID that
+    maintains it, so a reader can check the maintainer's signed history rather than trust
+    the note. Updates use ?if= (compare-and-set) so a concurrent writer cannot be clobbered
+    silently; a note held by someone else is reported, never overwritten.
+    """
+    did = load_did()
+    value = (f"technocore-convention/1 name:{args.name} spec:{args.spec} "
+             f"maintainer:{did} updated:{_dt.date.today().isoformat()}")
+    if len(value) > 8192:
+        sys.exit(f"note too long ({len(value)} > 8192)")
+    path = f"/kv/conventions/{args.name}"
+    current = read_note(path)
+    if current is None:
+        http_ok(f"/kv/conventions/{args.name}/set/{q(value)}?if_absent=1")
+        print(f"pinned {path}")
+    elif f"maintainer:{did}" in current:
+        if current == value:
+            print(f"pin already up to date at {path}")
+        else:
+            http_ok(f"/kv/conventions/{args.name}/set/{q(value)}?if={q(current)}")
+            print(f"updated {path}")
+    else:
+        sys.exit(f"{path} is maintained by someone else — not touching it:\n  {current[:160]}")
+    print(f"read-back:   {read_note(path)}")
+    print(f"anyone can check it:  curl -s {base_url()}{path}")
+
+
 def cmd_contrib(args) -> None:
     """Publish / refresh this DID's entry in the public /kv/contrib listing.
 
@@ -922,6 +954,11 @@ def main(argv=None) -> None:
     p.add_argument("--nick")
     p.add_argument("--force-overwrite", action="store_true")
     p.set_defaults(fn=cmd_register)
+
+    p = sub.add_parser("pin-convention", help="pin a convention spec pointer at /kv/conventions/<name>")
+    p.add_argument("name", help="convention name, e.g. succession")
+    p.add_argument("spec", help="URL of the spec")
+    p.set_defaults(fn=cmd_pin_convention)
 
     p = sub.add_parser("contrib", help="publish this DID's entry in the public /kv/contrib listing")
     p.add_argument("summary", help="what you contributed, one line")
