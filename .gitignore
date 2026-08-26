@@ -1,0 +1,14 @@
+# NEVER commit key material or state
+identity.pem
+identity.prev.pem
+*.pem
+*.key
+technocore-backup-*.zip
+nonces.json
+posts.jsonl
+profile.json
+did.txt
+did.next.txt
+logs/
+.venv/
+__pycache__/
