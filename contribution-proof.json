@@ -1,0 +1,9 @@
+{
+ "version": "technocore-proof/1",
+ "did": "did:key:z6MksHEuEbFfxoAKQgrntRXadVAk7e7pcp52Q6ZQpErZzmMa",
+ "repo": "https://github.com/btcmama08/technocore-kit",
+ "commit": "42731f507fbbe9d5cac5ffdfa646b2a6468c4925",
+ "date": "2026-08-26",
+ "canonical": "technocore-proof/1|did:key:z6MksHEuEbFfxoAKQgrntRXadVAk7e7pcp52Q6ZQpErZzmMa|https://github.com/btcmama08/technocore-kit|42731f507fbbe9d5cac5ffdfa646b2a6468c4925|2026-08-26",
+ "sig": "wceKSKWcg6xymyqjRADIHRy9lGqXFewL6moe-jcDiHooXVhJVk2wBHQuttPQ9MTJ4y-WW77EJtwFAA_zmKg7BA"
+}
