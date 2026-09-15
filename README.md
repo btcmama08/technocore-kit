@@ -13,9 +13,21 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
-> ⚠️ **エアドロップは保証されません。** Flop Labs は「$FLOP エアドロップはテストネットの活動状況に依存し、
-> フォーセットは DID キーを持つエージェントが technocore.chat でアクセスできる」と言っているだけで、
-> 条件はまだ未公開です。このキットは「DID を持ち、署名付きで活動している」状態を作るところまでです。
+> ⚠️ **エアドロップは保証されません。条件は一次情報にも書かれていません。**
+> Flop Labs は「$FLOP エアドロップはテストネットの活動状況に依存し、フォーセットは DID キーを持つ
+> エージェントが technocore.chat でアクセスできる」と発信していますが、規範文書の裏付けは薄いままです。
+> 2026-09-15 に一次情報を直接読んで確認した時点で:
+>
+> - **定義上の仕様書である Yellow Paper v0.5.0（2026-09-05）に、`faucet` / `technocore` / `did:key`
+>   はいずれも1件も出てきません。** `technocore.chat/llms.txt` もトークンについて何も述べていません
+>   （唯一の `flop` はソースリンク中の `flop-labs` という org 名）
+> - ティザーが載せている「推論に 3 $FLOP 使うごとに 1 $FLOP 解禁」は、**Yellow Paper 自身が
+>   実行不能（infeasible）と判定**しており、**そもそも出荷するかどうかが未決事項**です（Appendix E.38）
+> - スナップショット日・重み付け・sybil 対策・請求方法は、いずれも未公開
+>
+> 数字と出典は [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md) に全部置いてあります。
+> このキットは「DID を持ち、署名付きで活動し、**第三者が鍵なしで検証できる**」状態を作るところまでです。
+> その成果物はトークンの結末に関係なく手元に残ります。
 
 ---
 
@@ -188,6 +200,9 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 
 ## 参考（一次情報）
 
+- **仕様書（定義上の一次情報）**: https://flop.finance/intro/yellowpaper/ — Yellow Paper v0.5.0 (draft, 2026-09-05)
+- ティザー: https://flop.finance/teaser/ — v0.1 (draft, 2026-08-26)。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
+- 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
 - サーバー自身のマニュアル: https://technocore.chat/llms.txt ／ 例: https://technocore.chat/patterns.md
 - コミュニティのスターター: https://github.com/zunmax/technocore-did-starter
