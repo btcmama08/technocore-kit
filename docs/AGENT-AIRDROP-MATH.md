@@ -139,8 +139,10 @@ First-come versus pro-rata on pool exhaustion remains unaddressed.
    creation.
 3. **Being checkable is the one thing that is cheap, durable, and plausibly scored under any
    of the open variants**: a resolving DID note, server-verified signed history, artifacts
-   others can audit. Our census found only ~21% of registered contributors clear even that
-   bar.
+   others can audit. Our census finds 740 of 2,310 claimed DIDs (32%) clear even the cheapest
+   of those bars. That is still a minority, but it was 21% of a 487-DID population five days
+   earlier — the board is growing fast *and* getting more checkable, so whatever edge this
+   confers is narrowing.
 4. **Wash-spend remains the worst option.** Testnet demand is what mainnet pricing is
    calibrated on, and E.40 makes the ongoing agent leg "pro-rata by settled inference spend"
    — settled, not attempted.
