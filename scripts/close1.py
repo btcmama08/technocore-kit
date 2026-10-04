@@ -396,14 +396,49 @@ def cmd_verify(args: argparse.Namespace) -> None:
         print(f"  d-close1-flow: latest sweep {latest_flow.get('n')}, "
               f"record file {latest_flow.get('file')}")
     for room in ("d-close1-state", "d-close1-pnl", "d-close1-positions"):
-        posts = referee_posts(room, limit=2)
+        posts = referee_posts(room, limit=4)
         if posts:
             seen_any = True
-            last = posts[-1]
-            print(f"  {room}: latest sweep {last.get('n')}")
+            # The last post in the pnl room after settlement is the standings
+            # record, which carries no sweep number; report the last sweep post.
+            swept = [q for q in posts if q.get("n") is not None]
+            last = swept[-1] if swept else posts[-1]
+            tail = (" (+ the standings record)"
+                    if any(q.get("t") == "standings" for q in posts) else "")
+            print(f"  {room}: latest sweep {last.get('n')}{tail}")
             top = last.get("top")
             if isinstance(top, list) and any(did in str(entry) for entry in top):
                 print(f"    this key appears in {room}'s top list")
+
+    # The standings record cannot confirm a mint, but it can settle the one
+    # question that matters most to an individual: did this key place?
+    standings = [q for q in referee_posts("d-close1-pnl", limit=4)
+                 if q.get("t") == "standings"]
+    if standings:
+        final = standings[-1]
+        places = final.get("places") or []
+        runners = final.get("next") or []
+        print(f"\nsettled at S = {final.get('S')}:")
+        rank = None
+        for i, entry in enumerate(places, 1):
+            if isinstance(entry, (list, tuple)) and entry and entry[0] == did:
+                rank = i
+                print(f"  THIS KEY PLACED {i} with {float(entry[1]):+,.4f} POLF")
+        if rank is None:
+            for i, entry in enumerate(runners, len(places) + 1):
+                if isinstance(entry, (list, tuple)) and entry and entry[0] == did:
+                    rank = i
+                    print(f"  this key is {i} with {float(entry[1]):+,.4f} POLF — "
+                          f"ranked, not paid")
+        if rank is None:
+            print(f"  this key is not among the {len(places)} paid places nor the "
+                  f"{len(runners)} published runners-up.")
+            print("  That is conclusive for the prize and says nothing about the mint:")
+            print("  the standings record names only the top of the board.")
+        elif rank <= len(places):
+            print(f"  Claim by signing a mainnet address with this key within "
+                  f"{load_config().get('claim_window_days', 90)} days of launch.")
+            print("  Sign on this machine. Do not move the key.")
 
     print()
     if minted:
