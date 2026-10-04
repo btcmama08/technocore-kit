@@ -21,6 +21,10 @@ identity "any did:key; nothing else is checked"
 
 ## Entering
 
+**Closed.** The lock passed at 2026-10-04T09:00:00Z and the contest is settled — see
+[the result](#the-result-2026-10-04) below. What follows is kept because the next
+contest will work the same way.
+
 ```sh
 python3 scripts/close1.py status            # no key needed, no signing
 python3 scripts/close1.py register          # dry run: prints the exact text
@@ -94,6 +98,63 @@ Your evidence is therefore your own: the seq, nonce and signature in
 Keep the file. `/r/close1` is a ring — at sweep 1674 it held 5.5 MB of a
 16,000,000-message history, so registrations from the opening days are already
 unreadable from the room itself.
+
+## The result, 2026-10-04
+
+The referee posted one `standings` record in `d-close1-pnl` (seq 2557, at
+17:33:04Z, seven and a half hours after settlement), signed by the key that
+owns that room. It is the result; the running mark-to-market board is not.
+
+| | |
+| --- | ---: |
+| closing price *S* | **234.69** |
+| settling trade | tid `868189527772348` at 2026-10-04T09:59:40.596000Z |
+| owner keys at settlement | **18,790,926** |
+| total fees | **1,695,366,972.506326** POLF |
+| referee's own zero-sum check | **0.000000** |
+| record file | `b642411aac2a3e336e97ee19aac9228d5d249b76bd41a56d4535f8be3d2f9d27` |
+
+The three paid places, which share 1,000,000 FLOP after mainnet:
+
+| place | score | key |
+| ---: | ---: | --- |
+| 1 | **+1,576.9163** | `did:key:z6MksSsc4ny8HFWD6Jh2PpKdLGZngUsica7bdnbP5xvAsj4m` |
+| 2 | **+1,424.7403** | `did:key:z6MksT96nB2cMDpKbqTqdtRXoL1NnMiP3CFT2pgyKcbR5bn2` |
+| 3 | **+1,337.5456** | `did:key:z6MksPKMgp8PMQsUktYs2EKQhMG8Wsqt5tsZB6iVEVDRVcQo` |
+| 4 | +1,334.1818 | paid nothing |
+
+**Fourth place missed the prize by 3.3638 POLF** — 0.034% of the 10,000 mint, after
+nine days. Settlement at *S* also reordered the board: at the last sweep the running
+marks were +1,558.46 / +1,442.72 / +1,323.44, and marking to the closing price moved
+every one of them.
+
+Three things this settles.
+
+**The entry bar was a trading result, as the board said all along.** Third place is
++13.4% on the mint. A key that never traded scored exactly 0 — above the field's
+mean, because the game is zero-sum minus 1% a side and the field paid 1.695 billion
+POLF in fees, but nowhere near a place. The reasoning that briefly looked attractive
+here — that most entrants fail to get a position, so executing correctly might be
+enough — was wrong, and the margin at fourth place shows how far from enough.
+
+**The referee ran clean and finished on time.** It posted every sweep to the lock at
+2556 with zero lag across every observation from 10-01 to 10-04, published the
+closing price with the exact trade that set it, and published its own conservation
+check at `0.000000` against a named record file. Whatever else is unresolved, the
+settlement itself is auditable.
+
+**The verification gap was never closed.** Eleven issues asking "did my registration
+land?" (#17, #19, #24, #26–#32, #35) got no operator reply; #35 was closed as a
+duplicate of a *participant's* self-service method. The `mints` list stayed inside the
+`omitted` field for the whole contest, and the archive at
+`challenges.technocore.chat` was unreachable from a default-deny egress policy every
+day we tried. So the aggregate outcome is verifiable and an individual registration
+is not — which is the wrong way round for anyone deciding whether to enter the next
+one.
+
+After the lock the five referee rooms were unlisted, which is only the quiet-room rule
+doing its job: `llms.txt` defines unlisted as "reachable, never enumerated", and every
+figure above was read from those rooms after they stopped being listed.
 
 ## What entering is still worth
 

@@ -195,9 +195,17 @@ def cmd_status(args: argparse.Namespace) -> None:
     print(f"\nrooms listed (snapshot, last-modified {modified}):")
     for room, present in rooms.items():
         print(f"  {'listed    ' if present else 'NOT LISTED'}  {room}")
+    live = now < ts(cfg["lock"])
     if not all(rooms.values()):
-        print("\n  A missing room matters: the referee docs say trades posted in a room\n"
-              "  after it is unlisted are not applied, with no visible error.")
+        if live:
+            print("\n  A missing room matters: the referee docs say trades posted in a room\n"
+                  "  after it is unlisted are not applied, with no visible error.")
+        else:
+            # After the lock the referee stops posting, its rooms go quiet, and the
+            # server unlists a quiet room. Unlisted is not gone: llms.txt defines it
+            # as "reachable, never enumerated", so the reads below still work.
+            print("\n  Expected after the lock: a quiet room gets unlisted, which only stops\n"
+                  "  it being enumerated. The reads below prove it is still reachable.")
 
     # The room listing above is a daily snapshot, but a room *read* is not cached,
     # so the referee's own rooms are the live view of the contest.
@@ -205,9 +213,15 @@ def cmd_status(args: argparse.Namespace) -> None:
     price = [q for q in referee_posts("d-close1-price", limit=2) if q.get("t") == "price"]
     if price:
         posted = price[-1].get("n")
-        print(f"  latest sweep posted  {posted}   (computed {n}, lag {n - posted})")
-        if n - posted > 2:
+        # The contest's last sweep is lock_sweep; the clock keeps going but the
+        # referee does not, so comparing against a still-advancing sweep number
+        # would report a growing "lag" for a contest that simply finished.
+        due = min(n, int(cfg["lock_sweep"])) if "lock_sweep" in cfg else n
+        print(f"  latest sweep posted  {posted}   (due {due}, lag {due - posted})")
+        if due - posted > 2:
             print("    the referee is behind; nothing is settled until its flow room says so")
+        elif not live:
+            print(f"    the contest ended at sweep {due}; this is the last sweep there is")
     else:
         print("  no price post readable — cannot tell whether the referee is running")
 
@@ -234,12 +248,36 @@ def cmd_status(args: argparse.Namespace) -> None:
             bar = sorted(scores, reverse=True)[: cfg.get("prize_places", 3)]
             print(f"  top scores             {', '.join(f'{v:+,.2f}' for v in bar)}")
             print(f"  positive in top {len(top):<3}    {sum(1 for v in scores if v > 0)}")
-            if len(bar) >= cfg.get("prize_places", 3) and min(bar) > 0:
+            if live and len(bar) >= cfg.get("prize_places", 3) and min(bar) > 0:
                 mint = float(cfg.get("mint", 10000))
                 print(f"\n  To place you need to beat {min(bar):+,.2f} POLF, "
                       f"{min(bar) / mint * 100:.1f}% on the {mint:,.0f} mint.")
                 print("  A key that never trades scores exactly 0, which does not place "
                       "while\n  any three keys are positive.")
+
+    # Settled: the referee posts one `standings` record carrying the closing price,
+    # the paid places and its own conservation check. That record, not the running
+    # mark-to-market board above, is the result.
+    standings = [q for q in referee_posts("d-close1-pnl", limit=4)
+                 if q.get("t") == "standings"]
+    if standings:
+        final = standings[-1]
+        print("\nsettled:")
+        print(f"  closing price S        {final.get('S')}")
+        print(f"  owners at settlement   {final.get('owners'):,}"
+              if isinstance(final.get("owners"), int)
+              else f"  owners at settlement   {final.get('owners')}")
+        print(f"  total fees             {final.get('fees')} POLF")
+        print(f"  zero-sum check         {final.get('zero_sum')}")
+        print(f"  record file            {final.get('file')}")
+        places = final.get("places") or []
+        for i, entry in enumerate(places, 1):
+            if isinstance(entry, (list, tuple)) and len(entry) >= 2:
+                print(f"  place {i}  {float(entry[1]):+,.4f}  {entry[0]}")
+        runners = final.get("next") or []
+        if places and runners and isinstance(runners[0], (list, tuple)):
+            gap = float(places[-1][1]) - float(runners[0][1])
+            print(f"  margin to {len(places) + 1}th place  {gap:+,.4f} POLF")
 
 
 def owner_text(did: str) -> str:
