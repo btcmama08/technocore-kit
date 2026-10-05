@@ -2,13 +2,21 @@
 
 Sources are the two published documents, read directly:
 
-- **Yellow Paper v0.5.0 (draft), updated 2026-09-24** — `flop.finance/intro/yellowpaper/`.
-  The teaser calls it the "Definitive spec"; where the two disagree, this one wins.
-- **Teaser v0.1 (draft), updated 2026-09-30** — `flop.finance/teaser/`. Marked provisional
-  by its own banner: "The figures in this document are provisional."
+- **Yellow Paper v0.5.0 (draft)** — `flop.finance/intro/yellowpaper/`. The definitive
+  specification. Its version string still reads 0.5.0 / updated 2026-09-24, but **the body
+  changed on 2026-10-05**: 12 KB longer, one fewer `[TBD]`, and the agent airdrop ratified.
+  A static version string is not evidence that the text is static.
+- **Airdrop, updated 2026-10-05** — `flop.finance/airdrop/`. New page. Allocation basis,
+  snapshot procedure and the per-cohort unlock table.
+- **Testnet, updated 2026-10-05** — `flop.finance/testnet/`. New page. Timeline, what counts,
+  the four fairness rules, and how each role onboards.
+- **Project intro v0.1 (draft), updated 2026-09-30** — `flop.finance/teaser/`, formerly "the
+  teaser" and dropped from the site navigation. **Its agent paragraph is now stale**: it still
+  says the unlock schedule "is not yet set". The Yellow Paper and the airdrop page say
+  otherwise, and the Yellow Paper wins.
 
-Both are drafts, and both moved in the last week. Every number below is quoted from them and
-re-derivable with division; see [Checking these quotes yourself](#checking-these-quotes-yourself).
+Everything below is quoted from those pages and re-derivable with division; see
+[Checking these quotes yourself](#checking-these-quotes-yourself).
 
 ## The genesis numbers (Yellow Paper §9.3, R9.4/R9.7)
 
@@ -59,43 +67,65 @@ leaves emission untouched". The teaser's stale "3.5bn … ratified by D-0438" ba
 of its 2026-09-30 update; `3.5bn`, `3,500,000,000` and `D-0438` now return zero matches there.
 Secondary coverage quoting 2.48bn or 3.5bn is quoting superseded decisions.
 
-## The 3:1 rule has been withdrawn
+## The 3:1 rule shipped
 
-Revisions of this file before 2026-09-30 built their argument on a published 3:1
-spend-to-unlock rule. **That rule is no longer in either document.** The teaser's agent
-paragraph now reads, in full (§04):
+Revisions of this file between 2026-09-30 and 2026-10-04 reported that the 3:1
+spend-to-unlock rule had been withdrawn, because the teaser had deleted it and the Yellow
+Paper's E.38 listed "whether spend-to-unlock ships" as an open question. **On 2026-10-05 it
+shipped**, as normative `MUST` language in §8.2:
 
-> Agents — claim a test-token faucet and spend it on inference. Their airdrop is based
-> largely on what they spend on inference over the testnet, along with various prizes. It
-> arrives locked, and a locked balance can be spent only on compute; **the schedule on which
-> it becomes liquid is not yet set.**
+> An Agent grant MUST NOT unlock any principal at its start block, and **it has no end
+> block**. It MUST unlock only against spend credit: **one FLOP of principal for each three
+> FLOP of its locked part (R8.8) in the payable** (Appendix F.3, the gross settlement amount
+> before the audit earmark) of a session settled by `settle`, by `certificate_settle`, or by
+> `force_settle` → `finalize`. A payable MUST count only once its settlement block is
+> finalized, `channel_dispute_window_blocks` have passed since it, and every fraud dispute
+> raised against the session in that window has resolved with none upheld. Locked principal
+> spent through `agent_transfer`, refunds, the R12.1d penalty, and any other leg outside the
+> payable MUST NOT accrue credit. An Agent grant's unlocked amount is **⌊K/3⌋**, where K is
+> the total locked part of its credited `payable`s. Its locked compute spend C, the principal
+> drawn by the R8.8 compute calls net of refunds returned to the grant, **MUST NOT exceed
+> ⌊3P/4⌋**, where P is its principal at creation, so spend cannot consume the quarter that its
+> credit unlocks; principal neither spent nor unlocked MUST stay frozen.
 
-No ratio, no window, no pacing. `unlocks 1`, `3 $FLOP` and `spend-to-unlock` return zero
-matches in the current teaser.
+The airdrop page states the same rule in one sentence:
 
-The Yellow Paper never ratified it either. E.38 still carries the decision as open:
+> Spendable only on inference. **Every 3 $FLOP of the locked balance spent in settled sessions
+> unlocks 1 $FLOP, so three quarters is spent on compute and one quarter becomes liquid.**
+> There is no end date; balance never spent stays locked.
 
-> Ratify the Agent grant horizon (the pallet's linear schedule conflicts with the simulator's
-> Y1/Y2/Y3 release) and **whether spend-to-unlock ships**; the proposed 3:1 spend requirement
-> for `genesis_agent_airdrop` **exceeds projected inference demand over that window**.
+**The window is what was dropped, not the ratio.** E.38 used to note that a 3:1 requirement
+over a Y1–Y3 release "exceeds projected inference demand over that window"; that sentence and
+the open question are both gone, and the grant now "has no end block". With no deadline the
+mismatch it described cannot arise.
 
-So the ratio was a proposal that the specification measured against its own demand forecast,
-found too large, and has not ratified — and the marketing document has now stopped printing
-it. Any formula of the form `ceiling = faucet_allocation / 3` models a rule that no published
-document contains.
+### The unlock ceiling, which is now computable
 
-### The agent leg is the only one of the three without a schedule
+The two bounds close the mechanism exactly. Spend at most `⌊3P/4⌋` of principal on compute;
+earn `⌊C/3⌋` unlocked. At the cap:
 
-The same teaser update that removed the agent ratio gave the other two cohorts concrete terms:
+```
+spend    C = 3P/4          the most the rule will credit
+unlock   C/3 = P/4         one FLOP per three spent
+                 -------
+total          P           three quarters consumed, one quarter liquid
+```
 
-| cohort | liquid at genesis | how the rest unlocks |
+So **a quarter of an agent grant can become liquid and no more**, there is no deadline, and
+anything never spent "stays locked" permanently. Earlier revisions of this file said there was
+no ceiling to plan against. There is one, it is `P/4`, and it does not expire.
+
+### All three cohorts now have published terms
+
+| cohort | at genesis | after genesis |
 | --- | --- | --- |
-| miner | a quarter | "one airdropped $FLOP for every $FLOP the miner earns serving inference on mainnet, with no time limit"; block rewards do not count |
-| validator | none | bonded as collateral, "locked until the first halving", then "released one validator per day over the following 1,000 days" |
-| **agent** | **unstated** | **"the schedule on which it becomes liquid is not yet set"** |
+| miners | 25% liquid | "The remaining 75% unlocks one $FLOP for each $FLOP the miner is paid for inference in settled sessions … Block rewards do not count, and there is no end date." |
+| validators | "Nothing liquid: the airdrop is the bond" | "Frozen until the first halving, about two years after genesis, then released one validator per day, in an order fixed before the first release, until all are free." |
+| agents | "Nothing liquid" | 3 spent → 1 unlocked, capped at a quarter, no end date |
 
-That asymmetry is the finding. Miners and validators can now price their airdrop. Agents
-cannot.
+A miner may post its locked airdrop as its own stake; a validator's release lifts only the
+freeze. Ongoing block rewards and inference fees are paid liquid — "the lock applies to the
+airdrop alone".
 
 ## What the spec does pin down — and it is the opposite of a farm
 
@@ -133,8 +163,9 @@ R8.3 closes the supply side —
 R8.8 specifies the plumbing a spend-to-unlock rule would use, if one ships:
 
 > Still-locked principal of an Agent grant MAY be spent only through `agent_transfer`,
-> `open_channel`, `top_up_escrow`, and `force_open` for compute; that spend MUST consume
-> vesting principal and MUST NOT turn it into freely transferable credit.
+> `open_channel`, `top_up_escrow`, and `force_open` for compute, **within the R8.7 spend
+> cap**; that spend MUST consume vesting principal and MUST NOT turn it into freely
+> transferable credit.
 
 Mechanism specified, policy unratified. That is the state of the agent airdrop.
 
@@ -153,77 +184,151 @@ The appendix also records a hole the operators have not closed:
 
 > Residual risk: once its quarter is liquid, a miner can buy inference from itself through an
 > agent it controls and unlock the rest at about the 1% audit earmark, roughly 0.75% of
-> principal; **no runtime common-control rule binds this** (see E.49).
+> principal; **an agent can likewise pay a miner it controls from locked principal, receive
+> about 99% of it back as that miner's payout, and unlock a further third of the spend. No
+> runtime common-control rule binds either** (see E.49).
 
 Fixed dates: testnet **Q4 2026 for roughly ninety days**, mainnet **Q1 2027**; results settled
 into the genesis block at testnet end, with "the bulk of the pool … expected to be distributed
 at the token generation event, with any remainder released at a later stage".
 
-## What neither document says
+## The on-ramp is now named, and so are the limits
 
-Checked by full-text search against the versions above, because the whole DID on-ramp rests
-on it:
+Earlier revisions of this file reported that no eligibility basis, snapshot height or
+weighting had been published anywhere, and that "the link between holding a `did:key` on
+technocore.chat and receiving an airdrop appears in neither document". **Both statements
+stopped being true on 2026-10-05.** The testnet page's onboarding section says, of agents:
 
-- **The Yellow Paper contains zero occurrences of "technocore" and "did:key".**
-- **It contains exactly one occurrence of "faucet"** — R8.4's, quoted above, which says a
-  faucet grant earns nothing by itself.
-- **`technocore.chat/llms.txt` contains zero occurrences of "airdrop", "faucet", "testnet"
-  and "$FLOP".** Its single match for "flop" is the `flop-labs` GitHub org in the source-code
-  link at the foot of the page. The server manual is a chat-and-KV spec and makes no claim
-  about tokens. The same holds for `/.well-known/agent.json` and `/patterns.md`, whose only
-  uppercase `FLOP` is an illustrative HTLC offer payload.
+> Agents — **create a DID and a wallet, draw from the faucet, and begin purchasing inference
+> or transacting with other agents on technocore.chat.**
 
-The link between holding a `did:key` on technocore.chat and receiving an airdrop appears in
-neither document. It exists in Flop Labs' X communications and in community-authored
-checklists. That may well be how it ends up working — the teaser does say agents "claim a
-test-token faucet" — but nothing in the specification obliges it, and no eligibility list,
-snapshot height, or weighting has been published anywhere.
+That is flop.finance naming a DID, the faucet and technocore.chat as the agent path. The
+Yellow Paper still contains zero occurrences of "technocore" and "did:key" — it specifies the
+protocol, not the venue — but the operator's own site now does.
 
-Still unpublished after v0.5.0: the agent unlock schedule, the score's cap levels and
-sublinear form, the demand and duration gates, the snapshot height and the per-account
-allocation file, the appeal path for under-counted activity, the Validator release order of
-R8.7 (until fixed, "no Validator grant releases"), and the unallocated-remainder disposition.
+What counts, verbatim:
+
+> Agents — compute purchased in settled sessions. Holding test tokens earns nothing.
+> **Minimum activity** — each role has a floor below which no allocation is earned, so dormant
+> accounts do not dilute those that did the work.
+
+And the four rules that govern the record:
+
+> **One participant, one score** — wallets under common control are scored as a single
+> participant; dividing activity across accounts earns no additional allocation.
+> **Independent demand only** — spend routed to a miner under common control, or circulated
+> between wallets under common control, is not credited as demand. **Fraud forfeits** — an
+> account flagged for manufactured activity forfeits its allocation, subject to appeal within
+> the review window. **Security disclosure** — vulnerabilities reported responsibly during the
+> testnet are rewarded from the ecosystem reserve; exploiting a vulnerability forfeits
+> eligibility.
+
+The second rule is the one that kills the obvious plan. Buying inference from a miner you also
+run, or moving balance between your own wallets, **is not demand** and earns nothing. Combined
+with R8.7's exclusion of `agent_transfer` and refunds from unlock credit, self-dealing is
+barred on both the allocation side and the unlock side.
+
+### The timeline and the snapshot
+
+| phase | when | what happens |
+| --- | --- | --- |
+| testnet opens | Q4 2026 | onboarding opens for all three roles |
+| testnet runs | about 90 days | work is verified and recorded on the testnet chain |
+| **snapshot** | **close of testnet** | "The record is frozen at a published, finalized block height. Activity after that height is not credited, and **no rolling snapshot is taken**." |
+| review | before genesis | "The complete allocation list and its hash are published, so every participant can verify their entry and lodge a dispute within the stated window." |
+| genesis | Q1 2027 | allocation written into the genesis block; "Testnet chain state is not migrated; only the allocation is carried forward." |
+
+One snapshot at the close, not a rolling average, so there is no benefit to being early beyond
+the activity that accumulates — and no way to arrive at the last minute, since allocation is
+pro rata to accumulated settled spend. And the airdrop itself has no claim pressure:
+
+> There is no claim window and no deadline: the account holder releases unlocked amounts from
+> the freeze with a claim transaction, whenever they choose.
+
+(The 90-day window in this kit's close-1 notes was that contest's *prize* claim, a different
+thing.)
+
+## What is still open
+
+E.38 is shorter than it was, and what remains does not include the agent unlock:
+
+> The conversion score, validator activity basis, Validator release order, and reserve
+> disposition remain open in E.38.
+
+So the **unlock** is specified and the **allocation formula** is not. The airdrop page states
+the agent basis in prose — "The allocation is shared pro rata to compute purchased in settled
+sessions" — while the Yellow Paper still lists the conversion score as open. Where they
+disagree the Yellow Paper wins, and it has not yet ratified "pro rata". Treat the prose as the
+operator's stated intent, not as a ratified formula; the caps, the sublinear form and the
+activity floors are still unpublished numbers.
 
 ## What follows
 
-1. **There is no unlock ceiling to plan against.** The ratio that made one computable has been
-   withdrawn from the teaser and remains unratified in E.38. Anyone still quoting
-   `faucet / 3` is quoting a document that no longer says it.
-2. **Settled compute-channel spend is the only agent input that scores** (R8.4), and its
-   weighting is sublinear with caps, gated on verifiable demand and maintained duration
-   (E.38). Volume without demand behind it is explicitly the wrong shape.
-3. **Being checkable is the one thing that is cheap, durable, and scored under every open
-   variant**: a resolving DID note, server-verified signed history, artifacts others can
-   audit — plus R8.5's "cluster identity", which groups accounts before scoring them. Our
-   census finds 740 of 2,310 claimed DIDs (32%) clear even the cheapest of those bars. That
-   is still a minority, but it was 21% of a 487-DID population five days earlier — the board
-   is growing fast *and* getting more checkable, so whatever edge this confers is narrowing.
-4. **Wash-spend is excluded by rule, not by hope.** R8.4 bars job counts and active days from
-   scoring, E.38 gates the score on verifiable demand, and R8.5 clusters related accounts.
-   The paper's own residual-risk note shows the operators know the self-dealing path and have
-   not yet bound it — a reason to expect the gates to tighten, not loosen.
+1. **The unlock is now plannable and the allocation still is not.** `ceiling = allocation / 4`,
+   no deadline, three quarters spent on inference you actually wanted. What remains unknown is
+   the size of the allocation, which depends on an unratified score and unpublished activity
+   floors.
+2. **Settled compute-channel spend is the only agent input that scores**, on both the Yellow
+   Paper's side (R8.4) and the site's ("compute purchased in settled sessions"). Nothing about
+   holding, receiving, transferring, job counts or active days counts, and self-routed demand
+   is explicitly excluded.
+3. **Being checkable is still the cheap, durable position**, and it now has a named venue: a
+   DID and technocore.chat are the published agent on-ramp. R8.5's "cluster identity" and the
+   site's "one participant, one score" both say the same thing — many keys under one hand count
+   once, so the work goes into one identity rather than across several. Our census finds 740 of
+   2,310 claimed DIDs (32%) clear even the cheapest checkability bar, up from 21% of a 487-DID
+   population five days earlier.
+4. **Wash-spend is barred on the allocation and unbound on the unlock.** "Independent demand
+   only" excludes self-routed spend from the allocation, and R8.7 excludes `agent_transfer`,
+   refunds and the R12.1d penalty from unlock credit. But E.38's residual-risk note, extended
+   on 2026-10-05, now spells out the agent-side loop as well: pay a miner you control from
+   locked principal, take about 99% back as that miner's payout, and unlock a further third of
+   the spend — with "no runtime common-control rule binds either".
+
+   The `⌊3P/4⌋` cap still holds, so the quarter is still the most that can come liquid. What
+   the loop changes is its **price**: reaching that quarter costs roughly the 1% audit earmark
+   instead of three quarters of the grant spent on inference you wanted. The allocation-side
+   rule is enforced by the operator's filters at snapshot time; the unlock-side gap is
+   acknowledged in the specification as unenforced at runtime. Anyone modelling the agent leg
+   should price both, and anyone relying on the ratio to create real demand should note that
+   the paper does not claim it will.
 
 ## Checking these quotes yourself
 
-Every block quote above is verbatim from the two published pages as of the versions in the
-header. To re-verify after a version bump:
+All thirteen block quotes above are verbatim from the four pages in the header, checked by
+extracting each quote, normalising whitespace, and grepping every five-word window back out of
+the fetched text. To re-verify:
 
 ```sh
-curl -s https://flop.finance/intro/yellowpaper/ > yp.html
-python3 - <<'PY' > yp.txt
-import re, html
-h = open('yp.html', encoding='utf-8', errors='replace').read()
-t = re.sub(r'<script.*?</script>|<style.*?</style>', '', h, flags=re.S)
-print(re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t))))
+for u in intro/yellowpaper airdrop testnet teaser; do
+  curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
+done
+python3 - <<'PY'
+import re, html, glob
+for f in sorted(glob.glob('*.html')):
+    h = open(f, encoding='utf-8', errors='replace').read()
+    t = re.sub(r'<script.*?</script>|<style.*?</style>', '', h, flags=re.S)
+    open(f[:-5] + '.txt', 'w').write(
+        re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t))))
 PY
-grep -o 'Updated [0-9-]\{10\}' yp.txt | head -1   # the version this file was checked against
-grep -c infeasible yp.txt                         # expect 0 - see the note below
-grep -o 'exceeds projected inference demand' yp.txt
+grep -c 'whether spend-to-unlock ships' yellowpaper.txt  # 0 since 2026-10-05
+grep -o '\[TBD\]' yellowpaper.txt | wc -l                # 18 on 2026-10-05, was 19
+grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
+wc -c yellowpaper.html                                   # 561349 on 2026-10-05
 ```
 
-A note on method, because this file got it wrong once. Revisions before 2026-09-30 carried
-four block quotes that were paraphrases or inventions rather than quotations — including
-figures for a 3:1 arithmetic that appear nowhere in the source, and the word "infeasible",
-which the Yellow Paper does not use. The numbers in this file all checked out; the quotation
-marks did not. Fetch the page, quote from the fetched copy, and grep the quote back out of it
-before publishing a claim about what the spec says.
+Two notes on method, both learned the hard way.
+
+**Quote from the fetched copy, not from memory.** Revisions of this file before 2026-09-30
+carried four block quotes that were paraphrases or inventions rather than quotations —
+including figures for a 3:1 arithmetic that appear nowhere in the source, and the word
+"infeasible", which the Yellow Paper has never used. The numbers all checked out; the
+quotation marks did not.
+
+**A static version string is not a static document.** The Yellow Paper still says "Version
+0.5.0 (draft) / Updated 2026-09-24", and on 2026-10-05 its body grew by 12 KB, ratified the
+agent unlock, resolved one `[TBD]`, and extended the E.38 residual-risk note mid-sentence.
+Watching the version line would have missed all of it. **Byte count and the `[TBD]` count are
+the signals that caught it**, and the grep-back check above caught two same-day edits inside
+sentences this file was already quoting ("within the R8.7 spend cap", and the agent-side half
+of the residual risk). Re-run the check on every revision, not only when the version changes.
