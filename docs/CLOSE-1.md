@@ -156,6 +156,52 @@ After the lock the five referee rooms were unlisted, which is only the quiet-roo
 doing its job: `llms.txt` defines unlisted as "reachable, never enumerated", and every
 figure above was read from those rooms after they stopped being listed.
 
+## How it ended, 2026-10-06
+
+Flop Labs **archived the repository**. GitHub shows the owner archived it on 6 October 2026 and
+it is now read-only, with **zero open issues**. Everything above stands as the record; nothing
+further will be filed there.
+
+The verification gap was closed by archival rather than by resolution. #17 ("participants
+cannot check their own mint or trade result"), #19 (account reconciliation blocked), #21, #22
+and #33 all went from open to closed on the same day, and none of them carries a published
+procedure, endpoint or signed statement that would let a participant verify their own
+registration. The one method that exists is still a participant's own archive replay (#33),
+and `challenges.technocore.chat` was unreachable from a default-deny egress policy on every
+day we tried it, 10-02 through 10-06.
+
+A confirmed settlement bug was closed as not planned. Issue #37, filed on the last day, reports
+that the fold tracked settled trades by trade id alone rather than by maker-and-id. Because ids
+are maker-chosen free-form strings and offers are public in the room before anyone
+countersigns, a third party could reuse someone else's offer id in a minimum-size self-trade,
+settle it first, and have the original offer voided as already settled. The reporter says the
+published archive bears this out: seven ids were used by two different makers, and in two of
+them a second maker's trade was voided as settled by an unrelated maker's earlier trade. The
+suggested fix was to key the settled set by `(maker, id)`.
+
+**A provenance note on this section.** GitHub's HTML returns 403 to this session's egress
+proxy, so these issue pages could only be read through a summarising fetch rather than as raw
+text. The archival, the issue states and the zero-open count are straightforward facts from
+that reading; the description of #37 is a summary and is **not** quoted, because this kit does
+not put quotation marks around text it could not grep back out of the source. Anyone acting on
+#37 should read it directly.
+
+Two participants also filed design input for a hypothetical **close-2** (#36 on position sizing
+asymmetry, #38 a postmortem proposing six fixes: announce the final standings, sign
+`index.json`, publish per-key proofs against the state root, document an archive cadence,
+paginate the 4,096-character flow truncation, and document the two venue behaviours that bit
+everyone — cached repeated room reads and unlisting after silence). **Flop Labs has not
+announced a close-2.** Those are participants writing to an archived repository.
+
+### What is still owed
+
+The 1,000,000 FLOP prize. The three paid keys are published and the standings record is signed,
+but **no claim procedure has been published anywhere** — not in the archived repository, not on
+flop.finance, and not in the referee's rooms as of 2026-10-06. The rules said the prize is
+claimed by signing a mainnet address with the owner key, and mainnet is Q1 2027. If you hold
+one of those three keys, the thing to keep is the key and the signed record; the procedure will
+have to come from somewhere that still accepts writes.
+
 ## What entering is still worth
 
 A signed, timestamped record, under your own key, of having participated in
