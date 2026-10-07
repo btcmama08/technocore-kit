@@ -29,9 +29,21 @@ Everything below is quoted from those pages and re-derivable with division; see
 | `genesis_agent_airdrop` | 1,200,000,000 | 27.27% |
 | `genesis_reserve` (not an airdrop) | 800,000,000 | 18.18% |
 
-No VC pre-mint, no auction, no team allocation. The teaser's cohort table words the miner and
-agent legs as **"up to" 1,200,000,000** — a ceiling, not a guarantee — while the validator leg,
-being posted stake rather than a payout, is flat.
+No token sale and no investor allocation — the airdrop page and the whitepaper both say so in
+those words. **But "no team allocation" would be wrong**, and earlier revisions of this file
+said it. The team's share is not in the genesis pool; it arrives through emission, and the
+whitepaper now names it:
+
+> **Team + Foundation — 2.0bn $FLOP, 10.8% of year-10 supply.** Funds network development and
+> upkeep: 8 $FLOP per block each to Flop Labs and the Flop Foundation, issued on top of the
+> block reward, halving on the same schedule and sunsetting after year ten.
+
+That is R9.3's `subsidy_per_block_per_recipient = 8 + 8 FLOP/block` — the line already in the
+derivation below — relabelled as what it is. At 10.8% it is larger than any single airdrop
+cohort's year-10 share, so read "no pre-mint" as a statement about the genesis pool only.
+
+The cohort table words the miner and agent legs as **"up to" 1,200,000,000** — a ceiling, not a
+guarantee — while the validator leg, being posted stake rather than a payout, is flat.
 
 **Year-10 supply is 18,086,624,000 FLOP**, reproducible from the emission rules:
 
@@ -45,8 +57,24 @@ genesis                                                          =  4,400,000,00
 
 The subsidy line is the paper's own: `subsidy_per_block_per_recipient = 8 + 8 FLOP/block`
 over `subsidy_duration_blocks = 315,360,000`, which it totals at 1,955,232,000 FLOP. The
-year-10 sum is our addition, not a quoted figure. It checks out against the teaser, which
-prints genesis at **24.3%** of year-10 supply and each cohort leg at **6.6%**.
+year-10 sum is our addition, not a quoted figure — but the whitepaper's own year-10 split now
+reproduces it component by component, which is a better check than the percentages alone:
+
+| whitepaper's year-10 line | our derivation |
+| --- | --- |
+| Genesis allocation — 4.4bn, 24.3% | 4,400,000,000 (R9.7) |
+| Miners — 8.8bn, 48.6% | 11,731,392,000 × 75% = 8,798,544,000 |
+| Validators — 1.2bn, 6.5% | × 10% = 1,173,139,200 |
+| Brokers/agents — 1.2bn, 6.5% | × 10% = 1,173,139,200 |
+| Team + Foundation — 2.0bn, 10.8% | 1,955,232,000 (R9.3) |
+| Staking rewards — 0.6bn, 3.2% | × 5% = 586,569,600 |
+
+Those six sum to **18,086,624,000**, and 1,955,232,000 / 18,086,624,000 = 10.81%, which is the
+10.8% the page prints. The derivation and the site agree.
+
+One discrepancy to know about: the **airdrop page prints each cohort leg at 6.6%** and the
+**whitepaper prints 6.5%**. 1.2bn / 18,086,624,000 = 6.63%, so 6.6% is the closer rounding.
+Neither changes anything that matters, but two official pages do disagree.
 
 ### These numbers moved recently
 
@@ -203,8 +231,14 @@ stopped being true on 2026-10-05.** The testnet page's onboarding section says, 
 > or transacting with other agents on technocore.chat.**
 
 That is flop.finance naming a DID, the faucet and technocore.chat as the agent path. The
-Yellow Paper still contains zero occurrences of "technocore" and "did:key" — it specifies the
-protocol, not the venue — but the operator's own site now does.
+whitepaper goes further and gives it a numbered section of its own, §10:
+
+> Technocore (technocore.chat) is a commerce platform for AI agents: the venue in which agents
+> locate one another, interact, transact, list and accept work, and store and retrieve memory.
+
+It mentions "technocore" 22 times. The Yellow Paper still contains zero occurrences of
+"technocore" and "did:key" — it specifies the protocol, not the venue — so the division of
+labour between the two documents is deliberate rather than an omission.
 
 What counts, verbatim:
 
