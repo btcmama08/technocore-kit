@@ -1,15 +1,20 @@
 # The agent airdrop: what the spec actually pins down, and what it doesn't
 
-Sources are the two published documents, read directly:
+Sources are the published documents, read directly:
 
 - **Yellow Paper v0.5.0 (draft)** — `flop.finance/intro/yellowpaper/`. The definitive
-  specification. Its version string still reads 0.5.0 / updated 2026-09-24, but **the body
-  changed on 2026-10-05**: 12 KB longer, one fewer `[TBD]`, and the agent airdrop ratified.
-  A static version string is not evidence that the text is static.
+  specification. Its version string still reads 0.5.0 / updated 2026-09-24, but the body has
+  changed twice since: **2026-10-05**, 12 KB longer, one fewer `[TBD]`, the agent airdrop
+  ratified; and **2026-10-08**, 6 KB longer with `[TBD]` and `[RATIFY]` both unmoved. A static
+  version string is not evidence that the text is static, and neither are the tag counts.
 - **Airdrop, updated 2026-10-05** — `flop.finance/airdrop/`. New page. Allocation basis,
-  snapshot procedure and the per-cohort unlock table.
+  snapshot procedure and the per-cohort unlock table. Body edited 2026-10-08 (security
+  disclosures); the "updated" line did not move.
 - **Testnet, updated 2026-10-05** — `flop.finance/testnet/`. New page. Timeline, what counts,
-  the four fairness rules, and how each role onboards.
+  the four fairness rules, and how each role onboards. Body edited 2026-10-08, same reason.
+- **Whitepaper, updated 2026-10-05** — `flop.finance/whitepaper/`. The non-normative
+  companion. Its year-10 supply split is the only published breakdown that names the team's
+  share, and §10 is given over to technocore.chat.
 - **Project intro v0.1 (draft), updated 2026-09-30** — `flop.finance/teaser/`, formerly "the
   teaser" and dropped from the site navigation. **Its agent paragraph is now stale**: it still
   says the unlock schedule "is not yet set". The Yellow Paper and the airdrop page say
@@ -254,8 +259,15 @@ And the four rules that govern the record:
 > between wallets under common control, is not credited as demand. **Fraud forfeits** — an
 > account flagged for manufactured activity forfeits its allocation, subject to appeal within
 > the review window. **Security disclosure** — vulnerabilities reported responsibly during the
-> testnet are rewarded from the ecosystem reserve; exploiting a vulnerability forfeits
-> eligibility.
+> testnet, privately to security@flop.finance, could be eligible for a reward from the
+> ecosystem reserve; exploiting a vulnerability forfeits eligibility.
+
+The fourth rule was weaker on 2026-10-08 than it had been the day before. Until then it read
+"are **rewarded** from the ecosystem reserve"; now a report "could be **eligible for** a
+reward", and the airdrop page adds "this is not a bug bounty programme". The same edit
+published the channel — `security@flop.finance`, the first contact address either page has
+carried. Read it as discretion, not entitlement: finding a bug is not a route to an
+allocation.
 
 The second rule is the one that kills the obvious plan. Buying inference from a miner you also
 run, or moving balance between your own wallets, **is not demand** and earns nothing. Combined
@@ -296,6 +308,40 @@ disagree the Yellow Paper wins, and it has not yet ratified "pro rata". Treat th
 operator's stated intent, not as a ratified formula; the caps, the sublinear form and the
 activity floors are still unpublished numbers.
 
+### The second open gate: E.40, and it is not about the airdrop
+
+E.38 governs the genesis airdrop. A separate item governs what agents earn *afterwards*, from
+emission, and earlier revisions of this file did not mention it at all. `agent_share_ppt` is
+10% of every block reward, and it is not being paid to anyone:
+
+> **E.40 — Agent & staker leg distribution [TBD]**. Specify how the `agent_share_ppt` (10%)
+> and `staker_share_ppt` (5%) pools are paid out: the eligible set …, the pro-rata basis
+> (agents: verified inference spend, unconfirmed), cadence, dust handling, and, for the staker
+> leg, whether payouts are liquid on issue (agent-leg payouts are liquid under R9.13). The
+> agent leg must also choose its accounting unit (owner account, delegate key, or registered
+> agent identity), whether owner-signed spend outside the §6.2 delegate caps counts
+> (yellowpaper#31), and its spend basis … **Until this ratifies both legs accrue in sovereign
+> pool accounts and are never distributed (§9.1 R9.12).**
+
+And §13's status table, reworded on 2026-10-08, says the same from the other direction. The
+emission row flipped from `PARTIAL` to `LIVE` — but the promotion is the *validator* leg:
+
+> LIVE (validator earnings and sponsored-stake payouts are liquid, like the miner leg and the
+> Labs/Foundation subsidy; earnings do not grow stake or its freeze. **The agent and staker
+> legs accrue in pool accounts until E.40 ratifies their distribution.**
+
+So of the four emission legs, three now pay and the agent leg does not. Two consequences worth
+keeping straight:
+
+- **The airdrop and the emission leg are different questions with different open items.** A
+  ratified E.38 would settle the genesis 1,200,000,000; it would say nothing about the 10% of
+  every block thereafter. Both are unpublished, and they can resolve in either order.
+- **E.40 names the question this kit exists to answer.** "The agent leg must also choose its
+  accounting unit (owner account, delegate key, or registered agent identity)" — and the
+  paper's own warning is that "Per-identity accounting makes identity count the reward lever,
+  so per-identity credits need verifiable-demand gating". Whichever unit wins, a DID that a
+  third party can verify without the key is the artefact that survives the choice.
+
 ## What follows
 
 1. **The unlock is now plannable and the allocation still is not.** `ceiling = allocation / 4`,
@@ -329,29 +375,32 @@ activity floors are still unpublished numbers.
 
 ## Checking these quotes yourself
 
-All thirteen block quotes above are verbatim from the four pages in the header, checked by
+All seventeen block quotes above are verbatim from the five pages in the header, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
 ```sh
-for u in intro/yellowpaper airdrop testnet teaser; do
+for u in intro/yellowpaper airdrop testnet teaser whitepaper; do
   curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
 done
 python3 - <<'PY'
 import re, html, glob
+INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
 for f in sorted(glob.glob('*.html')):
     h = open(f, encoding='utf-8', errors='replace').read()
-    t = re.sub(r'<script.*?</script>|<style.*?</style>', '', h, flags=re.S)
-    open(f[:-5] + '.txt', 'w').write(
-        re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', t))))
+    t = re.sub(r'(?is)<(script|style)[^>]*>.*?</\1>', ' ', h)
+    t = re.sub(r'(?is)</?(%s)(\s[^>]*)?>' % INLINE, '', t)  # inline: NO separator
+    t = re.sub(r'(?s)<[^>]+>', ' ', t)                       # block: a space
+    open(f[:-5] + '.txt', 'w').write(re.sub(r'\s+', ' ', html.unescape(t)))
 PY
 grep -c 'whether spend-to-unlock ships' yellowpaper.txt  # 0 since 2026-10-05
 grep -o '\[TBD\]' yellowpaper.txt | wc -l                # 18 on 2026-10-05, was 19
+grep -o '\[RATIFY\]' yellowpaper.txt | wc -l             # 6; E.38 is one of them
 grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
-wc -c yellowpaper.html                                   # 561349 on 2026-10-05
+wc -c yellowpaper.html                                   # 567365 on 2026-10-08, 561349 on 10-05
 ```
 
-Two notes on method, both learned the hard way.
+Three notes on method, all learned the hard way.
 
 **Quote from the fetched copy, not from memory.** Revisions of this file before 2026-09-30
 carried four block quotes that were paraphrases or inventions rather than quotations —
@@ -366,3 +415,21 @@ Watching the version line would have missed all of it. **Byte count and the `[TB
 the signals that caught it**, and the grep-back check above caught two same-day edits inside
 sentences this file was already quoting ("within the R8.7 spend cap", and the agent-side half
 of the residual risk). Re-run the check on every revision, not only when the version changes.
+It caught a third revision on 2026-10-08 — another 6 KB, with `[TBD]` and `[RATIFY]` both
+unmoved, so the counts alone would have called it quiet.
+
+**The extraction is part of the measurement, and it fails in two directions.**
+
+*Counting against the raw HTML gives false zeros.* `grep -c 'remain open in E.38'
+yellowpaper.html` returns 0 while the sentence is plainly on the page: the markup breaks it
+across a tag and a newline, and `grep` works a line at a time. A multi-word phrase counted
+against `.html` is not a measurement — it is a false zero that reads exactly like a removal.
+Count against `.txt`. Single words are safe either way, which is why this hid for as long as
+it did.
+
+*Replacing every tag with a space gives false mismatches.* The Yellow Paper sets identifiers
+in `<code>`, so a naive strip yields `settle , by certificate_settle , or` and splits
+``payable``s into `payable s` — four of the quotes above failed the check on text no reader
+would recognise. Hence the two-pass strip in the snippet: inline elements out with no
+separator, block elements out with a space. Get that wrong and the check either passes bad
+quotes or condemns good ones, and there is no way to tell which from the output.
