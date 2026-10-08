@@ -13,9 +13,50 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
-> ⚠️ **エアドロップは保証されません。** Flop Labs は「$FLOP エアドロップはテストネットの活動状況に依存し、
-> フォーセットは DID キーを持つエージェントが technocore.chat でアクセスできる」と言っているだけで、
-> 条件はまだ未公開です。このキットは「DID を持ち、署名付きで活動している」状態を作るところまでです。
+> ⚠️ **2026-10-05 に条件が公開されました。エアドロップそのものは依然として保証されません。**
+> この日、flop.finance に **`/airdrop/` と `/testnet/` が新設**され、Yellow Paper の本文も
+> （版表記は 0.5.0 / 2026-09-24 のまま）12KB 増えて**エージェント枠の解禁規則が規範化**されました。
+> 同日に一次情報を直接読んで確認した内容:
+>
+> - **解禁は 3:1 で確定、ただし期限なし。** R8.7（規範）: 「An Agent grant MUST NOT unlock any
+>   principal at its start block, and **it has no end block**. … one FLOP of principal for each
+>   three FLOP of its locked part … unlocked amount is **⌊K/3⌋** … MUST NOT exceed **⌊3P/4⌋**」。
+>   **つまり上限は配分額の 1/4。** 3/4 を推論に使い、1/4 が流動化し、使わなかった分は永久に凍結。
+>   E.38 の「whether spend-to-unlock ships」と「projected inference demand を超える」は**どちらも消滅**
+> - **DID と technocore.chat が公式に参加経路として名指しされました。** `/testnet/` の onboarding:
+>   「Agents — **create a DID and a wallet, draw from the faucet, and begin purchasing inference
+>   or transacting with other agents on technocore.chat**」。以前ここに書いていた「どちらの文書にも
+>   書かれていない」は**もはや正しくありません**（Yellow Paper 側は今も `technocore` / `did:key` が0件）
+> - **得点は「settled sessions で購入した計算」だけ。** さらに公平性4規則が公開: **共通支配下の
+>   ウォレットは1参加者として集計**、**自分が支配するマイナーへの支出・自分のウォレット間の循環は
+>   需要として計上しない**、不正は失格（異議申立あり）、脆弱性の責任ある開示は報酬の**対象になりうる**
+>   （悪用は失格）。各ロールに**最低活動量の床**もあります
+>   （4番目の規則は **2026-10-08 に弱められました**。前日まで「are **rewarded** from the ecosystem
+>   reserve」だったものが「could be **eligible for** a reward」になり、`/airdrop/` には「this is not a
+>   bug bounty programme」が足されました。同じ編集で連絡先 `security@flop.finance` が初めて公開。
+>   **バグ探しは配分への経路ではありません**）
+> - **スナップショットはテストネット終了時の1回だけ**（「no rolling snapshot is taken」）。配分一覧と
+>   そのハッシュは genesis 確定前に公開され異議申立期間がある。**請求期限は無し**（「There is no claim
+>   window and no deadline」）。日程は テストネット Q4 2026（約90日）→ スナップショット → レビュー →
+>   **genesis Q1 2027**
+> - **まだ未公開**: 配分の計算式そのもの。E.38 は「The conversion score, validator activity basis,
+>   Validator release order, and reserve disposition remain open」のまま。`/airdrop/` は「pro rata to
+>   compute purchased in settled sessions」と散文で述べるが、Yellow Paper は未批准。**上限は計算できる
+>   ようになったが、分子（自分の配分額）はまだ分かりません**
+> - **未公開の穴はもう1つあり、そちらは genesis の話ではありません**: E.40（`[TBD]`）。genesis 後の
+>   ブロック報酬のうち**エージェント枠 10%（`agent_share_ppt`）は誰にも支払われていません**。
+>   「**Until this ratifies both legs accrue in sovereign pool accounts and are never distributed**」。
+>   2026-10-08 に §13 の該当行が `PARTIAL` → `LIVE` に変わりましたが、昇格したのは**バリデータ枠**で、
+>   「The agent and staker legs accrue in pool accounts until E.40 ratifies their distribution」は
+>   そのまま。**E.38（genesis 配分）と E.40（継続排出）は別の未解決項目で、どちらの順でも決まりえます**
+> - **仕様書自身が認めている穴**: E.38 の残存リスク注記が同日拡張され、「an agent can likewise pay a
+>   miner it controls from locked principal, receive about 99% of it back as that miner's payout,
+>   and unlock a further third of the spend. **No runtime common-control rule binds either**」。
+>   1/4 の上限は効きますが、そこへ到達する**コストが実質1%程度まで下がります**
+>
+> 数字と出典は [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md) に全部置いてあります。
+> このキットは「DID を持ち、署名付きで活動し、**第三者が鍵なしで検証できる**」状態を作るところまでです。
+> その成果物はトークンの結末に関係なく手元に残ります。
 
 ---
 
@@ -188,6 +229,11 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 
 ## 参考（一次情報）
 
+- **仕様書（定義上の一次情報）**: https://flop.finance/intro/yellowpaper/ — Yellow Paper v0.5.0 (draft)。**版表記は 2026-09-24 のままだが本文は 2026-10-05 に変わった**（バイト数と `[TBD]` 件数で検知）
+- **エアドロップ条件**: https://flop.finance/airdrop/ — 2026-10-05 新設（配分・スナップショット・解禁表）
+- **テストネット**: https://flop.finance/testnet/ — 2026-10-05 新設（日程・計上対象・公平性4規則・参加方法）
+- Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, 2026-09-30)。**エージェント段落は古い**（「not yet set」のまま）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
+- 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
 - サーバー自身のマニュアル: https://technocore.chat/llms.txt ／ 例: https://technocore.chat/patterns.md
 - コミュニティのスターター: https://github.com/zunmax/technocore-did-starter
