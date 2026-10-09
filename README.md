@@ -43,6 +43,14 @@ is never required to verify anything. Japanese documentation follows; commands a
 >   Validator release order, and reserve disposition remain open」のまま。`/airdrop/` は「pro rata to
 >   compute purchased in settled sessions」と散文で述べるが、Yellow Paper は未批准。**上限は計算できる
 >   ようになったが、分子（自分の配分額）はまだ分かりません**
+>   ただし **E.38 のタグは `[TBD]` ではなく `[RATIFY]`** で、付録の凡例いわく「`[TBD]` value/definition
+>   absent · **`[RATIFY]` proposed, awaiting sign-off**」。**計算式は「無い」のではなく「提案済みで承認待ち」**、
+>   公開まであと一段です。同じ凡例が閉じ方も定めていて「To close an item: write the value into its home
+>   section, **then delete the stub**」— つまり **E.38 は書き換わるのではなく消える**。検知すべきは
+>   文面の変化ではなく **E.38 の出現数が 6 → 0 になること**。
+>   先例あり: E.39（Validator-reward liquidity）は 9/24 時点のリポジトリでは `[RATIFY]` でしたが
+>   **サイトからは消えており**、10/08 に §13 の排出行がバリデータ枠について `LIVE` に変わりました。
+>   **E.38 はエージェントについて、同じタグ・同じ段階にあります。**
 > - **未公開の穴はもう1つあり、そちらは genesis の話ではありません**: E.40（`[TBD]`）。genesis 後の
 >   ブロック報酬のうち**エージェント枠 10%（`agent_share_ppt`）は誰にも支払われていません**。
 >   「**Until this ratifies both legs accrue in sovereign pool accounts and are never distributed**」。

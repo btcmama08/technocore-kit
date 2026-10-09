@@ -308,6 +308,54 @@ disagree the Yellow Paper wins, and it has not yet ratified "pro rata". Treat th
 operator's stated intent, not as a ratified formula; the caps, the sublinear form and the
 activity floors are still unpublished numbers.
 
+### Reading the tags, and how an item actually closes
+
+The appendix defines its own vocabulary, and the definitions change what E.38's state means:
+
+> Tags: **[TBD]** value/definition absent · **[RATIFY]** proposed, awaiting sign-off ·
+> **[PLANNED]** decided, not yet wired. To close an item: write the value into its home
+> section, then delete the stub (closed numbers are retired, not reused).
+
+**E.38 is tagged `[RATIFY]`, not `[TBD]`.** By the paper's own definition that means the
+conversion score has been *proposed* and is awaiting sign-off — drafted, not absent. It is one
+stage from publication, and the stub already names what will land: "ratify conversion score
+caps and sublinear aggregation, the accounting identity and owner-signed spend rules,
+verifiable-demand and maintained-duration gates, the validator cohort's activity basis, and
+whether activity under-counts can be appealed."
+
+**And the closing rule means the signal is a disappearance, not an edit.** Watching E.38's text
+for the formula is watching the wrong thing: when it ratifies, the value goes into §8.2 and the
+stub is deleted. The detector is `E.38` dropping to zero occurrences — currently six.
+
+This is not a guess about process. E.39 "Validator-reward liquidity" was `[RATIFY]` in the
+repository snapshot of 2026-09-24 and is **absent from the live paper** — and the §13 row for
+emission went `PARTIAL` → `LIVE` for the validator leg on 2026-10-08. A `[RATIFY]` item closed,
+its stub vanished, and a status row flipped, exactly as the legend describes. E.38 is the same
+tag at the same stage, for the agents.
+
+### The repository is two revisions behind, and it is measurable
+
+`github.com/flop-labs/yellowpaper` calls itself the "normative specification". Its markdown is
+readable at `raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md` even though
+github.com's HTML refuses this session's proxy, so the lag can be counted rather than inferred:
+
+| marker | repo `3c97bbc` (2026-09-24) | live site (2026-10-09) |
+| --- | ---: | ---: |
+| `[TBD]` stubs | 20 | **18** |
+| `[RATIFY]` stubs | 6 | 6 |
+| E.38 — conversion and release policy | `[TBD]` | **`[RATIFY]`** |
+| E.39 — validator-reward liquidity | `[RATIFY]` | **closed, stub deleted** |
+| E.44 — cooperative work-credit eligibility | `[TBD]` | `[PARTIAL; future activation/recovery TBD]` |
+| "it has no end block" (R8.7 agent unlock) | 0 | **1** |
+| "whether spend-to-unlock ships" | **1** | 0 |
+
+The counts reconcile exactly: 20 − 1 (E.38 promoted out of TBD) − 1 (E.44 promoted to PARTIAL)
+= 18, and 6 + 1 (E.38 in) − 1 (E.39 deleted) = 6.
+
+The practical consequence is blunt: **anyone reading the GitHub repository today is reading a
+superseded draft in which the agent unlock is still an open question** — "whether
+spend-to-unlock ships" is live text there and gone from the site. Quote the site, always.
+
 ### The second open gate: E.40, and it is not about the airdrop
 
 E.38 governs the genesis airdrop. A separate item governs what agents earn *afterwards*, from
@@ -375,7 +423,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All seventeen block quotes above are verbatim from the five pages in the header, checked by
+All eighteen block quotes above are verbatim from the five pages in the header, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -399,6 +447,18 @@ grep -o '\[RATIFY\]' yellowpaper.txt | wc -l             # 6; E.38 is one of the
 grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
 wc -c yellowpaper.html                                   # 567365 on 2026-10-08, 561349 on 10-05
 ```
+
+The repository's own markdown is fetchable too, and it is a *different revision* — useful as a
+contrast, never as a source for a quote:
+
+```sh
+curl -s https://raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md > repo.md
+grep -c 'whether spend-to-unlock ships' repo.md   # 1 in the repo, 0 on the site
+grep -o '\[TBD\]' repo.md | wc -l                 # 20 in the repo, 18 on the site
+```
+
+`github.com` HTML returns 403 to this session's proxy but `raw.githubusercontent.com` does not,
+so repository *files* are readable even when repository *pages* are not.
 
 Three notes on method, all learned the hard way.
 
