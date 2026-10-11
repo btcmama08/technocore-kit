@@ -62,6 +62,17 @@ is never required to verify anything. Japanese documentation follows; commands a
 >   and unlock a further third of the spend. **No runtime common-control rule binds either**」。
 >   1/4 の上限は効きますが、そこへ到達する**コストが実質1%程度まで下がります**
 >
+> - **トップページだけが「5つ目の条件」を書いています。** `flop.finance/` の本文4行のうち1行が
+>   「**Follow @flop_labs for airdrop eligibility**」（メタタグでもコメントでもなく、「No pre-sale」
+>   「No VCs」「100% fair launch」と同じ `<p>` の並び）。**この条件は仕様のどこにも存在しません** —
+>   `/testnet/` も `/airdrop/` も Yellow Paper R8.4 も、他5ページを "follow" / "x.com" / handle で
+>   検索して **0件**。「ただのマーケ文言」か「文書化されていない入力」かは公開情報では区別できません。
+>   ただし**非対称なので判断は簡単**です: フォローはタダで10秒、運営自身のトップページがそう書いていて、
+>   否定する仕様も無い（条件を*足している*だけ）。**フォローはしておく。ただし配分は settled sessions の
+>   支出で決まると考え続ける**（規範文書は全部そう言っています）。
+>   なお**トップページは `/airdrop/` にも `/testnet/` にもリンクしていません**（intro / whitepaper /
+>   media だけ）。エアドロの条件を定義している2ページは、存在を知らないと辿り着けません。
+>
 > 数字と出典は [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md) に全部置いてあります。
 > このキットは「DID を持ち、署名付きで活動し、**第三者が鍵なしで検証できる**」状態を作るところまでです。
 > その成果物はトークンの結末に関係なく手元に残ります。

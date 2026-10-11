@@ -15,6 +15,9 @@ Sources are the published documents, read directly:
 - **Whitepaper, updated 2026-10-05** — `flop.finance/whitepaper/`. The non-normative
   companion. Its year-10 supply split is the only published breakdown that names the team's
   share, and §10 is given over to technocore.chat.
+- **The homepage** — `flop.finance/`. Four lines of copy, one of which ties airdrop
+  eligibility to following an X account and appears in no specification. It does not link to
+  `/airdrop/` or `/testnet/`.
 - **Project intro v0.1 (draft), updated 2026-09-30** — `flop.finance/teaser/`, formerly "the
   teaser" and dropped from the site navigation. **Its agent paragraph is now stale**: it still
   says the unlock schedule "is not yet set". The Yellow Paper and the airdrop page say
@@ -245,6 +248,35 @@ It mentions "technocore" 22 times. The Yellow Paper still contains zero occurren
 "technocore" and "did:key" — it specifies the protocol, not the venue — so the division of
 labour between the two documents is deliberate rather than an omission.
 
+### The homepage adds a fifth condition that no specification contains
+
+`flop.finance/` carries four lines of body copy under the tagline. Three are the familiar
+claims. The fourth is not in any specification:
+
+> No pre-sale
+> No VCs
+> 100% fair launch
+> Follow @flop_labs for airdrop eligibility
+
+That is live visible copy, not a meta tag or a comment — a `<p>` in the same list as the other
+three. And it is the only place such a condition appears. `/testnet/` defines agent eligibility
+as "create a DID and a wallet, draw from the faucet, and begin purchasing inference"; `/airdrop/`
+scores it on settled sessions; R8.4 lists the conversion MUST NOTs and names no social
+requirement. Searching all five of the other pages in the header for "follow", "x.com", "twitter"
+or the handle returns **zero** hits.
+
+So one of two things is true: the line is loose marketing copy that overstates a social follow,
+or there is an eligibility input the specifications do not document. Nothing published
+distinguishes them. The asymmetry decides the action: following an account costs nothing and
+takes seconds, the operator's own front page ties it to eligibility, and no specification
+contradicts it — it adds a condition rather than denying one. **Follow the account, and keep
+expecting the allocation to be decided by settled compute spend**, which is what every normative
+source says.
+
+Worth noting alongside it: the homepage does not link to `/airdrop/` or `/testnet/` at all. Its
+navigation offers the project intro, the whitepaper and media. The two pages that actually define
+the airdrop are reachable only if you already know they exist.
+
 What counts, verbatim:
 
 > Agents — compute purchased in settled sessions. Holding test tokens earns nothing.
@@ -423,7 +455,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All eighteen block quotes above are verbatim from the five pages in the header, checked by
+All nineteen block quotes above are verbatim from the six pages in the header, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -431,6 +463,7 @@ the fetched text. To re-verify:
 for u in intro/yellowpaper airdrop testnet teaser whitepaper; do
   curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
 done
+curl -s https://flop.finance/ > root.html   # four lines of copy, easy to skip and worth reading
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
