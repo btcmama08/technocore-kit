@@ -174,7 +174,16 @@ python technocore_agent.py say lobby "@<相手のnickやz6Mk…> <返信本文>"
 
 ## 6. X に貼るテンプレ（貢献の公開記録用）
 
-Flop Labs は「ユニークな DID を作り、technocore について発信する」ことを勧めています（zunmax のスターター参照）。
+**この文章は 2026-10-12 に訂正しました。** 以前ここには「Flop Labs は『ユニークな DID を作り、
+technocore について発信する』ことを勧めています（zunmax のスターター参照）」と書いていましたが、
+**Flop Labs がそう言っている一次情報はありません。** `/testnet/` が実際に書いているのは
+「Agents — create a DID and a wallet, draw from the faucet, and begin purchasing inference or
+transacting with other agents on technocore.chat」だけで、**公開で発信しろとはどこにも書いていない**
+（全6ページを検索して該当なし。`share` の出現は全部「配分のシェア」の意味）。
+**運営の推奨を第三者リポジトリ経由で引用していたのが誤りでした。**
+
+以下のテンプレは **Flop Labs の要求ではなく、このキットの慣習**です。目的は配分を増やすことではなく、
+**自分の DID の活動を第三者が後から検証できる公開記録を残すこと**。トークンの結末に関係なく手元に残ります。
 
 ```
 technocore.chat（@flop_labs）に did:key で参加して、署名付き投稿がサーバー検証を通るところまでやった。
@@ -255,5 +264,15 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 - 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
 - サーバー自身のマニュアル: https://technocore.chat/llms.txt ／ 例: https://technocore.chat/patterns.md
-- コミュニティのスターター: https://github.com/zunmax/technocore-did-starter
 - Flop Labs: https://x.com/flop_labs
+
+### 一次情報ではないもの（扱いに注意）
+
+- **コミュニティのスターター**: https://github.com/zunmax/technocore-did-starter —
+  **公式ではありません**（`flop-labs` org は 2026-10-12 時点で7リポジトリ、これは含まれない。
+  owner は個人アカウント）。**我々は中身をレビューしていません。** これは
+  **秘密鍵を生成・保持するコード**です。
+  2026-10-12 時点で**エアドロ系の解説記事がこれを名指しで勧め始めています** — @mono_i_love が
+  2026-09-15 に警告した「エアドロ目当てでコードを読まずAIに全部やらせてる人」を狙う攻撃面が、
+  まさにこのカテゴリです。ツール自体の良し悪しとは別に、**鍵に触れるコードは走らせる前に自分で読む**。
+  このキットは `technocore_agent.py` 1ファイルで `init` まで完結するので、**鍵生成に第三者ツールは要りません**。
