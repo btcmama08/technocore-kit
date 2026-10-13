@@ -365,13 +365,13 @@ emission went `PARTIAL` → `LIVE` for the validator leg on 2026-10-08. A `[RATI
 its stub vanished, and a status row flipped, exactly as the legend describes. E.38 is the same
 tag at the same stage, for the agents.
 
-### The repository is two revisions behind, and it is measurable
+### The repository ran nineteen days behind the site, and then caught up in one day
 
 `github.com/flop-labs/yellowpaper` calls itself the "normative specification". Its markdown is
 readable at `raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md` even though
-github.com's HTML refuses this session's proxy, so the lag can be counted rather than inferred:
+github.com's HTML refuses this session's proxy, so the lag could be counted rather than inferred:
 
-| marker | repo `3c97bbc` (2026-09-24) | live site (2026-10-09) |
+| marker | repo `3c97bbc` (2026-09-24) | live site, 2026-10-09 |
 | --- | ---: | ---: |
 | `[TBD]` stubs | 20 | **18** |
 | `[RATIFY]` stubs | 6 | 6 |
@@ -381,12 +381,29 @@ github.com's HTML refuses this session's proxy, so the lag can be counted rather
 | "it has no end block" (R8.7 agent unlock) | 0 | **1** |
 | "whether spend-to-unlock ships" | **1** | 0 |
 
-The counts reconcile exactly: 20 − 1 (E.38 promoted out of TBD) − 1 (E.44 promoted to PARTIAL)
-= 18, and 6 + 1 (E.38 in) − 1 (E.39 deleted) = 6.
+Those counts reconciled exactly: 20 − 1 (E.38 promoted out of TBD) − 1 (E.44 promoted to
+PARTIAL) = 18, and 6 + 1 (E.38 in) − 1 (E.39 deleted) = 6.
 
-The practical consequence is blunt: **anyone reading the GitHub repository today is reading a
-superseded draft in which the agent unlock is still an open question** — "whether
-spend-to-unlock ships" is live text there and gone from the site. Quote the site, always.
+**On 2026-10-13 the gap closed.** Two sync commits landed the same day — `b03378c` from
+`flop-core@a1f3759e`, then `70e691c` from `flop-core@5e6e2427` — and `yellowpaper.md` went from
+313,714 to 351,901 bytes. Every marker above now matches the site: `[TBD]` 18, `[RATIFY]` 6,
+E.38 `[RATIFY]`, E.39 gone, "it has no end block" present, "whether spend-to-unlock ships"
+absent. **The sync brought the repository up to the site. It did not move the specification
+forward**: nothing in the new text ratifies a conversion score, names an activity floor, or
+changes E.38 or E.40.
+
+Two things worth keeping from the episode. First, the private core repository is moving:
+`c65e3fc5` (2026-09-24) → `a1f3759e` → `5e6e2427` in one day, and a fourth hash, `600cfffb`,
+appears in a render published in a different repository. Second, **the lag can reopen at any
+time** — it ran nineteen days once. The byte count of `yellowpaper.md` is the cheap detector,
+and the site remains the copy to quote.
+
+One trap in reading that markdown. The repository writes cross-references as markdown links, so
+`grep -c 'remain open in E.38' yellowpaper.md` returns **0** while the sentence is present as
+`remain open in [E.38](#appendix-e--open-specification-items)` — the same false zero that HTML
+tags produce on the rendered page, in a different costume. Strip `[text](url)` to `text` before
+counting. Strip backticks too, but **never** underscores: `htlc_burn_share_ppt` becomes
+`htlcburnshareppt` and silently stops matching.
 
 ### The second open gate: E.40, and it is not about the airdrop
 
@@ -486,8 +503,10 @@ contrast, never as a source for a quote:
 
 ```sh
 curl -s https://raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md > repo.md
-grep -c 'whether spend-to-unlock ships' repo.md   # 1 in the repo, 0 on the site
-grep -o '\[TBD\]' repo.md | wc -l                 # 20 in the repo, 18 on the site
+wc -c repo.md                                     # 351901 since the 2026-10-13 sync, 313714 before
+grep -o '\[TBD\]' repo.md | wc -l                 # 18, matching the site since that sync
+sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' repo.md > repo.txt   # links and code marks out,
+grep -c 'remain open in E.38' repo.txt            # underscores left alone -- 1, not the raw 0
 ```
 
 `github.com` HTML returns 403 to this session's proxy but `raw.githubusercontent.com` does not,
