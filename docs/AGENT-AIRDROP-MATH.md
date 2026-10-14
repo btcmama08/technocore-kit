@@ -316,6 +316,27 @@ barred on both the allocation side and the unlock side.
 | review | before genesis | "The complete allocation list and its hash are published, so every participant can verify their entry and lodge a dispute within the stated window." |
 | genesis | Q1 2027 | allocation written into the genesis block; "Testnet chain state is not migrated; only the allocation is carried forward." |
 
+"Q4 2026" is not a commitment, and the page says so in the line directly under its own
+timeline — a sentence earlier revisions of this file never quoted:
+
+> **Dates and rules are provisional** The testnet opens when its readiness criteria are met,
+> and may be extended if they are not. Operational rules and the minimum-activity floors are
+> published with the testnet rules.
+
+Two things follow. The opening date is conditional on criteria that are not themselves
+published, so a slip needs no announcement — and **the minimum-activity floors arrive with the
+testnet rules**, not through E.38. That is the first published answer to *when* any part of the
+scoring becomes knowable: at the open, not before.
+
+Against that, the operator's own timing. On 2026-10-11 Arthur Hayes posted from `@CryptoHayes`:
+
+> What a great @token2049. I got some youthful energy with cellular medicine from
+> @VeritaHealthHQ and then dropped the thinking behind @flop_labs all week. Now it’s back on
+> the grid so we can ship FLOP Testnet in a few weeks.
+
+"A few weeks" from the CEO, and a page that reserves the right to extend. Treat the window as
+real and the date as unset.
+
 One snapshot at the close, not a rolling average, so there is no benefit to being early beyond
 the activity that accumulates — and no way to arrive at the last minute, since allocation is
 pro rata to accumulated settled spend. And the airdrop itself has no claim pressure:
@@ -472,7 +493,8 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All nineteen block quotes above are verbatim from the six pages in the header, checked by
+All twenty-one block quotes above are verbatim from the six pages in the header and from one
+X post, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -481,6 +503,7 @@ for u in intro/yellowpaper airdrop testnet teaser whitepaper; do
   curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
 done
 curl -s https://flop.finance/ > root.html   # four lines of copy, easy to skip and worth reading
+curl -s -A "$UA" https://x.com/CryptoHayes > hayes.html   # the CEO posts here, not @flop_labs
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
@@ -538,6 +561,11 @@ across a tag and a newline, and `grep` works a line at a time. A multi-word phra
 against `.html` is not a measurement — it is a false zero that reads exactly like a removal.
 Count against `.txt`. Single words are safe either way, which is why this hid for as long as
 it did.
+
+*HTML comments are invisible and must go first, with no separator.* X renders a mention as
+`@<!-- -->VeritaHealthHQ`; a stripper that treats the comment as a tag and leaves a space
+yields `@ VeritaHealthHQ`, and the quote stops matching. Remove `<!--…-->` before anything
+else.
 
 *Replacing every tag with a space gives false mismatches.* The Yellow Paper sets identifiers
 in `<code>`, so a naive strip yields `settle , by certificate_settle , or` and splits
