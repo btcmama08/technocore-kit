@@ -219,10 +219,44 @@ inference, for a while. Neither the levels nor the form is published.
 The appendix also records a hole the operators have not closed:
 
 > Residual risk: once its quarter is liquid, a miner can buy inference from itself through an
-> agent it controls and unlock the rest at about the 1% audit earmark, roughly 0.75% of
-> principal; **an agent can likewise pay a miner it controls from locked principal, receive
-> about 99% of it back as that miner's payout, and unlock a further third of the spend. No
-> runtime common-control rule binds either** (see E.49).
+> agent it controls and unlock the rest at the 15% validator fee leg (of which 1% funds the
+> audit pool; D-0525), roughly 11.25% of principal; **an agent can likewise pay a miner it
+> controls from locked principal, receive about 85% of it back as that miner's payout, and
+> unlock a further third of the spend. No runtime common-control rule binds either** (see
+> E.49).
+
+**Those numbers were 1%, 0.75% and 99% until 2026-10-14.** What changed is not the loop but
+its price, and the change came from outside §8 entirely — see the fee split below.
+
+### Inference now carries a 15% fee, decided on 2026-10-14
+
+R12.1a used to end the matter in six words: settle "pays the reserved amount in full (no
+settlement fee)". It now splits the money:
+
+> At settlement (`settle`, `certificate_settle`, or `force_settle` → `finalize`), the settled
+> payable amount MUST be split: `inference_fee_miner_share_ppt` = 85% to the miner, and
+> `inference_fee_validator_share_ppt` = 15% to the validator pool (D-0525). The 1% audit pool
+> earmark (`audit_fee_split_ppm = 10,000 ppm`) MUST be deducted from the 15% validator share
+> to fund verification audits; the remainder of the validator leg is distributed intra-pool by
+> the R9.5 weighting, liquid on issue (R9.13, D-0518).
+
+The parameter table dates it precisely — `inference_fee_miner_share_ppt` 850 ppt and
+`inference_fee_validator_share_ppt` 150 ppt, both carrying "#2702 (D-0525): Executive ruling
+(Shu, 2026-10-14)". The audit earmark moved with it: 1% of the settlement used to come out of
+the miner's payment, and now comes out of the validator leg.
+
+**For an agent buying inference honestly, nothing in the airdrop arithmetic moves.** R8.7 is
+untouched: credit is still "one FLOP of principal for each three FLOP of its locked part … in
+the payable (Appendix F.3, the gross settlement amount before the audit earmark)". The payable
+is what the agent pays; the 85/15 split decides who receives it. Spend three, unlock one, cap
+at `⌊3P/4⌋`, all unchanged.
+
+**For the self-dealing loop it is a fifteenfold price rise.** Routing a purchase to a miner you
+control used to return about 99 cents on the dollar, with the 1% earmark the only leakage.
+Now 15% goes to a validator pool you do not control, so recovering the quarter costs about
+11.25% of principal rather than 0.75%. The hole E.49 leaves unbound is still unbound — but it
+is no longer nearly free, and the specification's own risk note was rewritten the same day to
+say so.
 
 Fixed dates: testnet **Q4 2026 for roughly ninety days**, mainnet **Q1 2027**; results settled
 into the genesis block at testnet end, with "the bulk of the pool … expected to be distributed
@@ -480,12 +514,14 @@ keeping straight:
    only" excludes self-routed spend from the allocation, and R8.7 excludes `agent_transfer`,
    refunds and the R12.1d penalty from unlock credit. But E.38's residual-risk note, extended
    on 2026-10-05, now spells out the agent-side loop as well: pay a miner you control from
-   locked principal, take about 99% back as that miner's payout, and unlock a further third of
+   locked principal, take about 85% back as that miner's payout, and unlock a further third of
    the spend — with "no runtime common-control rule binds either".
 
    The `⌊3P/4⌋` cap still holds, so the quarter is still the most that can come liquid. What
-   the loop changes is its **price**: reaching that quarter costs roughly the 1% audit earmark
-   instead of three quarters of the grant spent on inference you wanted. The allocation-side
+   the loop changes is its **price** — and on 2026-10-14 that price went up fifteenfold.
+   D-0525 split the settlement 85/15 between miner and validators, so reaching that quarter
+   now costs roughly 11.25% of principal instead of the 0.75% it cost when the 1% audit
+   earmark was the only leakage. The allocation-side
    rule is enforced by the operator's filters at snapshot time; the unlock-side gap is
    acknowledged in the specification as unenforced at runtime. Anyone modelling the agent leg
    should price both, and anyone relying on the ratio to create real demand should note that
@@ -493,7 +529,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All twenty-one block quotes above are verbatim from the six pages in the header and from one
+All twenty-two block quotes above are verbatim from the six pages in the header and from one
 X post, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
@@ -518,7 +554,7 @@ grep -c 'whether spend-to-unlock ships' yellowpaper.txt  # 0 since 2026-10-05
 grep -o '\[TBD\]' yellowpaper.txt | wc -l                # 18 on 2026-10-05, was 19
 grep -o '\[RATIFY\]' yellowpaper.txt | wc -l             # 6; E.38 is one of them
 grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
-wc -c yellowpaper.html                                   # 567365 on 2026-10-08, 561349 on 10-05
+wc -c yellowpaper.html                                   # 578190 on 2026-10-15, 567365 on 10-08
 ```
 
 The repository's own markdown is fetchable too, and it is a *different revision* — useful as a

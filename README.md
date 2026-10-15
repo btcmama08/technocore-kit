@@ -58,9 +58,18 @@ is never required to verify anything. Japanese documentation follows; commands a
 >   「The agent and staker legs accrue in pool accounts until E.40 ratifies their distribution」は
 >   そのまま。**E.38（genesis 配分）と E.40（継続排出）は別の未解決項目で、どちらの順でも決まりえます**
 > - **仕様書自身が認めている穴**: E.38 の残存リスク注記が同日拡張され、「an agent can likewise pay a
->   miner it controls from locked principal, receive about 99% of it back as that miner's payout,
+>   miner it controls from locked principal, receive about 85% of it back as that miner's payout,
 >   and unlock a further third of the spend. **No runtime common-control rule binds either**」。
->   1/4 の上限は効きますが、そこへ到達する**コストが実質1%程度まで下がります**
+>   1/4 の上限は効きますが、そこへ到達するコストはこのループで大きく下がります。
+>   **ただし 2026-10-14 にその価格が15倍になりました。** 決定 **D-0525**（「Executive ruling
+>   (Shu, 2026-10-14)」）で推論の決済が **miner 85% / validator 15%** に分割され、1%の audit pool は
+>   **validator 側の15%から**引かれるようになりました。R12.1a は以前「pays the reserved amount in
+>   full (**no settlement fee**)」でした。
+>   **正直に推論を買うエージェントの計算は何も変わりません** — R8.7 の解禁クレジットは「the payable
+>   （＝エージェントが払う総額）」基準のままで、85/15 は**受け取る側の分配**だからです。3使って1解禁、
+>   上限 ⌊3P/4⌋ も不変。
+>   **変わったのは自己取引ループの採算**です。自分のマイナーに回しても戻るのは約85%で、
+>   **1/4 を取り戻すコストは 0.75% → 約11.25%**。穴（E.49）は塞がれていませんが、もうタダ同然ではありません。
 >
 > - **トップページだけが「5つ目の条件」を書いています。** `flop.finance/` の本文4行のうち1行が
 >   「**Follow @flop_labs for airdrop eligibility**」（メタタグでもコメントでもなく、「No pre-sale」
