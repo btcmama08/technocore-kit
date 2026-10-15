@@ -13,9 +13,78 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
-> ⚠️ **エアドロップは保証されません。** Flop Labs は「$FLOP エアドロップはテストネットの活動状況に依存し、
-> フォーセットは DID キーを持つエージェントが technocore.chat でアクセスできる」と言っているだけで、
-> 条件はまだ未公開です。このキットは「DID を持ち、署名付きで活動している」状態を作るところまでです。
+> ⚠️ **2026-10-05 に条件が公開されました。エアドロップそのものは依然として保証されません。**
+> この日、flop.finance に **`/airdrop/` と `/testnet/` が新設**され、Yellow Paper の本文も
+> （版表記は 0.5.0 / 2026-09-24 のまま）12KB 増えて**エージェント枠の解禁規則が規範化**されました。
+> 同日に一次情報を直接読んで確認した内容:
+>
+> - **解禁は 3:1 で確定、ただし期限なし。** R8.7（規範）: 「An Agent grant MUST NOT unlock any
+>   principal at its start block, and **it has no end block**. … one FLOP of principal for each
+>   three FLOP of its locked part … unlocked amount is **⌊K/3⌋** … MUST NOT exceed **⌊3P/4⌋**」。
+>   **つまり上限は配分額の 1/4。** 3/4 を推論に使い、1/4 が流動化し、使わなかった分は永久に凍結。
+>   E.38 の「whether spend-to-unlock ships」と「projected inference demand を超える」は**どちらも消滅**
+> - **DID と technocore.chat が公式に参加経路として名指しされました。** `/testnet/` の onboarding:
+>   「Agents — **create a DID and a wallet, draw from the faucet, and begin purchasing inference
+>   or transacting with other agents on technocore.chat**」。以前ここに書いていた「どちらの文書にも
+>   書かれていない」は**もはや正しくありません**（Yellow Paper 側は今も `technocore` / `did:key` が0件）
+> - **得点は「settled sessions で購入した計算」だけ。** さらに公平性4規則が公開: **共通支配下の
+>   ウォレットは1参加者として集計**、**自分が支配するマイナーへの支出・自分のウォレット間の循環は
+>   需要として計上しない**、不正は失格（異議申立あり）、脆弱性の責任ある開示は報酬の**対象になりうる**
+>   （悪用は失格）。各ロールに**最低活動量の床**もあります
+>   （4番目の規則は **2026-10-08 に弱められました**。前日まで「are **rewarded** from the ecosystem
+>   reserve」だったものが「could be **eligible for** a reward」になり、`/airdrop/` には「this is not a
+>   bug bounty programme」が足されました。同じ編集で連絡先 `security@flop.finance` が初めて公開。
+>   **バグ探しは配分への経路ではありません**）
+> - **スナップショットはテストネット終了時の1回だけ**（「no rolling snapshot is taken」）。配分一覧と
+>   そのハッシュは genesis 確定前に公開され異議申立期間がある。**請求期限は無し**（「There is no claim
+>   window and no deadline」）。日程は テストネット Q4 2026（約90日）→ スナップショット → レビュー →
+>   **genesis Q1 2027**
+> - **まだ未公開**: 配分の計算式そのもの。E.38 は「The conversion score, validator activity basis,
+>   Validator release order, and reserve disposition remain open」のまま。`/airdrop/` は「pro rata to
+>   compute purchased in settled sessions」と散文で述べるが、Yellow Paper は未批准。**上限は計算できる
+>   ようになったが、分子（自分の配分額）はまだ分かりません**
+>   ただし **E.38 のタグは `[TBD]` ではなく `[RATIFY]`** で、付録の凡例いわく「`[TBD]` value/definition
+>   absent · **`[RATIFY]` proposed, awaiting sign-off**」。**計算式は「無い」のではなく「提案済みで承認待ち」**、
+>   公開まであと一段です。同じ凡例が閉じ方も定めていて「To close an item: write the value into its home
+>   section, **then delete the stub**」— つまり **E.38 は書き換わるのではなく消える**。検知すべきは
+>   文面の変化ではなく **E.38 の出現数が 6 → 0 になること**。
+>   先例あり: E.39（Validator-reward liquidity）は 9/24 時点のリポジトリでは `[RATIFY]` でしたが
+>   **サイトからは消えており**、10/08 に §13 の排出行がバリデータ枠について `LIVE` に変わりました。
+>   **E.38 はエージェントについて、同じタグ・同じ段階にあります。**
+> - **未公開の穴はもう1つあり、そちらは genesis の話ではありません**: E.40（`[TBD]`）。genesis 後の
+>   ブロック報酬のうち**エージェント枠 10%（`agent_share_ppt`）は誰にも支払われていません**。
+>   「**Until this ratifies both legs accrue in sovereign pool accounts and are never distributed**」。
+>   2026-10-08 に §13 の該当行が `PARTIAL` → `LIVE` に変わりましたが、昇格したのは**バリデータ枠**で、
+>   「The agent and staker legs accrue in pool accounts until E.40 ratifies their distribution」は
+>   そのまま。**E.38（genesis 配分）と E.40（継続排出）は別の未解決項目で、どちらの順でも決まりえます**
+> - **仕様書自身が認めている穴**: E.38 の残存リスク注記が同日拡張され、「an agent can likewise pay a
+>   miner it controls from locked principal, receive about 85% of it back as that miner's payout,
+>   and unlock a further third of the spend. **No runtime common-control rule binds either**」。
+>   1/4 の上限は効きますが、そこへ到達するコストはこのループで大きく下がります。
+>   **ただし 2026-10-14 にその価格が15倍になりました。** 決定 **D-0525**（「Executive ruling
+>   (Shu, 2026-10-14)」）で推論の決済が **miner 85% / validator 15%** に分割され、1%の audit pool は
+>   **validator 側の15%から**引かれるようになりました。R12.1a は以前「pays the reserved amount in
+>   full (**no settlement fee**)」でした。
+>   **正直に推論を買うエージェントの計算は何も変わりません** — R8.7 の解禁クレジットは「the payable
+>   （＝エージェントが払う総額）」基準のままで、85/15 は**受け取る側の分配**だからです。3使って1解禁、
+>   上限 ⌊3P/4⌋ も不変。
+>   **変わったのは自己取引ループの採算**です。自分のマイナーに回しても戻るのは約85%で、
+>   **1/4 を取り戻すコストは 0.75% → 約11.25%**。穴（E.49）は塞がれていませんが、もうタダ同然ではありません。
+>
+> - **トップページだけが「5つ目の条件」を書いています。** `flop.finance/` の本文4行のうち1行が
+>   「**Follow @flop_labs for airdrop eligibility**」（メタタグでもコメントでもなく、「No pre-sale」
+>   「No VCs」「100% fair launch」と同じ `<p>` の並び）。**この条件は仕様のどこにも存在しません** —
+>   `/testnet/` も `/airdrop/` も Yellow Paper R8.4 も、他5ページを "follow" / "x.com" / handle で
+>   検索して **0件**。「ただのマーケ文言」か「文書化されていない入力」かは公開情報では区別できません。
+>   ただし**非対称なので判断は簡単**です: フォローはタダで10秒、運営自身のトップページがそう書いていて、
+>   否定する仕様も無い（条件を*足している*だけ）。**フォローはしておく。ただし配分は settled sessions の
+>   支出で決まると考え続ける**（規範文書は全部そう言っています）。
+>   なお**トップページは `/airdrop/` にも `/testnet/` にもリンクしていません**（intro / whitepaper /
+>   media だけ）。エアドロの条件を定義している2ページは、存在を知らないと辿り着けません。
+>
+> 数字と出典は [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md) に全部置いてあります。
+> このキットは「DID を持ち、署名付きで活動し、**第三者が鍵なしで検証できる**」状態を作るところまでです。
+> その成果物はトークンの結末に関係なく手元に残ります。
 
 ---
 
@@ -114,7 +183,16 @@ python technocore_agent.py say lobby "@<相手のnickやz6Mk…> <返信本文>"
 
 ## 6. X に貼るテンプレ（貢献の公開記録用）
 
-Flop Labs は「ユニークな DID を作り、technocore について発信する」ことを勧めています（zunmax のスターター参照）。
+**この文章は 2026-10-12 に訂正しました。** 以前ここには「Flop Labs は『ユニークな DID を作り、
+technocore について発信する』ことを勧めています（zunmax のスターター参照）」と書いていましたが、
+**Flop Labs がそう言っている一次情報はありません。** `/testnet/` が実際に書いているのは
+「Agents — create a DID and a wallet, draw from the faucet, and begin purchasing inference or
+transacting with other agents on technocore.chat」だけで、**公開で発信しろとはどこにも書いていない**
+（全6ページを検索して該当なし。`share` の出現は全部「配分のシェア」の意味）。
+**運営の推奨を第三者リポジトリ経由で引用していたのが誤りでした。**
+
+以下のテンプレは **Flop Labs の要求ではなく、このキットの慣習**です。目的は配分を増やすことではなく、
+**自分の DID の活動を第三者が後から検証できる公開記録を残すこと**。トークンの結末に関係なく手元に残ります。
 
 ```
 technocore.chat（@flop_labs）に did:key で参加して、署名付き投稿がサーバー検証を通るところまでやった。
@@ -188,7 +266,22 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 
 ## 参考（一次情報）
 
+- **仕様書（定義上の一次情報）**: https://flop.finance/intro/yellowpaper/ — Yellow Paper v0.5.0 (draft)。**版表記は 2026-09-24 のままだが本文は 2026-10-05 に変わった**（バイト数と `[TBD]` 件数で検知）
+- **エアドロップ条件**: https://flop.finance/airdrop/ — 2026-10-05 新設（配分・スナップショット・解禁表）
+- **テストネット**: https://flop.finance/testnet/ — 2026-10-05 新設（日程・計上対象・公平性4規則・参加方法）
+- Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, 2026-09-30)。**エージェント段落は古い**（「not yet set」のまま）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
+- 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
 - サーバー自身のマニュアル: https://technocore.chat/llms.txt ／ 例: https://technocore.chat/patterns.md
-- コミュニティのスターター: https://github.com/zunmax/technocore-did-starter
 - Flop Labs: https://x.com/flop_labs
+
+### 一次情報ではないもの（扱いに注意）
+
+- **コミュニティのスターター**: https://github.com/zunmax/technocore-did-starter —
+  **公式ではありません**（`flop-labs` org は 2026-10-12 時点で7リポジトリ、これは含まれない。
+  owner は個人アカウント）。**我々は中身をレビューしていません。** これは
+  **秘密鍵を生成・保持するコード**です。
+  2026-10-12 時点で**エアドロ系の解説記事がこれを名指しで勧め始めています** — @mono_i_love が
+  2026-09-15 に警告した「エアドロ目当てでコードを読まずAIに全部やらせてる人」を狙う攻撃面が、
+  まさにこのカテゴリです。ツール自体の良し悪しとは別に、**鍵に触れるコードは走らせる前に自分で読む**。
+  このキットは `technocore_agent.py` 1ファイルで `init` まで完結するので、**鍵生成に第三者ツールは要りません**。
