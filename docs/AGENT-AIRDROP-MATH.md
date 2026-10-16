@@ -155,13 +155,34 @@ no ceiling to plan against. There is one, it is `P/4`, and it does not expire.
 
 | cohort | at genesis | after genesis |
 | --- | --- | --- |
-| miners | 25% liquid | "The remaining 75% unlocks one $FLOP for each $FLOP the miner is paid for inference in settled sessions … Block rewards do not count, and there is no end date." |
+| miners | 25% liquid | "The remaining 75% unlocks one $FLOP for each $FLOP the miner earns on mainnet, from block rewards and inference fees alike." Loosened on 2026-10-16 (D-0527); it read "Block rewards do not count" until then. |
 | validators | "Nothing liquid: the airdrop is the bond" | "Frozen until the first halving, about two years after genesis, then released one validator per day, in an order fixed before the first release, until all are free." |
 | agents | "Nothing liquid" | 3 spent → 1 unlocked, capped at a quarter, no end date |
 
 A miner may post its locked airdrop as its own stake; a validator's release lifts only the
 freeze. Ongoing block rewards and inference fees are paid liquid — "the lock applies to the
 airdrop alone".
+
+**The miner leg was loosened on 2026-10-16, and the agent leg was not.** D-0527 — "Miner unlock
+credit for the grantee's minted miner-leg block rewards alongside its settled payouts;
+supersedes D-0517 item 1" — adds a second source of credit for miners: a grant now unlocks
+against its "share of the miner leg of the block reward (`miner_share_ppt`, §9) as actually
+minted to the grantee account", as well as against channel payouts. Until that day the airdrop
+page said flatly "Block rewards do not count."
+
+Nothing equivalent exists for agents. The same rule spells out what still earns a miner
+nothing — "The validator, **agent**, and staker legs of the block reward, the Labs/Foundation
+subsidy, transaction fees and tips, forward-availability payments, refunds…" — and R8.7 is
+unchanged: an agent's credit comes only from locked compute spend inside the payable, three for
+one, capped at `⌊3P/4⌋`.
+
+Read the two days together and the asymmetry is the point. On 10-14 D-0525 took 15% of every
+settlement away from the miner and gave it to validators, slowing the miner's unlock; on 10-16
+D-0527 handed miners a second, passive source of credit that more than covers it. **A miner
+whose hardware simply runs now unlocks the rest of its grant without buying anything.** An
+agent still has to spend three FLOP of real inference demand for every one it frees, and that
+spend now carries the 15% fee. Whatever the reason, the miner leg became easier to finish and
+the agent leg did not.
 
 ## What the spec does pin down — and it is the opposite of a farm
 
