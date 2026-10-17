@@ -383,7 +383,9 @@ published, so a slip needs no announcement — and **the minimum-activity floors
 testnet rules**, not through E.38. That is the first published answer to *when* any part of the
 scoring becomes knowable: at the open, not before.
 
-Against that, the operator's own timing. On 2026-10-11 Arthur Hayes posted from `@CryptoHayes`:
+Against that, the operator's own timing. On 2026-10-11 Arthur Hayes posted from `@CryptoHayes`
+([status 2109428767856951404](https://x.com/CryptoHayes/status/2109428767856951404), still
+served; the profile page no longer carries it):
 
 > What a great @token2049. I got some youthful energy with cellular medicine from
 > @VeritaHealthHQ and then dropped the thinking behind @flop_labs all week. Now it’s back on
@@ -560,7 +562,8 @@ for u in intro/yellowpaper airdrop testnet teaser whitepaper; do
   curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
 done
 curl -s https://flop.finance/ > root.html   # four lines of copy, easy to skip and worth reading
-curl -s -A "$UA" https://x.com/CryptoHayes > hayes.html   # the CEO posts here, not @flop_labs
+curl -s -A "$UA" https://x.com/CryptoHayes/status/2109428767856951404 > hayes.html  # the post
+                                                          # itself; the profile has rolled past it
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
@@ -575,7 +578,7 @@ grep -c 'whether spend-to-unlock ships' yellowpaper.txt  # 0 since 2026-10-05
 grep -o '\[TBD\]' yellowpaper.txt | wc -l                # 18 on 2026-10-05, was 19
 grep -o '\[RATIFY\]' yellowpaper.txt | wc -l             # 6; E.38 is one of them
 grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
-wc -c yellowpaper.html                                   # 578190 on 2026-10-15, 567365 on 10-08
+wc -c yellowpaper.html                     # 578805 since 2026-10-16, 578190 on 10-15, 567365 on 10-08
 ```
 
 The repository's own markdown is fetchable too, and it is a *different revision* — useful as a
@@ -630,3 +633,16 @@ in `<code>`, so a naive strip yields `settle , by certificate_settle , or` and s
 would recognise. Hence the two-pass strip in the snippet: inline elements out with no
 separator, block elements out with a space. Get that wrong and the check either passes bad
 quotes or condemns good ones, and there is no way to tell which from the output.
+
+**A profile page is not an archive.** The `@CryptoHayes` quote above was taken from
+`https://x.com/CryptoHayes` on 2026-10-14, and by 2026-10-15 it was gone from that page: the
+profile embeds only a handful of recent posts. The recipe above used to name the profile URL,
+so for three days it could not re-verify a quote that was correct the whole time — the check
+reported 21 of 22 and the fault was in the recipe. Cite the status URL, which still serves the
+post. Three more traps live in the same markup. The embedded JSON comes both bare
+(`full_text:"…"`) and escaped (`\"full_text\":\"…\"`), so a selector written against one form
+reads as zero against the other. `full_text` is truncated for a long post, with the fuller
+body in the adjacent `text` field. And a fetched X page carries bytes that make `grep` call
+the file binary, which puts its warning on stderr and leaves a counting pipeline reading 0 —
+pass `-a`. That last one cost this watch a day on 2026-10-16: three posts were sitting in the
+file while the count said nothing had been fetched.
