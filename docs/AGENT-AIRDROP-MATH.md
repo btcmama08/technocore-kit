@@ -279,6 +279,22 @@ Now 15% goes to a validator pool you do not control, so recovering the quarter c
 is no longer nearly free, and the specification's own risk note was rewritten the same day to
 say so.
 
+Five days on, the operator stated the miner's side of that split itself. On 2026-10-19
+`@flop_labs` posted about CoreWeave's five-year CDS at 1,194 bps
+([status 2112027080598982886](https://x.com/flop_labs/status/2112027080598982886)), and closed
+with the arithmetic D-0525 had just written into R12.1a:
+
+> A GPU owner selling inference by the job doesn’t need anyone to believe a five-year
+> promise. Paid when the work clears, 85% of the fee, liquid.
+
+Nothing in the specification moved with it, and the post is positioning rather than policy.
+It is worth recording for two reasons. The 85% is now the operator's own public number, so the
+split reads as settled intent rather than a revision that might be reverted — the whole of
+this file's D-0525 reading rests on an edit five days old. And the word doing the work is
+**liquid**: the miner's fee arrives unencumbered, while the airdrop grant the same operator
+offers an agent is frozen, released only by spending three FLOP for each one freed, at a
+price this very split raised by fifteen times.
+
 Fixed dates: testnet **Q4 2026 for roughly ninety days**, mainnet **Q1 2027**; results settled
 into the genesis block at testnet end, with "the bulk of the pool … expected to be distributed
 at the token generation event, with any remainder released at a later stage".
@@ -552,8 +568,8 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All twenty-two block quotes above are verbatim from the six pages in the header and from one
-X post, checked by
+All twenty-three block quotes above are verbatim from the six pages in the header and from two
+X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -562,8 +578,9 @@ for u in intro/yellowpaper airdrop testnet teaser whitepaper; do
   curl -s "https://flop.finance/$u/" > "$(basename "$u").html"
 done
 curl -s https://flop.finance/ > root.html   # four lines of copy, easy to skip and worth reading
-curl -s -A "$UA" https://x.com/CryptoHayes/status/2109428767856951404 > hayes.html  # the post
-                                                          # itself; the profile has rolled past it
+curl -s -A "$UA" https://x.com/CryptoHayes/status/2109428767856951404 > hayes.html  # the posts
+curl -s -A "$UA" https://x.com/flop_labs/status/2112027080598982886 > flop.html     # themselves;
+                                                       # the profiles roll past them in a few days
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'

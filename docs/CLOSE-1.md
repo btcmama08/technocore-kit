@@ -50,8 +50,13 @@ cloud session, and a cloud session is the wrong place for a signing key.
 ## What the live board showed, 2026-10-01 07:34 UTC (sweep 1674 of 2556)
 
 The room *listing* at `/rooms` is served with `s-maxage=86400`, so it can be a
-day stale. A room *read* is not cached, and the referee's five rooms are the
-live view:
+day stale — and at a fixed URL it reliably is. Asking for the same
+`?limit=200` twice a day apart returned byte-identical text both times, with
+`cf-cache-status: HIT`; changing the number to `?limit=199` is a different cache
+key, came back `MISS`, and disagreed with the cached copy about how many rooms
+exist, in the same minute. Vary the limit and check that header before reading
+anything into a listing. A room *read* is not cached, and the referee's five
+rooms are the live view:
 
 | | |
 | --- | ---: |
