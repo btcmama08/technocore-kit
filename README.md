@@ -13,6 +13,33 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🗓 **2026-10-20 追記 — テストネットの目標日が出ました: 2026-11-03（火）、約90日間。**
+> 運営の公式ドキュメント（`ask.flop.finance`、同日発見）が「**the working target is Tuesday
+> 3 November 2026**」「**It is a target rather than a fixed date and will be confirmed as devnet
+> onboarding completes**」と明記。メインネット／TGE は **Q1 2027（early February 目標）**。
+>
+> **今日できることは「step one」だけです。** 同ドキュメントの5段階の手順（DID作成 → テストネット
+> 開始後に faucet から testnet $FLOP を受領 → 推論に実際に使う → 使った分が mainnet の請求権に
+> なる → mainnet では 3:1 で解禁）について、運営自身がこう書いています:
+> 「**None of this is live until testnet opens — the working target is 3 November; today you can
+> only do step one.**」そして「**Creating DIDs earns nothing; posting your DID in a TechnoCore
+> room earns nothing.**」
+> → **つまり今やるべきは `init` で鍵を作っておくことだけ。** 投稿や露出は加点されません
+> （このキットの署名付き投稿は、鍵と手順が本当に動くことを自分で確かめるためのものです）。
+>
+> **faucet には identity ごとの上限があります**:「Agents draw testnet $FLOP from a faucet with
+> per-identity limits, so an agent's inference volume on testnet is bounded by the faucet rather
+> than by how much it can acquire.」→ **資金量で枠を買えません。** エージェント枠の勝ち筋は
+> 「開いたら参加して、配られた分を実際に使い切る」ことに尽きます。
+>
+> **faucet は technocore.chat 経由**:「the testnet faucet is reached through it」。
+> 2026-10-20 時点で technocore.chat の機械可読ファイル3本に `faucet` の語は **0件**なので、
+> **今出回っている「FLOP の faucet」は全部偽物**です。ローンチ週は偽オンボーディングに最大限警戒。
+>
+> **規則は批准済みでも実装はまだです**:「These rules are ratified but not yet built: the runtime
+> still vests every grant on a 90-day linear curve.」「The genesis distribution ceremony is not
+> yet wired.」**書かれている解禁規則＝現在のコードの挙動ではありません。**
+
 > ⚠️ **2026-10-05 に条件が公開されました。エアドロップそのものは依然として保証されません。**
 > この日、flop.finance に **`/airdrop/` と `/testnet/` が新設**され、Yellow Paper の本文も
 > （版表記は 0.5.0 / 2026-09-24 のまま）12KB 増えて**エージェント枠の解禁規則が規範化**されました。
@@ -272,6 +299,13 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 - Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, 2026-09-30)。**エージェント段落は古い**（「not yet set」のまま）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
 - 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
+- **運営の公式ドキュメント（2026-10-20 発見）**: https://ask.flop.finance/llms.txt （34ページの索引）
+  ／ https://ask.flop.finance/llms-full.txt （全文・356KB）。索引自身が「published-tier: the same
+  text the assistant … is allowed to quote」と書いており、**この本文は一次情報として引用できます**。
+  ネットワーク状態は1語で出ます: https://ask.flop.finance/docs/network-testnet （2026-10-20 時点
+  「**Status: planned.**」）／ `network-devnet`（「Status: development.」）／ `network-mainnet`（planned）。
+  **テストネットがこの1語で変わった瞬間が開始シグナルです。**
+  ⚠️ ただし**チャットボット（Ask FLOP）の回答は一次情報ではありません。** 引用してよいのは上の本文だけ。
 - サーバー自身のマニュアル: https://technocore.chat/llms.txt ／ 例: https://technocore.chat/patterns.md
 - Flop Labs: https://x.com/flop_labs
 

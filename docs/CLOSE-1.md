@@ -207,6 +207,21 @@ claimed by signing a mainnet address with the owner key, and mainnet is Q1 2027.
 one of those three keys, the thing to keep is the key and the signed record; the procedure will
 have to come from somewhere that still accepts writes.
 
+**Timing, found on 2026-10-20.** The operator's published documentation corpus at
+`ask.flop.finance` describes this contest — "a trading contest settled against the NVIDIA price
+on Hyperliquid that closed on 4 October, whose top three keys (up 15.8%, 14.2% and 13.4%) share
+1,000,000 $FLOP paid at mainnet" — and says when such prizes move:
+
+> Campaign and community rewards promised before launch — AMA prizes, competition prizes — are
+> distributed after TGE, against wallet addresses collected in advance. They are not paid
+> during testnet.
+
+So the answer to "when" is after the token generation event, which the same page puts at Q1
+2027 tracking to early February, and the mechanism is a wallet address collected beforehand —
+which is the "signing a mainnet address with the owner key" the rules described, not a claim
+transaction during testnet. The procedure itself is still unpublished, and the corpus dates the
+close to 4 October where the referee's own rooms settled on the 6th; keep the key.
+
 ## What entering is still worth
 
 A signed, timestamped record, under your own key, of having participated in

@@ -23,6 +23,13 @@ Sources are the published documents, read directly:
   says the unlock schedule "is not yet set". The Yellow Paper and the airdrop page say
   otherwise, and the Yellow Paper wins.
 
+- **Ask FLOP, found 2026-10-20** — `ask.flop.finance`, with its corpus published beside it at
+  `/llms.txt` (an index of 34 pages) and `/llms-full.txt` (the whole text, 356 KB). The index
+  calls these pages "published-tier: the same text the assistant at https://ask.flop.finance
+  is allowed to quote, and the same text it cites", which makes the corpus citable. **The
+  assistant's own answers are not**, and nothing in this file comes from asking it anything.
+  Three status pages under `/docs/` give each network a one-word readiness state.
+
 Everything below is quoted from those pages and re-derivable with division; see
 [Checking these quotes yourself](#checking-these-quotes-yourself).
 
@@ -43,7 +50,7 @@ said it. The team's share is not in the genesis pool; it arrives through emissio
 whitepaper now names it:
 
 > **Team + Foundation — 2.0bn $FLOP, 10.8% of year-10 supply.** Funds network development and
-> upkeep: 8 $FLOP per block each to Flop Labs and the Flop Foundation, issued on top of the
+> upkeep: 8 $FLOP per block each to FLOP Labs and the FLOP Foundation, issued on top of the
 > block reward, halving on the same schedule and sunsetting after year ten.
 
 That is R9.3's `subsidy_per_block_per_recipient = 8 + 8 FLOP/block` — the line already in the
@@ -420,6 +427,108 @@ pro rata to accumulated settled spend. And the airdrop itself has no claim press
 (The 90-day window in this kit's close-1 notes was that contest's *prize* claim, a different
 thing.)
 
+## A date, and thirty-four pages that were not there yesterday
+
+On 2026-10-20 both operator accounts pointed at a surface this file had never seen — a
+documentation assistant at `ask.flop.finance`, "Ask the docs", whose corpus is published
+beside it. The assistant is a chatbot and its answers are worth nothing as evidence; the
+corpus is primary, and it answers questions this file has been carrying open for weeks.
+
+The first is a date. Until 10-19 the only published timing was the testnet page's conditional
+opening and a CEO post saying "a few weeks". Now:
+
+> Testnet: the working target is Tuesday 3 November 2026, running about 90 days. It is a
+> target rather than a fixed date and will be confirmed as devnet onboarding completes.
+
+> Mainnet, TGE and token listing: Q1 2027, tracking to early February.
+
+The arithmetic is given rather than asserted — ninety days from 3 November lands at the start
+of February — and a private devnet has been admitting outside operators "from the week of 13
+October", earning nothing, purely to have machines proven before scoring starts. Three status
+pages carry a one-word state each, which is a better opening detector than any prose: testnet
+and mainnet both read "Status: planned.", devnet reads "Status: development."
+
+### What an agent is supposed to do, in the operator's own words
+
+> 1. Create an agent and get a DID key — the community has built easy ways to do this. 2. When
+> testnet launches, claim testnet $FLOP from the faucet into your wallet (the claim period —
+> hourly or daily — is not yet decided). 3. Instruct your agent to actually spend it on an
+> inference request; the task itself does not matter. 4. Spent testnet $FLOP becomes your
+> claim on mainnet $FLOP. 5. The mainnet allocation is locked, and unlocks as you spend it on
+> mainnet inference at 3:1 — every three $FLOP you spend on inference releases one locked
+> $FLOP. There is no time-based vesting: what you never spend stays locked.
+
+Two sentences follow it that settle what the preparation is worth:
+
+> If you don't use it, you lose it. Creating DIDs earns nothing; posting your DID in a
+> TechnoCore room earns nothing.
+
+> None of this is live until testnet opens — the working target is 3 November; today you can
+> only do step one.
+
+Step one is a keypair. That is the whole of what can be done before the window opens, and it
+is what this kit's `init` already does.
+
+### The faucet is the ceiling, and it arrives through technocore.chat
+
+> Agents draw testnet $FLOP from a faucet with per-identity limits, so an agent's inference
+> volume on testnet is bounded by the faucet rather than by how much it can acquire.
+
+This is the most consequential line in the corpus for sizing the agent leg, and it cuts
+against the reading this file has carried since the beginning. The pool is fixed and the
+allocation is pro rata to spend, so the obvious conclusion was that whoever spends most wins.
+On testnet nobody can spend much: the faucet meters every identity, so capital cannot buy a
+larger share of the agent pool, and what separates participants is showing up and spending
+what they are given. The spend-to-unlock ratio on *mainnet* is untouched by this — three for
+one, cap `⌊3P/4⌋`, no end block — but the testnet allocation that creates the principal is
+rationed at the tap.
+
+The same page says where the tap is:
+
+> It is also the front door to testnet: the testnet faucet is reached through it, and the
+> network's functions are integrated into it as testnet and then mainnet go live.
+
+So watching technocore.chat's own machine-readable files for the word "faucet" is the right
+detector, and on 2026-10-20 it still returns zero.
+
+### Why no conversion formula can be published
+
+E.38 has sat at `[RATIFY]` for weeks. The corpus explains the shape of the hole rather than
+filling it:
+
+> the total number of tokens credited at the genesis block is fixed and published, but the
+> ratio a given participant converts at is not, and cannot be until testnet is over.
+
+> That is a feature rather than an omission — a fixed pool divided by measured work is what
+> stops the airdrop rewarding registration instead of use — but it means no conversion formula
+> can be published in advance, and anyone modelling a per-unit outcome should model the pool
+> and their expected share of it.
+
+Read with the faucet limit, that is as close to a usable answer as exists: model the pool,
+assume your spend is capped at whatever the faucet gives one identity, and expect your share
+to fall as more agents arrive.
+
+### Ratified is not built
+
+> These rules are ratified but not yet built: the runtime still vests every grant on a 90-day
+> linear curve.
+
+> Draft whitepaper. The genesis distribution ceremony is not yet wired.
+
+Every unlock rule quoted in this file — the miner quarter, the agent 3:1, the validator freeze
+— describes a specification whose implementation is a linear 90-day vest. That gap is the
+operator's own disclosure, not an inference, and it is the strongest reason to treat all of
+this as live text rather than settled fact.
+
+On the agent leg the new corpus is also vaguer than the Yellow Paper, in a way worth naming:
+
+> Agents: the release schedule is not yet set (see above).
+
+The Yellow Paper ratified spend-to-unlock on 2026-10-05 and the corpus elsewhere agrees it is
+"written into the published specification". Both are true if "release schedule" means a
+calendar: there is none, because nothing releases with time. Where the two differ in tone, the
+Yellow Paper is the normative document and this file follows it.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -506,13 +615,25 @@ emission, and earlier revisions of this file did not mention it at all. `agent_s
 10% of every block reward, and it is not being paid to anyone:
 
 > **E.40 — Agent & staker leg distribution [TBD]**. Specify how the `agent_share_ppt` (10%)
-> and `staker_share_ppt` (5%) pools are paid out: the eligible set …, the pro-rata basis
-> (agents: verified inference spend, unconfirmed), cadence, dust handling, and, for the staker
-> leg, whether payouts are liquid on issue (agent-leg payouts are liquid under R9.13). The
-> agent leg must also choose its accounting unit (owner account, delegate key, or registered
-> agent identity), whether owner-signed spend outside the §6.2 delegate caps counts
+> and `staker_share_ppt` (5%) pools are paid out: under D-0530, the 5% `staker_share_ppt` leg
+> is allocated to the duration-locked community staking pool across seven lock duration tiers
+> with zero slashing risk and no validator or miner intermediary (exact tier weights and claim
+> distribution mechanics remain E.40); the eligible set for the agent leg and its pro-rata
+> basis (agents: verified inference spend, unconfirmed), cadence, dust handling, and, for the
+> staker leg, whether payouts are liquid on issue (agent-leg payouts are liquid under R9.13).
+> The agent leg must also choose its accounting unit (owner account, delegate key, or
+> registered agent identity), whether owner-signed spend outside the §6.2 delegate caps counts
 > (yellowpaper#31), and its spend basis … **Until this ratifies both legs accrue in sovereign
 > pool accounts and are never distributed (§9.1 R9.12).**
+
+**That stub was rewritten on 2026-10-20**, in a revision that added 21.8 KB and closed one
+`[TBD]` (18 → 17). The clause from "under D-0530" to "remain E.40" is new, and it splits the
+item: the staker leg now has a destination, and the agent leg still has none. What the
+placeholder says of each is the whole story:
+
+> Placeholder: duration-locked community staking pool across 7 tiers for the staker leg; the
+> agent accounting unit and spend basis remain unconfirmed, with both escrow-settled and
+> work-settled bases open.
 
 And §13's status table, reworded on 2026-10-08, says the same from the other direction. The
 emission row flipped from `PARTIAL` to `LIVE` — but the promotion is the *validator* leg:
@@ -568,8 +689,8 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All twenty-three block quotes above are verbatim from the six pages in the header and from two
-X posts, checked by
+All thirty-six block quotes above are verbatim from the six pages in the header, the
+`ask.flop.finance` corpus and two X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -581,6 +702,9 @@ curl -s https://flop.finance/ > root.html   # four lines of copy, easy to skip a
 curl -s -A "$UA" https://x.com/CryptoHayes/status/2109428767856951404 > hayes.html  # the posts
 curl -s -A "$UA" https://x.com/flop_labs/status/2112027080598982886 > flop.html     # themselves;
                                                        # the profiles roll past them in a few days
+curl -s https://ask.flop.finance/llms-full.txt > ask.txt       # the whole published-tier corpus
+sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' ask.txt > ask.html   # markdown marks out, as
+                                                      # for the repo markdown below
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
@@ -619,6 +743,16 @@ carried four block quotes that were paraphrases or inventions rather than quotat
 including figures for a 3:1 arithmetic that appear nowhere in the source, and the word
 "infeasible", which the Yellow Paper has never used. The numbers all checked out; the
 quotation marks did not.
+
+**A byte count is not a static document either.** On 2026-10-20 six of the seven pages this
+file quotes changed their visible text, and five of them — airdrop, testnet, whitepaper, media
+and teaser — did it at a byte count identical to the day before. The edit was a naming sweep:
+"Flop" became "FLOP" throughout, which the new `ask.flop.finance` index states as a rule
+("Always written FLOP, in capitals; FLOPs is the compute unit, not the name"), and one phrase
+was reworded around it ("Flop's implementation of the HTLC" → "the FLOP implementation"). Same
+length, different text, in the sentence this file quotes for the Labs/Foundation subsidy. Only
+the extracted-text comparison caught it; the quote check then named the sentence. Compare the
+text, not the size.
 
 **A static version string is not a static document.** The Yellow Paper still says "Version
 0.5.0 (draft) / Updated 2026-09-24", and on 2026-10-05 its body grew by 12 KB, ratified the
