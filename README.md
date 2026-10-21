@@ -13,6 +13,21 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🛡 **2026-10-21 追記 — CEO 自身が「トークンは存在しない」と明言しました。**
+> Arthur Hayes（`@CryptoHayes`、[status 2112786940970074605](https://x.com/CryptoHayes/status/2112786940970074605)）:
+>
+> > As we get closer to the launch of @flop_labs Testnet and Airdrop in a few weeks please
+> > remember:
+> >
+> > THERE IS NO FLOP TOKEN
+> >
+> > Anyone who tries to tell you otherwise is a scammer.
+>
+> **つまり今「FLOP を買える / 配布する / faucet がある」と言ってくる相手は全員詐欺です。**
+> 取引所の上場はメインネット／TGE と同時（Q1 2027、early February 目標）で、それ以前に
+> トークンは存在しません。testnet の play token も「has no value and does not convert into
+> mainnet $FLOP」（運営ドキュメント）です。
+
 > 🗓 **2026-10-20 追記 — テストネットの目標日が出ました: 2026-11-03（火）、約90日間。**
 > 運営の公式ドキュメント（`ask.flop.finance`、同日発見）が「**the working target is Tuesday
 > 3 November 2026**」「**It is a target rather than a fixed date and will be confirmed as devnet
