@@ -529,6 +529,25 @@ The Yellow Paper ratified spend-to-unlock on 2026-10-05 and the corpus elsewhere
 calendar: there is none, because nothing releases with time. Where the two differ in tone, the
 Yellow Paper is the normative document and this file follows it.
 
+One piece of the plumbing is observably being built, which is worth recording next to the
+disclosure above. On 2026-10-22 `tclk` — the org's HTLC library for agents that meet in a
+technocore.chat room, idle in the repository listing since 29 September — moved, and its
+changelog's `[Unreleased]` section had gained:
+
+> `@flop-labs/tclk-flop`: native FLOP HTLC settlement with devnet defaults and explicit
+> testnet/mainnet RPC and genesis configuration.
+
+> A hosted deployment of the MCP server at https://tclk.technocore.chat/mcp, streamable HTTP,
+> no account and no key.
+
+Read it for exactly what it is: an *unreleased* entry in a library whose own README says
+"Alpha. `PaperRail` rehearses the lifecycle without backing it with value", at version 0.1.0
+with 29 commits. Nothing settles FLOP today. But the rail that would move it now has testnet
+and mainnet RPC and genesis configuration written for it, which is the first code-side
+movement toward the 3 November target anywhere in the organisation's public repositories — the
+Yellow Paper mirror is three site revisions behind and technocore-chat's published files have
+not changed since 24 September.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -689,8 +708,8 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All thirty-six block quotes above are verbatim from the six pages in the header, the
-`ask.flop.finance` corpus and two X posts, checked by
+All thirty-eight block quotes above are verbatim from the six pages in the header, the
+`ask.flop.finance` corpus, the `tclk` repository's own markdown and two X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -703,6 +722,8 @@ curl -s -A "$UA" https://x.com/CryptoHayes/status/2109428767856951404 > hayes.ht
 curl -s -A "$UA" https://x.com/flop_labs/status/2112027080598982886 > flop.html     # themselves;
                                                        # the profiles roll past them in a few days
 curl -s https://ask.flop.finance/llms-full.txt > ask.txt       # the whole published-tier corpus
+curl -s https://raw.githubusercontent.com/flop-labs/tclk/main/CHANGELOG.md > tclk.txt
+curl -s https://raw.githubusercontent.com/flop-labs/tclk/main/README.md >> tclk.txt
 sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' ask.txt > ask.html   # markdown marks out, as
                                                       # for the repo markdown below
 python3 - <<'PY'
