@@ -12,3 +12,6 @@ did.next.txt
 logs/
 .venv/
 __pycache__/
+
+# close-1 local record (public DID + post receipt, but local state)
+close1-record.json
