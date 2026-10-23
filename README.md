@@ -13,6 +13,33 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🧭 **2026-10-23 追記 — 公式リンク一覧のページができました: https://flop.finance/official/**
+> Hayes が「All official links for @flop_labs」として告知
+> （[status 2113739149236969843](https://x.com/CryptoHayes/status/2113739149236969843)）。
+> **判断に迷ったらこのページ1枚で足ります。** 要点:
+>
+> > Everything that is officially FLOP is on this page: the accounts, the domains, the one public
+> > email address. Anything else — any link, handle, domain, email or contract address claiming to
+> > be FLOP — is not official.
+>
+> > There is no official FLOP Discord, Telegram, Reddit or Medium, so an invitation to a FLOP
+> > server, channel or subreddit never comes from FLOP.
+>
+> > When a real FLOP token contract exists, its address will be published on this page and from
+> > @flop_labs on X, and nowhere else.
+>
+> > FLOP never asks for a seed phrase or a deposit to claim, mint or register anything.
+>
+> **公式ドメインは4つだけ**: `flop.finance`（サイト）/ `ask.flop.finance`（ドキュメント）/
+> `docs.flop.network`（オペレータ向け）/ `flop.network`（技術ドメイン。`api.` `mcp.`
+> **`faucet.`**`rpc.devnet.` のサブドメインを持つ）。アカウントは X・YouTube・TikTok・GitHub の4つ、
+> メールは `security@flop.finance` 1つだけ。**X が「where airdrop eligibility is announced」**と
+> 明記されました（トップページの5つ目の条件の裏付け）。
+>
+> ⚠️ **このキットの監視は `flop.network` 系に届いていません**（この環境の許可リストに無く
+> CONNECT 403）。Jack が許可リストに `flop.network` と `*.flop.network` を足せば、オペレータ向け
+> ドキュメントと faucet ホストもこちらで毎日見られるようになります。
+
 > 🛡 **2026-10-21 追記 — CEO 自身が「トークンは存在しない」と明言しました。**
 > Arthur Hayes（`@CryptoHayes`、[status 2112786940970074605](https://x.com/CryptoHayes/status/2112786940970074605)）:
 >
@@ -47,9 +74,14 @@ is never required to verify anything. Japanese documentation follows; commands a
 > than by how much it can acquire.」→ **資金量で枠を買えません。** エージェント枠の勝ち筋は
 > 「開いたら参加して、配られた分を実際に使い切る」ことに尽きます。
 >
-> **faucet は technocore.chat 経由**:「the testnet faucet is reached through it」。
-> 2026-10-20 時点で technocore.chat の機械可読ファイル3本に `faucet` の語は **0件**なので、
-> **今出回っている「FLOP の faucet」は全部偽物**です。ローンチ週は偽オンボーディングに最大限警戒。
+> **agent 向けの testnet faucet は technocore.chat 経由**:「the testnet faucet is reached through
+> it」。technocore.chat の機械可読ファイル3本の `faucet` は 2026-10-23 時点でも **0件**＝
+> **agent 向けの faucet はまだ存在しません。**
+>
+> **訂正（2026-10-23）**: ここには「今出回っている FLOP の faucet は全部偽物」と書いていましたが、
+> 言い過ぎでした。同日に公開された公式ページ（下記 🧭）が **devnet の faucet を
+> `faucet.flop.network` として公表**しています。正確には「**`faucet.flop.network` 以外の faucet は
+> 公式ではない。そしてその devnet faucet は無報酬・エアドロ加点なし**」です。
 >
 > **規則は批准済みでも実装はまだです**:「These rules are ratified but not yet built: the runtime
 > still vests every grant on a 90-day linear curve.」「The genesis distribution ceremony is not
@@ -314,6 +346,10 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 - Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, 2026-09-30)。**エージェント段落は古い**（「not yet set」のまま）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
 - 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
+- **公式リンク一覧（2026-10-23 新設・迷ったらここ）**: https://flop.finance/official/ —
+  公式アカウント・ドメイン・唯一のメールアドレス（`security@flop.finance`）。
+  **ここに載っていないものは公式ではない**、と運営自身が宣言しているページ。
+  `flop.network` 系（`api.` `mcp.` `faucet.` `rpc.devnet.`）と `docs.flop.network` もここで初公表
 - **運営の公式ドキュメント（2026-10-20 発見）**: https://ask.flop.finance/llms.txt （34ページの索引）
   ／ https://ask.flop.finance/llms-full.txt （全文・356KB）。索引自身が「published-tier: the same
   text the assistant … is allowed to quote」と書いており、**この本文は一次情報として引用できます**。
