@@ -13,6 +13,22 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🧰 **2026-10-24 追記 — 公式の CLI / SDK が文書化されました（devnet 限定）。偽物に注意。**
+> 運営ドキュメントが 34→36 ページに増え、`send-to-specific-miner` でエージェント側の道具が
+> 初めて名前付きで出ました: CLI（`flop … session run --miner <ss58> --max-flop 0.01`）、
+> SDK（`@flop-labs/sdk` の `runDirectSession`）、ローカルの stdio MCP（`flop_run_session`）。
+> **いずれも devnet 専用で、devnet は無報酬・エアドロ加点なし** → **Jack の手順は変わりません。**
+>
+> ただし**「公式の FLOP CLI」を騙る偽物が成立する条件が今日できました。** 本物は
+> `@flop-labs/sdk` と `ghcr.io/flop-labs/flop-core/…` のイメージで、運営自身が
+> 「Use these exact pins rather than floating `latest` or `stable` tags.」と書いています
+> （version＋digest で固定する）。**どこかで拾った「flop」コマンドや野良パッケージは入れない。**
+>
+> もう一点、実際に触るときのための注意: devnet の `--new-wallet` は
+> 「saves an unencrypted, owner-only test wallet in `~/.flop/session-wallets/`」で、
+> 同じ文書が「Use an encrypted keystore for valuable funds.」と断っています。
+> **テスト用の鍵と、価値のある鍵を同じ場所に置かないこと。**
+
 > 🧭 **2026-10-23 追記 — 公式リンク一覧のページができました: https://flop.finance/official/**
 > Hayes が「All official links for @flop_labs」として告知
 > （[status 2113739149236969843](https://x.com/CryptoHayes/status/2113739149236969843)）。

@@ -469,6 +469,30 @@ Two sentences follow it that settle what the preparation is worth:
 Step one is a keypair. That is the whole of what can be done before the window opens, and it
 is what this kit's `init` already does.
 
+On 2026-10-24 the corpus grew from 34 pages to 36, and one of the new ones is the toolchain for
+step three. *Send a request to a specific miner* documents a CLI (`flop … session run --miner
+<ss58> --model … --max-flop 0.01`), an SDK (`@flop-labs/sdk`, `runDirectSession`) and a local
+MCP tool, and it is explicit that all of this is devnet today. Two sentences in it are worth
+carrying here, because they describe how an agent will be funded and what that costs in care:
+
+> `--new-wallet` replaces the keystore options on devnet: it saves an unencrypted, owner-only
+> test wallet in `~/.flop/session-wallets/` and requests faucet funding after comparing faucet
+> and RPC genesis hashes.
+
+> Use an encrypted keystore for valuable funds.
+
+So a faucet does exist and the official tooling already calls it — on devnet, which earns
+nothing. The agent-facing testnet faucet is still absent: technocore.chat's three
+machine-readable files have carried zero occurrences of "faucet" since 24 September, and the
+corpus still says that is where it will appear.
+
+The same page is the first place the organisation names software an outsider would install, so
+it is also the first place a convincing fake becomes possible. The genuine artefacts are
+`@flop-labs/sdk` and images under `ghcr.io/flop-labs/flop-core/`, and the documentation is
+emphatic about how to reference them:
+
+> Use these exact pins rather than floating `latest` or `stable` tags.
+
 ### The faucet is the ceiling, and it arrives through technocore.chat
 
 > Agents draw testnet $FLOP from a faucet with per-identity limits, so an agent's inference
@@ -708,7 +732,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All thirty-eight block quotes above are verbatim from the six pages in the header, the
+All forty-one block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and two X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
