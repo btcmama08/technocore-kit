@@ -572,6 +572,96 @@ movement toward the 3 November target anywhere in the organisation's public repo
 Yellow Paper mirror is three site revisions behind and technocore-chat's published files have
 not changed since 24 September.
 
+## The fourth slice has a purpose now, and it pays for audience, not compute
+
+Everything above measures one thing: how much $FLOP a unit of verified compute earns. The
+genesis table has a fourth row that earns nothing by computing, and until this revision this
+file described it only by what it is not — `genesis_reserve`, 800,000,000 FLOP, 18.18% of
+genesis, "not an Era-T airdrop pool". The published corpus says what it *is*, and has said so
+since at least 2026-10-21:
+
+> **Funding:** the 800,000,000 $FLOP ecosystem reserve inside the airdrop pool (4.4% of
+> year-10 supply), which also covers builder programmes and security-disclosure rewards.
+
+What it funds is a referral programme. The normative spec records the decision inside E.38's
+own residual-risk note:
+
+> Under D-0531 (#1358), the workbook's legacy on-chain referral commission model (6–10%) is
+> superseded by a public explorer leaderboard and periodic referral lotteries funded from
+> `genesis_reserve` = 800,000,000 FLOP and settled off-chain.
+
+Three words in that sentence matter more than the mechanism: **settled off-chain**. Every
+other number in this document is a claim a verifier co-signs and a chain settles. This one is
+a payout decided by an operator-held ranking, and the spec's own open questions say the
+controls are not written yet — the same sentence continues:
+
+> Decide the unallocated-remainder disposition, publication of operator-held filter inputs,
+> and the `genesis_reserve` release controller.
+
+So: nobody has decided who releases the 800,000,000, what happens to whatever is never paid
+out, or whether the inputs to the ranking get published at all. That is a fifth of the genesis
+pool with no named controller, sitting in the same appendix item that still blocks the
+airdrop.
+
+The mechanism, where it is specified, is deliberately resistant to the obvious gaming:
+
+> Payment follows what the referred audience does on the network, never views or likes, which
+> can be manufactured.
+
+Ranking during testnet is on "the $FLOP that referred wallets spent on inference, received
+from inference and spent through the HTLC"; at mainnet, on net change in $FLOP held. Payouts
+go to the leading creators in proportion to their share of $FLOP held across the cohort, and a
+separate lottery draws a fixed number of referred wallets at random each period for an equal
+share of that period's pool. Referrals are single-tier, validators cannot be referred, and
+there are "no bespoke deals for individual KOLs or agencies — no paid posts, no retainers and
+no private allocations."
+
+**For a compute participant the practical consequence is small but real.** The reserve is not
+drawn from the miner, agent or validator legs — those are 1,200,000,000 each and fixed — so a
+referral programme does not dilute a miner's share of its own pool. What it changes is the
+read on the 4,400,000,000 headline: 3,600,000,000 of it is earned by machines, and
+800,000,000 is a growth budget whose release nobody controls on paper yet.
+
+### Why this section is dated 2026-10-25 and the source is dated 2026-10-21
+
+It was published four days before this file noticed. The corpus carried `referral` fifteen
+times, `lottery` nine times and the funding sentence verbatim on every daily fetch from
+2026-10-21 onward; the page-level diff that runs each day correctly reported "no change"
+because there was none. The gap was a reading gap, not a source change: the daily check
+compared the corpus against yesterday's copy and never asked what was in it that this file had
+failed to mention. A diff tells you what moved. It will never tell you what you missed the
+first time.
+
+### Somebody else can post your bond — on testnet, by a build flag
+
+The second thing in this revision is smaller and more immediately useful. Registration on this
+network requires a bond, and the capital question has been "whose". The spec now carries a
+parameter that answers it for testnet only:
+
+> D-0528: active sponsored principal counts toward the miner capacity bond and the validator
+> effective minimum, and sponsors may post an operator's whole registration bond
+> (sponsor_register_miner / sponsor_register_validator).
+
+It is gated at compile time — `sponsored_self_stake_enabled` is a
+`cfg!(feature = "sponsored-self-stake")` flag — and the §13 status table is explicit about
+which runtimes get it:
+
+> Sponsored registration bonds (R6.1a) §6.1, §15.2 PARTIAL: source landed; on by build feature
+> in the devnet (volta) and testnet runtimes (the feature alone is a compile error; CI checks
+> the default-feature mainnet node reports it off); the sponsor's own fungible holds can still
+> overlap its frozen principal (E.32)
+
+Read the three claims in order. *Source landed* — this is written code, not a planned stub,
+which puts it among the small set of testnet mechanisms that exist today. *On by build feature
+in the devnet and testnet runtimes* — so it is a testnet affordance by design, and CI actively
+asserts that the mainnet node reports it off. *The sponsor's own fungible holds can still
+overlap its frozen principal* — the sponsor's collateral is not proven distinct from its other
+commitments, and that is a numbered open item, E.32.
+
+For anyone deciding whether to enter the testnet, this is the first published route in which
+the bond is not necessarily your own money. It is also, for the same reason, the shape a
+sponsorship scam would take, and the programme that would route it does not exist yet.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -643,6 +733,34 @@ Two things worth keeping from the episode. First, the private core repository is
 appears in a render published in a different repository. Second, **the lag can reopen at any
 time** — it ran nineteen days once. The byte count of `yellowpaper.md` is the cheap detector,
 and the site remains the copy to quote.
+
+**It reopened, and closed again, on 2026-10-25.** `yellowpaper.md` sat at exactly 351,901
+bytes on every daily fetch from 2026-10-13 through 2026-10-24 — twelve days — and then went to
+376,464 (+24,563 bytes, 392 lines added, 231 removed). Eleven decision identifiers arrived at
+once, taking the repository from 53 distinct `D-0…` records to 64: `D-0441`, `D-0518`,
+`D-0521`, `D-0525` through `D-0531`, and `D-0533`. `E.41` went `[PLANNED]` → `[RESOLVED]` in
+the repository's Appendix E.
+
+**Nine of those eleven were already on the site**, whose extracted text has not changed since
+2026-10-23 — `D-0518`, `D-0521` and `D-0525` through `D-0531` all appear on the published page
+and did not arrive today. `E.41` reads `[RESOLVED]` on the page too. So this was the mirror
+catching up a second time, and again it moved no specification forward: the item that gates the
+airdrop is `[RATIFY]` on both copies, the `[RATIFY]` count is 6 on both, and the set of
+Appendix E item numbers is the same 32 on both copies on both days.
+
+The two exceptions run the other way, which is new. `D-0441` and `D-0533` appear **only in the
+repository**, and only inside Appendix B's decision-log ranges — the repository now cites
+`` `D-0401`..`D-0441` `` and `` `D-0501`..`D-0533` `` where the page still shows
+`D-0401..D-0432`. Neither identifier's text is on either copy; the records themselves live in
+`decisions/v0.4.md` and `decisions/v0.5.md`, which this watch does not yet fetch. The repository
+can therefore be *ahead* on an index line while being behind on content, so "the site is newer"
+is a rule about the body text, not about every line.
+
+One correction to the detector. The byte count caught today's sync, as the paragraph above
+predicted it would — but it only works on the repository markdown, where a sync lands as tens of
+kilobytes. On the published page it has already failed once, on 2026-10-20, when five pages
+changed their visible text at an identical length. Byte count is the cheap detector *for the
+mirror*; extracted-text comparison is the detector for the site.
 
 One trap in reading that markdown. The repository writes cross-references as markdown links, so
 `grep -c 'remain open in E.38' yellowpaper.md` returns **0** while the sentence is present as
@@ -732,7 +850,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All forty-one block quotes above are verbatim from the six pages in the header, the
+All forty-seven block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and two X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
@@ -772,8 +890,9 @@ contrast, never as a source for a quote:
 
 ```sh
 curl -s https://raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md > repo.md
-wc -c repo.md                                     # 351901 since the 2026-10-13 sync, 313714 before
-grep -o '\[TBD\]' repo.md | wc -l                 # 18, matching the site since that sync
+wc -c repo.md             # 376464 since the 2026-10-25 sync, 351901 from 10-13, 313714 before
+grep -o '\[TBD\]' repo.md | wc -l                 # 17, matching the site since that sync
+grep -oE 'D-0[0-9]{3}' repo.md | sort -u | wc -l  # 64 after the sync, 53 before it
 sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' repo.md > repo.txt   # links and code marks out,
 grep -c 'remain open in E.38' repo.txt            # underscores left alone -- 1, not the raw 0
 ```
@@ -829,6 +948,14 @@ in `<code>`, so a naive strip yields `settle , by certificate_settle , or` and s
 would recognise. Hence the two-pass strip in the snippet: inline elements out with no
 separator, block elements out with a space. Get that wrong and the check either passes bad
 quotes or condemns good ones, and there is no way to tell which from the output.
+
+**A diff reports what moved, never what you missed.** The `ask.flop.finance` corpus carried
+the referral programme — its funding out of `genesis_reserve`, its leaderboard, its lottery and
+its not-yet-live sign-up — on every daily fetch from 2026-10-21, and the daily page-level
+comparison correctly reported no change on each of them, because there was none. Four
+revisions of this file went out without mentioning a second claim on a fifth of the genesis
+pool. A change detector is only as good as the first read it is differencing against, so a
+corpus that is newly in scope needs an inventory pass, not just a baseline.
 
 **A profile page is not an archive.** The `@CryptoHayes` quote above was taken from
 `https://x.com/CryptoHayes` on 2026-10-14, and by 2026-10-15 it was gone from that page: the
