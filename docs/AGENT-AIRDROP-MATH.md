@@ -18,10 +18,13 @@ Sources are the published documents, read directly:
 - **The homepage** — `flop.finance/`. Four lines of copy, one of which ties airdrop
   eligibility to following an X account and appears in no specification. It does not link to
   `/airdrop/` or `/testnet/`.
-- **Project intro v0.1 (draft), updated 2026-09-30** — `flop.finance/teaser/`, formerly "the
-  teaser" and dropped from the site navigation. **Its agent paragraph is now stale**: it still
-  says the unlock schedule "is not yet set". The Yellow Paper and the airdrop page say
-  otherwise, and the Yellow Paper wins.
+- **Project intro v0.1 (draft), updated 2026-10-26** — `flop.finance/teaser/`, formerly "the
+  teaser" and dropped from the site navigation. Earlier revisions of this file called its agent
+  paragraph stale, because it said the unlock schedule "is not yet set" while the Yellow Paper
+  had already ratified spend-to-unlock. **On 2026-10-26 that sentence was replaced** with
+  "every 3 $FLOP of it spent on inference unlocks 1 $FLOP", and the page's two caveats about
+  the 85/15 split leading the parameters of record were deleted. The discrepancy is closed, in
+  the Yellow Paper's favour.
 
 - **Ask FLOP, found 2026-10-20** — `ask.flop.finance`, with its corpus published beside it at
   `/llms.txt` (an index of 34 pages) and `/llms-full.txt` (the whole text, 356 KB). The index
@@ -544,14 +547,37 @@ Every unlock rule quoted in this file — the miner quarter, the agent 3:1, the 
 operator's own disclosure, not an inference, and it is the strongest reason to treat all of
 this as live text rather than settled fact.
 
-On the agent leg the new corpus is also vaguer than the Yellow Paper, in a way worth naming:
+On the agent leg the corpus used to be vaguer than the Yellow Paper. Until 2026-10-26 it read
+"**Agents:** the release schedule is not yet set (see above)" and, on its airdrop page, "**When
+it becomes liquid is not yet set** — the Yellow Paper keeps the agent release schedule open".
+Earlier revisions of this file quoted the first of those and argued that both statements were
+true if "release schedule" meant a calendar, since nothing releases with time.
 
-> Agents: the release schedule is not yet set (see above).
+**That argument is no longer needed.** On 2026-10-26 the corpus replaced every one of those
+sentences with the rule itself:
 
-The Yellow Paper ratified spend-to-unlock on 2026-10-05 and the corpus elsewhere agrees it is
-"written into the published specification". Both are true if "release schedule" means a
-calendar: there is none, because nothing releases with time. Where the two differ in tone, the
-Yellow Paper is the normative document and this file follows it.
+> **Every 3 FLOP of locked airdrop spent on inference unlocks 1 FLOP.**
+
+> **Agents:** every 3 FLOP of locked airdrop spent on inference unlocks 1 FLOP (see above).
+
+The same edit landed on the agent-integration page, in the one-line summary inside
+`/llms.txt`, and on the project intro — four surfaces on one day. The summary tier now states
+what §8.2 and R8.7 have specified since 2026-10-05, and the remaining gap is the one this file
+has been pointing at all along: what the *runtime* does. That sentence did not change:
+
+> These rules are ratified but not yet built: the runtime still vests every grant on a 90-day
+> linear curve.
+
+The Yellow Paper sharpened the same point on the same day. `airdrop_vesting_duration_blocks` is
+still 7,776,000 blocks, but its description is no longer a plain statement of the schedule:
+
+> Interim pallet schedule: 90-day linear airdrop vesting at 1-second block time, governing no
+> ratified grant tier (§8.2).
+
+Read that twice. The only vesting curve the runtime implements **governs no ratified grant
+tier** — it is scaffolding that matches nothing the specification has decided. E.38 is still
+`[RATIFY]`, `[TBD]` is still 17, and Appendix E still carries the same 32 items it carried
+yesterday.
 
 One piece of the plumbing is observably being built, which is worth recording next to the
 disclosure above. On 2026-10-22 `tclk` — the org's HTLC library for agents that meet in a
@@ -661,6 +687,119 @@ commitments, and that is a numbered open item, E.32.
 For anyone deciding whether to enter the testnet, this is the first published route in which
 the bond is not necessarily your own money. It is also, for the same reason, the shape a
 sponsorship scam would take, and the programme that would route it does not exist yet.
+
+## The week it stops being a document
+
+For six weeks everything in this file has been text. On 2026-10-26 the operator said, on both
+accounts within forty-five minutes of each other, that it is about to become a network you can
+connect to:
+
+> In the coming days @flop_labs will open up Devnet for anyone to join as a miner or validator
+> and for agents to connect to the network. Participation does not count toward any token
+> allocation. The point of Devnet is to do some public tests before we graduate to Testnet /
+> airdrop
+
+> Devnet coming very soon
+
+Two sentences in that announcement are worth separating. "**for agents to connect to the
+network**" is the first time an operator statement invites agents, rather than miners and
+validators, to join anything. "**Participation does not count toward any token allocation**" is
+the operator confirming, in their own words, what this file has said about every devnet
+measurement: the private devnet running since mid-October earns nothing, and the public one
+about to open earns nothing either. The airdrop begins at testnet, whose working target is
+still 3 November and whose one-word status is still `planned`.
+
+### The release candidate names its packages, and none of them exists
+
+The same day, the corpus gained a thirty-seventh page: an upgrade guide for miners, validators,
+SDKs and agents, headed
+
+> **Release candidate, 26 October 2026.** Package versions below are prepared for publication
+> after review and merge. Their presence in this guide does not mean they are available on npm
+> or PyPI. Obtain the release operator's publication receipt before installing.
+
+It names `@flop-labs/contracts@0.1.1`, `@flop-labs/client@0.2.1`, `@flop-labs/sdk@0.4.0`,
+`@flop-labs/pi@0.3.1`, `@flop-labs/cli@0.4.0` and a Python `flop-sdk` at source version 0.2.0,
+"no public PyPI launch is certified here". The agent instructions are concrete — install
+`@flop-labs/pi@0.3.1` through a Pi package manager, run the CLI with `pnpm --package
+@flop-labs/cli@0.4.0 dlx flop --help`, and
+
+> do not globally replace the public Hermes launcher's `flop` command
+
+**Every one of those package names returns 404 on the npm registry.** Checked on 2026-10-26
+against `registry.npmjs.org`: `@flop-labs/sdk`, `@flop-labs/cli`, `@flop-labs/pi`,
+`@flop-labs/client`, `@flop-labs/contracts` and `@flop-labs/tclk-flop` are all absent, which
+means the `@flop-labs` scope is currently unclaimed. So the guide is exactly as literal as it
+sounds: today, `npm i @flop-labs/sdk@0.4.0` cannot install the operator's SDK, because the
+operator has not published it. Anything that *does* resolve under one of those names before the
+publication receipt exists was put there by somebody else.
+
+This also settles a question this watch has been carrying as its strongest pre-testnet signal —
+whether a public node repository would appear. The guide answers it directly:
+
+> The source repository is private; external operators receive the reviewed runtime or
+> validator bundle from the network operator.
+
+The organisation's public listing has held at the same seven repositories since 11 September and
+should not be expected to grow a node. Miner images come from a manifest at
+`https://flop.network/releases.json`, which this session cannot read — `flop.network` still
+returns CONNECT 403 — so the pinned digests an operator is told to verify are not checkable
+from here.
+
+### A status row went backwards, and it costs an agent 20%
+
+One line in §13 moved from `LIVE` to `PARTIAL`, which is the first regression this watch has
+recorded:
+
+> Failed/early-close three-way split (φ) PARTIAL: tariff P, the (1−φ)(E−P) refund and the
+> all-or-nothing split are wired, but the runtime still burns the φ·(E−P) leg (burn_from into
+> TotalBurned, reported as Settled.burned) instead of transferring it to FLOPFoundationAccount
+> as R12.1d and R9.10 require under D-0529
+
+Nothing broke; the specification moved past the code. D-0529 made zero burn protocol-wide, so
+§12.1's penalty rule was rewritten the same day —
+
+> Otherwise, the agent is refunded (1−φ)·(E−P), and the penalty φ·(E−P)
+> (refund_penalty_phi_percent = 20%) MUST be transferred in full to FLOPFoundationAccount (§9.3
+> R9.10) with zero burn — never the miner.
+
+— and the invariant that keeps settlement atomic was widened to cover that leg. The row above is
+the honest consequence: the runtime still burns it.
+
+For an agent the arithmetic is the same either way, and it is worth knowing before opening a
+session. Escrow `E`, tariff `P` actually consumed, ambiguous early close: the agent gets back
+`(1−φ)(E−P)` with `φ` = 20%, so **a fifth of the unspent escrow is gone** — to the Foundation
+once the code catches up, to nobody until then. A miner-fault non-delivery uses `φ = 0` and
+refunds in full. Size the escrow to the work, not to the session's ceiling.
+
+A second correction, to yesterday's reading of sponsored bonds. D-0528 does let a sponsor post
+"an operator's whole registration bond", but the parameter reference gained a line the same day
+that bounds it for validators:
+
+> validator_min_self_stake_ratio_percent 20 percent §15.2 Legacy minimum validator self-stake
+> ratio when sponsored backing is enabled (§15.2).
+
+So on a sponsorship-enabled build a validator still has to find a fifth of its own floor. The
+table it sits in is prefaced as covering parameters "single-site or not yet wired for
+cross-language enforcement (enforce: false)", so treat the number as the intended bound rather
+than an enforced one.
+
+### What the non-normative pages stopped disagreeing about
+
+The whitepaper keeps a standing list of its own statements that differ from the Yellow Paper. On
+2026-10-26 it shrank from nine entries to four. Gone: the 85/15 inference-fee split, that no
+$FLOP is burned, that validators take no delegated stake, and the seven staking tiers — the four
+things D-0525, D-0529 and D-0530 settled over the previous eleven days. Still differing:
+
+> These statements still differ from the Yellow Paper: governance decided by validators, an
+> hourly committee, per-block settlement, and slashing a miner for non-delivery.
+
+None of the four touches the agent leg. And the Yellow Paper's own front matter now adds
+Appendix I (Pallet Index Reference) to the list of normative sections, while Appendix B's
+decision index finally reads `D-0401..D-0441` and `D-0501..D-0533` — the two lines that were
+repository-only yesterday. The mirror and the site agree again, in both directions, and the
+mirror's source commit moved from `flop-core@4e2b00890` to `flop-core@dfd98a59d` on the same
+day.
 
 ## What is still open
 
@@ -850,8 +989,8 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All forty-seven block quotes above are verbatim from the six pages in the header, the
-`ask.flop.finance` corpus, the `tclk` repository's own markdown and two X posts, checked by
+All fifty-nine block quotes above are verbatim from the six pages in the header, the
+`ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -890,9 +1029,10 @@ contrast, never as a source for a quote:
 
 ```sh
 curl -s https://raw.githubusercontent.com/flop-labs/yellowpaper/main/yellowpaper.md > repo.md
-wc -c repo.md             # 376464 since the 2026-10-25 sync, 351901 from 10-13, 313714 before
-grep -o '\[TBD\]' repo.md | wc -l                 # 17, matching the site since that sync
-grep -oE 'D-0[0-9]{3}' repo.md | sort -u | wc -l  # 64 after the sync, 53 before it
+wc -c repo.md             # 377134 on 2026-10-26, 376464 on 10-25, 351901 from 10-13, 313714 before
+grep -o '\[TBD\]' repo.md | wc -l                 # 17, matching the site since the 10-25 sync
+grep -oE 'D-0[0-9]{3}' repo.md | sort -u | wc -l  # 64 after that sync, 53 before it
+grep -o 'flop-core@[0-9a-f]*' repo.md | head -1   # dfd98a59d on 10-26, 4e2b00890 on 10-25
 sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' repo.md > repo.txt   # links and code marks out,
 grep -c 'remain open in E.38' repo.txt            # underscores left alone -- 1, not the raw 0
 ```

@@ -13,6 +13,53 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🚀 **2026-10-26 追記 — ①公開 Devnet が「数日以内」に開く ②エージェントの解禁ルールが公式文書で確定 ③公式パッケージ名が公開されたが、まだ存在しない。**
+>
+> **① Devnet 開放の告知**（[Hayes status 2114617436398100654](https://x.com/CryptoHayes/status/2114617436398100654)、10-26 07:17:39 UTC。@flop_labs も 08:02 に引用）:
+>
+> > In the coming days @flop_labs will open up Devnet for anyone to join as a miner or validator
+> > and for agents to connect to the network. Participation does not count toward any token
+> > allocation. The point of Devnet is to do some public tests before we graduate to Testnet /
+> > airdrop
+>
+> **エージェントが名指しで招かれたのは初めてです。** ただし運営自身が
+> 「**Participation does not count toward any token allocation**」と書いています。
+> **＝ Devnet に参加してもエアドロの加点はゼロ。** テストネット（11/03 目標、status は今も
+> `planned`）が始まるまで Jack の手順は変わりません: **`init` までで十分。**
+>
+> **② エージェントの解禁ルールが「未定」ではなくなりました。** 公式ドキュメント4か所
+> （`/docs/airdrop-and-testnet-conversion`・`/docs/agent-integration`・`/llms.txt`・ティザー）が
+> 同じ日に「**the release schedule is not yet set**」を削除し、こう書き換えました:
+>
+> > **Every 3 FLOP of locked airdrop spent on inference unlocks 1 FLOP.**
+>
+> これは Yellow Paper R8.7 が 10-05 に批准した内容そのもので、**我々の計算（3使って1解禁）は
+> 公式の要約でも裏づけられました。** ただし実装はまだで、同じページが
+> 「the runtime still vests every grant on a 90-day linear curve」と明記、Yellow Paper 側も
+> その 90 日曲線を「**governing no ratified grant tier**」と書き換えています。
+>
+> **③ 🛡 今日の最大の警告 — 公式パッケージ名が公開されたのに、npm にまだ存在しません。**
+> 10-26 の新ページ `/docs/upgrade` が `@flop-labs/sdk@0.4.0` / `@flop-labs/cli@0.4.0` /
+> `@flop-labs/pi@0.3.1` / `@flop-labs/client@0.2.1` / `@flop-labs/contracts@0.1.1` を列挙し、
+> 運営自身がこう断っています:
+>
+> > Package versions below are prepared for publication after review and merge. Their presence
+> > in this guide does not mean they are available on npm or PyPI. Obtain the release operator's
+> > publication receipt before installing.
+>
+> **実測（10-26、registry.npmjs.org）: 上記5つと `@flop-labs/tclk-flop` は全部 404。**
+> `@flop-labs` スコープ自体が未取得です。→ **今 `npm i @flop-labs/sdk@0.4.0` が通ったら、それは
+> 運営のものではありません。** 名前だけ先に公開されて中身がない期間は、第三者が同名を
+> 先取りできる最も危険な窓です。**公表受領証（publication receipt）が出るまで入れないこと。**
+> なお同ページは「**The source repository is private**」とも書いており、
+> **公開ノードリポジトリは今後も出ない見込み**（運営から bundle を受け取る方式）。
+>
+> **④ 細かいがお金の話**: セッションを中途半端に閉じると**未使用エスクローの 20% は戻りません**
+> （`refund_penalty_phi_percent` = 20%）。仕様は「Foundation へ全額送る・burn はしない」に
+> 変わりましたが、§13 の実装状況は `LIVE` → **`PARTIAL`** に下がり、
+> 「the runtime still burns the φ·(E−P) leg」と明記されています。
+> **エスクローはセッションの上限ではなく実際の作業量に合わせること。**
+
 > 🎣 **2026-10-25 追記 — 紹介（リファラル／KOL）プログラムは実在するが、受付はまだ開いていません。**
 > 公開文書を読み直したところ、創設プール 44 億 FLOP のうち 8 億 FLOP（`genesis_reserve`）は
 > **紹介報酬・クリエイター報酬の原資**だと明記されていました。仕組みはリーダーボード＋抽選で、
@@ -385,7 +432,7 @@ python technocore_agent.py verify-proof contribution-proof.json                 
 - **仕様書（定義上の一次情報）**: https://flop.finance/intro/yellowpaper/ — Yellow Paper v0.5.0 (draft)。**版表記は 2026-09-24 のままだが本文は 2026-10-05 に変わった**（バイト数と `[TBD]` 件数で検知）
 - **エアドロップ条件**: https://flop.finance/airdrop/ — 2026-10-05 新設（配分・スナップショット・解禁表）
 - **テストネット**: https://flop.finance/testnet/ — 2026-10-05 新設（日程・計上対象・公平性4規則・参加方法）
-- Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, 2026-09-30)。**エージェント段落は古い**（「not yet set」のまま）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
+- Project intro（旧ティザー）: https://flop.finance/teaser/ — v0.1 (draft, **2026-10-26 更新**)。**2026-10-26 にエージェント段落が修正され、Yellow Paper との食い違いは解消**（旧: 「the schedule on which it becomes liquid is not yet set」→ 新: 「every 3 $FLOP of it spent on inference unlocks 1 $FLOP」）。ティザー自身が「Definitive spec は Yellow Paper」と明記しており、食い違う場合は Yellow Paper が優先
 - 上記2文書の読み解きと算数: [docs/AGENT-AIRDROP-MATH.md](docs/AGENT-AIRDROP-MATH.md)
 - サーバー実装: https://github.com/flop-labs/technocore-chat （署名仕様は `src/didkey.py`, `scripts/sign.py`）
 - **公式リンク一覧（2026-10-23 新設・迷ったらここ）**: https://flop.finance/official/ —
