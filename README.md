@@ -13,6 +13,41 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📦 **2026-10-29 追記 — 公式パッケージが npm に出ました。ただし運営が指定した確認手段はまだ揃っていません。**
+> 10/26 に名前だけ公開されて 404 だった5つが、**10-29 04:00:46〜04:03:01 UTC に依存順で一斉に publish**
+> されました: `@flop-labs/contracts@0.1.1` → `client@0.2.1` → `pi@0.3.1` → `sdk@0.4.0` → `cli@0.4.0`。
+> **版は文書の RC と完全一致**、`repository` は `github.com/flop-labs/flop-core`、maintainer は
+> `svidyuk` 1名、ライセンスは `MIT OR Apache-2.0`、各パッケージに `0.0.0-stage` の兄弟版あり。
+> **install 時に走るスクリプト（preinstall/postinstall）はどれにも入っていません。**
+> → **状況証拠は「運営本人のリリース」を強く支持します。**
+>
+> **それでも今は入れないでください。理由は運営自身の指示です。** `/docs/upgrade` は今日も不変で:
+>
+> > Their presence in this guide does not mean they are available on npm or PyPI. Obtain the
+> > release operator's publication receipt before installing.
+>
+> **その receipt がまだ出ていません。** さらに公式リンク一覧（https://flop.finance/official/ 、
+> 10-23 更新のまま）に載っている窓口は X / YouTube / TikTok / `github.com/flop-labs` /
+> `flop.finance` / `ask.flop.finance` / `docs.flop.network` / `flop.network` の8つで、
+> **npm は1つも載っておらず「npm」という語自体ページに出てきません。** `svidyuk` が FLOP Labs の
+> アカウントだと示す公開情報もなく、`flop-core` は公開リポジトリ一覧に存在しません（source は private）。
+> **＝ 本物だと思える根拠はあるが、運営が「これで確認せよ」と言った手段では確認できていない状態。**
+>
+> **Jack の待ち受け条件（どれか1つで良い）**: ①`/docs/upgrade` から上の一文が消える
+> ②`/official/` に npm スコープが載る ③@flop_labs（＝公式が「the primary channel」と呼ぶ窓口）が告知する。
+> **それまで `npm i @flop-labs/...` は打たない。** こちらで毎日 404→200 と maintainer を見ています。
+>
+> **もう一点、日程の話**: 10-29 に両アカウントが Devnet について投稿しました
+> （[Hayes 2115701380862418982](https://x.com/CryptoHayes/status/2115701380862418982) 07:04:51 /
+> [@flop_labs 2115716360332542014](https://x.com/flop_labs/status/2115716360332542014) 08:04:23）:
+>
+> > Devnet participation instructions will be made available by early next week. stay tuned...
+>
+> **「来週前半」はテストネット目標の 11-03（火）と同じ週です。** 公式文書はテストネット目標を
+> 「devnet の onboarding 完了で確定する」と書いているので、**11-03 は「目標日であって確定日ではない」**
+> という元の表現どおりに読むのが安全です。testnet の1語 status は今日も `planned` のまま。
+> **Jack の手順は変わりません（`init` まで。Devnet は加点ゼロ）。**
+
 > 🚀 **2026-10-26 追記 — ①公開 Devnet が「数日以内」に開く ②エージェントの解禁ルールが公式文書で確定 ③公式パッケージ名が公開されたが、まだ存在しない。**
 >
 > **① Devnet 開放の告知**（[Hayes status 2114617436398100654](https://x.com/CryptoHayes/status/2114617436398100654)、10-26 07:17:39 UTC。@flop_labs も 08:02 に引用）:

@@ -801,6 +801,75 @@ repository-only yesterday. The mirror and the site agree again, in both directio
 mirror's source commit moved from `flop-core@4e2b00890` to `flop-core@dfd98a59d` on the same
 day.
 
+## The packages exist now, and the operator's own check for them does not
+
+Three days ago this file recorded that the release guide named five npm packages and that every
+one of them returned 404. On **2026-10-29 between 04:00:46 and 04:03:01 UTC** all five appeared
+on the public registry, in dependency order:
+
+| package | version | first published (UTC) |
+| --- | --- | ---: |
+| `@flop-labs/contracts` | 0.1.1 | 04:00:46 |
+| `@flop-labs/client` | 0.2.1 | 04:00:48 |
+| `@flop-labs/pi` | 0.3.1 | 04:00:56 |
+| `@flop-labs/cli` | 0.4.0 | 04:00:59 |
+| `@flop-labs/sdk` | 0.4.0 | 04:00:53 |
+
+Every version matches the release candidate exactly. `@flop-labs/tclk-flop`, the FLOP settlement
+rail still sitting in `tclk`'s `[Unreleased]`, is **not** among them and still returns 404.
+
+**What the metadata supports.** All five declare
+`repository: git+https://github.com/flop-labs/flop-core.git`, carry one maintainer
+(`svidyuk`), are licensed `MIT OR Apache-2.0`, depend on each other in the order they were
+published, and each has a sibling `0.0.0-stage` version — the fingerprint of a release pipeline
+rather than a hand-made squat. None of the five declares an install-time script: the `scripts`
+blocks hold only `build`, `test`, `typecheck` and similar, and npm does not run those on
+install. On that evidence this is the operator shipping its own code.
+
+**What nothing supports.** The guide that named these packages has not changed. As of today it
+still reads:
+
+> Their presence in this guide does not mean they are available on npm or PyPI. Obtain the
+> release operator's publication receipt before installing.
+
+There is no publication receipt. The official-links page, which exists precisely to answer "is
+this real", was last updated 2026-10-23 and lists eight surfaces — X, YouTube, TikTok,
+`github.com/flop-labs`, `flop.finance`, `ask.flop.finance`, `docs.flop.network` and
+`flop.network`. **npm is not one of them, and no package namespace appears on it at all.** The
+word `npm` does not occur on that page. Nothing published anywhere ties the npm account
+`svidyuk` to FLOP Labs, and `flop-core` — the repository the packages name as their source — is
+not in the organisation's public listing, which has held at the same seven repositories since
+11 September. The one provenance field a reader would reach for cannot be opened.
+
+So the honest position is narrow and worth stating exactly, because it is the position the
+operator asked readers to take: **the packages are almost certainly the real release, and the
+operator's own stated way of confirming that has not been satisfied.** The thing to wait for is
+cheap and specific — the upgrade page dropping that sentence, the npm scope appearing on the
+official-links page, or an announcement from the X account the same page calls "the primary
+channel". Until one of those lands, `npm i @flop-labs/sdk` is a decision taken on inference.
+
+### "By early next week", which is also testnet week
+
+The same day, both accounts posted about the public devnet. Hayes, at 07:04:51 UTC:
+
+> The @flop_labs Devnet will be opening to the public in days.
+
+And an hour later, from `@flop_labs`:
+
+> Devnet participation instructions will be made available by early next week. stay tuned...
+
+Put that beside the published timeline and the arithmetic is uncomfortable rather than alarming.
+The testnet working target is **Tuesday 3 November** — early next week. The corpus says the
+target "will be confirmed as devnet onboarding completes". So the instructions for the devnet
+that gates the testnet are now due in the same few days as the testnet itself, and the one-word
+status at `/docs/network-testnet` still reads `planned`, as it has every day since 20 October.
+
+Nothing in that changes what this file computes, and nothing in it changes what a participant
+should do: the devnet earns nothing, by the operator's own statement, and the airdrop begins at
+testnet. It does mean the 3 November target should be read as what the corpus calls it — "a
+target rather than a fixed date" — and that the status word, not the calendar, remains the thing
+to watch.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -989,7 +1058,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All fifty-nine block quotes above are verbatim from the six pages in the header, the
+All sixty-two block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
