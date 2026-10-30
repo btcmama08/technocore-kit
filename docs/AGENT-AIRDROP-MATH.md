@@ -201,7 +201,7 @@ the agent leg did not.
 > **R8.4 — Conversion eligibility.** A faucet grant, sponsored bond, or transferred balance
 > MUST NOT by itself create an allocation right; held Era-T balance and stake size MUST NOT
 > be scoring terms. Agent scoring MUST derive from settled compute-channel spend and Miner
-> scoring from PoUI-verified effective-FLOP served; **completed job count and active days
+> scoring from PoI-verified effective-FLOP served; **completed job count and active days
 > MUST NOT be scoring terms.** A fraud-flagged account MUST receive zero allocation unless
 > its flag is overturned before the genesis specification is locked; it MUST NOT receive
 > partial credit while flagged.
@@ -714,9 +714,19 @@ still 3 November and whose one-word status is still `planned`.
 The same day, the corpus gained a thirty-seventh page: an upgrade guide for miners, validators,
 SDKs and agents, headed
 
-> **Release candidate, 26 October 2026.** Package versions below are prepared for publication
-> after review and merge. Their presence in this guide does not mean they are available on npm
-> or PyPI. Obtain the release operator's publication receipt before installing.
+> **Release candidate, 26 October 2026.** The five JavaScript packages below were published to
+> npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
+> registry configuration.
+
+> The other versions below are prepared for publication after review and merge; their presence
+> in this guide does not mean they are published.
+
+That is the 2026-10-30 wording. Until that day the same paragraph read "Package versions below
+are prepared for publication after review and merge. Their presence in this guide does not mean
+they are available on npm or PyPI. Obtain the release operator's publication receipt before
+installing." — and the receipt requirement now applies only to what is still unpublished:
+
+> Obtain the release operator's publication receipt before installing those.
 
 It names `@flop-labs/contracts@0.1.1`, `@flop-labs/client@0.2.1`, `@flop-labs/sdk@0.4.0`,
 `@flop-labs/pi@0.3.1`, `@flop-labs/cli@0.4.0` and a Python `flop-sdk` at source version 0.2.0,
@@ -826,27 +836,43 @@ rather than a hand-made squat. None of the five declares an install-time script:
 blocks hold only `build`, `test`, `typecheck` and similar, and npm does not run those on
 install. On that evidence this is the operator shipping its own code.
 
-**What nothing supports.** The guide that named these packages has not changed. As of today it
-still reads:
+**What nothing supported, on the day the packages appeared.** The guide that named them had not
+changed: through 2026-10-29 it still said that their presence in the guide "does not mean they
+are available on npm or PyPI" and to "obtain the release operator's publication receipt before
+installing". That wording was replaced the next day — see below — so it is quoted here inline
+rather than as a live block quote.
 
-> Their presence in this guide does not mean they are available on npm or PyPI. Obtain the
-> release operator's publication receipt before installing.
+**The gap this file recorded on 2026-10-29 lasted one day.** That revision said the packages
+were almost certainly real but that the operator's own way of confirming them had not been
+satisfied — no receipt, and npm absent from the official-links page — and concluded that
+installing was "a decision taken on inference". The first of the three wait conditions landed on
+2026-10-30: the upgrade page was rewritten to state the publication itself, and the corpus
+gained a thirty-eighth page whose whole job is to list the published packages.
 
-There is no publication receipt. The official-links page, which exists precisely to answer "is
-this real", was last updated 2026-10-23 and lists eight surfaces — X, YouTube, TikTok,
-`github.com/flop-labs`, `flop.finance`, `ask.flop.finance`, `docs.flop.network` and
-`flop.network`. **npm is not one of them, and no package namespace appears on it at all.** The
-word `npm` does not occur on that page. Nothing published anywhere ties the npm account
-`svidyuk` to FLOP Labs, and `flop-core` — the repository the packages name as their source — is
-not in the organisation's public listing, which has held at the same seven repositories since
-11 September. The one provenance field a reader would reach for cannot be opened.
+> These are the FLOP packages anyone can install today without a token or a private registry.
+> Each name links to its registry page, which carries the full reference README for the
+> published version. Versions below are the current releases as of 2026-10-30; the registry is
+> authoritative if they differ.
 
-So the honest position is narrow and worth stating exactly, because it is the position the
-operator asked readers to take: **the packages are almost certainly the real release, and the
-operator's own stated way of confirming that has not been satisfied.** The thing to wait for is
-cheap and specific — the upgrade page dropping that sentence, the npm scope appearing on the
-official-links page, or an announcement from the X account the same page calls "the primary
-channel". Until one of those lands, `npm i @flop-labs/sdk` is a decision taken on inference.
+It lists the same five at the same versions this watch measured on the registry, plus
+`flop-sdk` **0.2.0** on PyPI — whose metadata gives `FLOP Network <dev@flop.network>`, an
+address on one of the four domains the official-links page names, and an upload time of
+2026-10-29T05:27:41Z, an hour and a half after the npm batch. That is the first tie between a
+published artefact and FLOP's own namespace that does not depend on reading the package's own
+`repository` field.
+
+The same page carries the sentence worth pinning to a wall, because it converts a guess into a
+list:
+
+> FLOP has not published Rust crates, a Go module, or the agent SDK, gateway core, x402 types
+> or Hermes plugin packages. A package with one of those names on a public registry is not
+> FLOP's.
+
+Two caveats survive. The maintainer account is still `svidyuk` on all five npm packages and
+still appears in no primary source; what changed is that the operator now vouches for the
+packages, not for the account. And `flop.network/releases.json`, named on the new page as the
+way to get a reproducible digest pin for the container image, still returns CONNECT 403 to this
+session, so the image pins remain unverifiable from here.
 
 ### "By early next week", which is also testnet week
 
@@ -869,6 +895,84 @@ should do: the devnet earns nothing, by the operator's own statement, and the ai
 testnet. It does mean the 3 November target should be read as what the corpus calls it — "a
 target rather than a fixed date" — and that the status word, not the calendar, remains the thing
 to watch.
+
+## The word "useful" came out of the name
+
+On 2026-10-30 every published surface stopped calling the mechanism proof of **useful**
+inference. The Yellow Paper went from 39 occurrences of `PoUI` to zero and 39 of `PoI`; the
+whitepaper and the project intro went 3 → 0 each; the corpus went 13 → 2, and its 16 instances
+of the phrase "useful inference" went to zero. The glossary entry was rewritten with it:
+
+> PoI — Proof of inference; the verification stack that establishes a miner performed the
+> requested inference on the requested model.
+
+This is a naming sweep, and the lesson of the 2026-10-20 sweep applies again: **it landed
+inside a sentence this file quotes.** R8.4, the rule that decides what counts toward an
+allocation, now reads "Miner scoring from `PoI`-verified effective-FLOP served" where it read
+`PoUI`-verified the day before. Every other clause of R8.4 is identical, word for word — the
+faucet-grant exclusion, the ban on balance and stake as scoring terms, the agent leg deriving
+from settled compute-channel spend, the fraud-flag rule. **Nothing about eligibility changed.**
+The quote check is what surfaced it; a byte count would have called the day quiet on a page
+that grew by 17 KB for unrelated reasons.
+
+Whether dropping "useful" means anything is not something this file can measure, and it is
+worth resisting the urge to read intent into a find-and-replace. What can be said is narrow:
+the claim that the inference is *useful* was load-bearing in the project's own rhetoric, it is
+no longer in the name of the mechanism, and the same revision added a section about selling
+compute forward to venues.
+
+### A market for compute entered the normative spec
+
+That section is new and large: **§12.5, FLOP Compute Unit (FCU)**, with six normative rules and
+a new open item. The Compute Reservation Unit the whitepaper described has been renamed —
+
+> FCU is the current name for the Capacity/Compute Reservation Unit (FCU) ratified in D-0434;
+> this rename preserves the existing contract terms.
+
+— and the mechanics are now specified rather than sketched. An FCU denominates 1,000,000 integer
+G_n under a pinned meter, with accounting to 0.000001 FCU. Positions launch bilaterally and may
+then be shared by at most ten holders with a minimum lot of a tenth. Resale pays the selling
+holder, must not repeat the provider's original payment, and binds a non-reusable identifier
+plus a delivered-work snapshot. New primary offers must support fourteen UTC-calendar start
+dates, D+1 through D+14 at 12:00 UTC, with D+7 the default. Four decisions arrived with it:
+**D-0534** (representation and payment), **D-0535** (`content-v1` model identity from published
+per-file SHA-256), **D-0536** (booking horizon and retained activation gates) and **D-0537**
+(pause semantics and indexed events).
+
+The whitepaper's version of the section now argues a regulatory position in public, citing
+specific comment letters by docket number — OneChronos at CFTC-2026-1850-0068, Hyperbolic at
+-0050, ACU Markets 0011 and DNA Compute 0094, plus comments 0021, 0049 and 0045 — and a NYMEX
+submission, 26-370, for a 730-GPU-hour contract month. It states what it is reaching for:
+
+> The intended classification is a bonded, prepaid, physically redeemed forward with intent to
+> deliver, whose units are transferable claims on that delivery.
+
+and immediately disclaims it:
+
+> These submissions corroborate the design intent; this description is not a regulatory
+> determination or legal advice.
+
+It also draws a boundary this file had not seen stated: **"Scope — FCUs cover inference only."**
+Training capacity is excluded, on the argument that a contiguous cluster is worth more than the
+same GPUs scattered and that "no flat unit prices its topology".
+
+**None of this touches the airdrop, and the spec says so in two places.** The count of the word
+`airdrop` in the Yellow Paper is 40, the same as yesterday. D-0537's rule is explicit that
+existing "transfers/resales, cancellation, settlement, refunds, distribution claims and bond
+release MUST retain their existing rules", and that "Unpause MUST NOT bypass any other
+activation or eligibility gate". And the product is not switched on: R12.5e says the ownership
+and payment rules "MUST NOT authorize standardized-object activation before that profile is
+complete", and that profile is the new open item:
+
+> **E.58 — FCU executable object profile [RATIFY]**. Fixed object inputs: 1 FCU = 1,000,000 G_n
+> under a pinned meter; purchaser-selected supported model; maximum 1,000 ms completion after
+> miner acceptance of an eligible chunk; default D+7 noon UTC start with an explicit end
+
+So the `[RATIFY]` count went from 6 to 7 — the first time an open item has been *added* since
+this watch began, and Appendix E grew from 32 items to 33. Read it as what it is: four days
+before the testnet target, the open-items list got longer rather than shorter, and the item
+that got added is about selling compute forward, not about the airdrop. E.38 is still
+`[RATIFY]`, `[TBD]` is still 17, and E.40's agent leg is still unassigned.
 
 ## What is still open
 
@@ -1058,7 +1162,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All sixty-two block quotes above are verbatim from the six pages in the header, the
+All seventy block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
@@ -1157,6 +1261,13 @@ in `<code>`, so a naive strip yields `settle , by certificate_settle , or` and s
 would recognise. Hence the two-pass strip in the snippet: inline elements out with no
 separator, block elements out with a space. Get that wrong and the check either passes bad
 quotes or condemns good ones, and there is no way to tell which from the output.
+
+**A rename lands inside the sentences you quote.** On 2026-10-20 "Flop" became "FLOP" across
+six pages; on 2026-10-30 "proof of useful inference" and `PoUI` became "proof of inference" and
+`PoI` across every page and the corpus, and that one reached into R8.4, the eligibility rule
+quoted above. Both times the grep-back check named the sentence and a size comparison would not
+have: the 10-20 sweep was byte-identical and the 10-30 revision changed 17 KB for unrelated
+reasons. Run the quote check before reading the diff, not after.
 
 **A diff reports what moved, never what you missed.** The `ask.flop.finance` corpus carried
 the referral programme — its funding out of `genesis_reserve`, its leaderboard, its lottery and

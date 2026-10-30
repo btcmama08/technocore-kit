@@ -13,6 +13,46 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> ✅ **2026-10-30 追記 — 昨日の「まだ入れないで」は撤回します。運営が公開を明記しました。**
+> 昨日この欄に「receipt が出るまで `npm i @flop-labs/...` は打たない」と書きました。
+> **その条件は 10-30 に満たされました。** `/docs/upgrade` が書き換わり:
+>
+> > **Release candidate, 26 October 2026.** The five JavaScript packages below were published to
+> > npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
+> > registry configuration.
+>
+> さらに**新ページ `/docs/sdk-references`（38ページ目）**ができ、こう始まります:
+>
+> > These are the FLOP packages anyone can install today without a token or a private registry.
+>
+> **receipt が要るのは「まだ publish されていない残り」だけ**になりました
+> （「Obtain the release operator's publication receipt before installing **those**」）。
+> PyPI 側の `flop-sdk` 0.2.0 は連絡先が **`FLOP Network <dev@flop.network>`**（公式ドメイン）で、
+> 10-29 05:27:41Z アップロード。**パッケージ自身の申告以外で初めて公式名前空間と結びつきました。**
+>
+> **🛡 そしてこのページには、Jack がいちばん欲しかった「偽物リスト」が書いてあります:**
+>
+> > FLOP has not published Rust crates, a Go module, or the agent SDK, gateway core, x402 types
+> > or Hermes plugin packages. A package with one of those names on a public registry is not
+> > FLOP's.
+>
+> **＝ 公式は npm の5つ（`@flop-labs/client` 0.2.1 / `contracts` 0.1.1 / `sdk` 0.4.0 /
+> `pi` 0.3.1 / `cli` 0.4.0）と PyPI の `flop-sdk` 0.2.0 だけ。それ以外の名前は全部偽物です。**
+> CLI はグローバルに入れずに `npx --yes --package @flop-labs/cli@0.4.0 flop --version` で版を固定。
+> **残る注意2点**: ①npm の maintainer は今も `svidyuk` 1名で、この**アカウント自体**を公式と示す
+> 公開情報はありません（運営が保証したのは**パッケージ**です）②コンテナ image の digest 固定に使う
+> `flop.network/releases.json` はこちらから 403 のままで**検証できません**。
+>
+> **📐 同日、仕様にも大きな追加がありました（エアドロには影響なし）。**
+> 「proof of **useful** inference / PoUI」という呼称が**全ページから消え**「proof of inference / PoI」に
+> 統一されました（Yellow Paper 39→0、コーパスの "useful inference" 16→0）。**この置換は
+> エアドロの資格規則 R8.4 の文中でも起きています**が、`PoUI`→`PoI` 以外は一字も変わっていません。
+> また **§12.5「FLOP Compute Unit (FCU)」**という新しい規範セクション（旧 CRU の改称＋詳細化）と、
+> 新しい未決項目 **E.58 `[RATIFY]`** が追加されました（`[RATIFY]` が 6→7、Appendix E が 32→33 項目）。
+> **エアドロ側は無傷**で、D-0537 が「distribution claims and bond release MUST retain their existing
+> rules」と明記し、R12.5e は E.58 が固まるまで FCU を有効化してはならないとしています。
+> **Jack の手順は変わりません（`init` まで。Devnet は加点ゼロ、testnet status は今も `planned`）。**
+
 > 📦 **2026-10-29 追記 — 公式パッケージが npm に出ました。ただし運営が指定した確認手段はまだ揃っていません。**
 > 10/26 に名前だけ公開されて 404 だった5つが、**10-29 04:00:46〜04:03:01 UTC に依存順で一斉に publish**
 > されました: `@flop-labs/contracts@0.1.1` → `client@0.2.1` → `pi@0.3.1` → `sdk@0.4.0` → `cli@0.4.0`。
@@ -21,12 +61,12 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **install 時に走るスクリプト（preinstall/postinstall）はどれにも入っていません。**
 > → **状況証拠は「運営本人のリリース」を強く支持します。**
 >
-> **それでも今は入れないでください。理由は運営自身の指示です。** `/docs/upgrade` は今日も不変で:
->
-> > Their presence in this guide does not mean they are available on npm or PyPI. Obtain the
-> > release operator's publication receipt before installing.
->
-> **その receipt がまだ出ていません。** さらに公式リンク一覧（https://flop.finance/official/ 、
+> **それでも今は入れないでください。理由は運営自身の指示です。** `/docs/upgrade` は今日も不変で、
+> 「their presence in this guide does not mean they are available on npm or PyPI」「obtain the
+> release operator's publication receipt before installing」と書かれています
+> （**この文面は 10-30 に差し替えられたため、ここでは引用符ではなく地の文で記録します**。
+> 最新の文面は上の 10-30 の箱を参照）。
+> **その時点では receipt がまだ出ていませんでした。** さらに公式リンク一覧（https://flop.finance/official/ 、
 > 10-23 更新のまま）に載っている窓口は X / YouTube / TikTok / `github.com/flop-labs` /
 > `flop.finance` / `ask.flop.finance` / `docs.flop.network` / `flop.network` の8つで、
 > **npm は1つも載っておらず「npm」という語自体ページに出てきません。** `svidyuk` が FLOP Labs の
@@ -76,11 +116,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **③ 🛡 今日の最大の警告 — 公式パッケージ名が公開されたのに、npm にまだ存在しません。**
 > 10-26 の新ページ `/docs/upgrade` が `@flop-labs/sdk@0.4.0` / `@flop-labs/cli@0.4.0` /
 > `@flop-labs/pi@0.3.1` / `@flop-labs/client@0.2.1` / `@flop-labs/contracts@0.1.1` を列挙し、
-> 運営自身がこう断っています:
->
-> > Package versions below are prepared for publication after review and merge. Their presence
-> > in this guide does not mean they are available on npm or PyPI. Obtain the release operator's
-> > publication receipt before installing.
+> 運営自身が「package versions below are prepared for publication after review and merge」
+> 「their presence in this guide does not mean they are available on npm or PyPI」
+> 「obtain the release operator's publication receipt before installing」と断っていました
+> （**10-30 に差し替え済みの文面。引用符ではなく地の文で記録**）。
 >
 > **実測（10-26、registry.npmjs.org）: 上記5つと `@flop-labs/tclk-flop` は全部 404。**
 > `@flop-labs` スコープ自体が未取得です。→ **今 `npm i @flop-labs/sdk@0.4.0` が通ったら、それは
