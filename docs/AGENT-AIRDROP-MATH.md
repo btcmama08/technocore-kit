@@ -974,6 +974,57 @@ before the testnet target, the open-items list got longer rather than shorter, a
 that got added is about selling compute forward, not about the airdrop. E.38 is still
 `[RATIFY]`, `[TBD]` is still 17, and E.40's agent leg is still unassigned.
 
+## Somewhere to file the objection
+
+The organisation's public repository listing had held at seven since 11 September, and this file
+recorded on 2026-10-26 that an eighth — a node — should not be expected, because the release
+guide says the source is private. On **2026-10-30** an eighth appeared, named `network`, and it is
+not the node. It is the intake desk:
+
+> The public intake for the **running** FLOP Network: bugs in nodes you operate, protocol
+> behaviour that contradicts the spec, gateway problems, docs gaps, and feature requests. The
+> code lives elsewhere; this repository holds the issues and the triage process.
+
+So the private-source conclusion stands. What changed is that there is now a published place to
+take a disagreement, with five templates (node bug, protocol behaviour, gateway, docs, feature
+request), a triage ladder that starts every issue at `status:triage`, and a stale policy of
+fourteen days plus seven. Two of its sentences are worth keeping for separate reasons.
+
+The first draws a line this file has been drawing by hand:
+
+> The gateway is a convenience service run by FLOP Labs, not part of the protocol. A gateway
+> outage is not a network failure, and reports about it are kept separate on purpose.
+
+The second is the one that matters for a document like this one. `SECURITY.md` sorts findings into
+private and public, and the public side is named explicitly:
+
+> Open a public issue instead when the finding is "this does not work well" rather than "this can
+> be exploited": a crash with no attacker benefit, a bound you think is loose, an incentive you
+> find unconvincing.
+
+**"An incentive you find unconvincing" is the category this file has been filling for six weeks.**
+The self-dealing arithmetic in E.38's own residual-risk note, E.49's admission that "no runtime
+common-control rule binds either", the agent leg of E.40 accruing to a pool nobody can draw from,
+the ninety-day vesting curve that governs no ratified tier — none of those is an exploit, and
+until 30 October there was nowhere official to put them. There is now, and the operator asked for
+them in writing.
+
+What belongs on the private side is worth reading beside §9 of this file, because it is the
+operator's own list of what it thinks can go wrong, and metering is on it:
+
+> **Metering** — inflating effective FLOP or rewards, under-reporting work.
+
+Private reports go through a GitHub security advisory or to `security@flop.finance`, the one
+address the official-links page publishes, and the policy asks for "the network (devnet or
+testnet), the release, commit or image digest you ran, and a concrete attack: who deviates, what
+it costs them, and what they gain."
+
+One absence is worth recording. The five templates cover miners, validators, the gateway, the
+docs and feature requests. **There is no agent template**, and the node-bug form's required
+"Role" field exists to distinguish a miner from a validator. The intake assumes the people
+running hardware, which is consistent with everything else: the agent path is specified, the
+operator path is the one being onboarded.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1162,7 +1213,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All seventy block quotes above are verbatim from the six pages in the header, the
+All seventy-four block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:

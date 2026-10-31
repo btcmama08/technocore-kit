@@ -13,6 +13,39 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🗳 **2026-10-31 追記 — 公開リポジトリが8個目に増えました。ノードのソースではなく「受付窓口」です。**
+> 9/11 以来7個で止まっていた `github.com/flop-labs` に **`network`** が増えました（10-30 更新）。
+> 中身はコードではなく**稼働中ネットワークの不具合受付**です:
+>
+> > The public intake for the **running** FLOP Network: bugs in nodes you operate, protocol
+> > behaviour that contradicts the spec, gateway problems, docs gaps, and feature requests. The
+> > code lives elsewhere; this repository holds the issues and the triage process.
+>
+> **＝「ソースは非公開」という以前の結論は変わりません。** テンプレは5種（node bug / protocol /
+> gateway / docs / feature）、**エージェント用テンプレは無く**、node-bug の必須項目「Role」は
+> miner と validator を区別するためのものです。**運営がいま onboarding しているのは運用者側**という
+> 読みと一致します。
+>
+> **Jack に直接関係する2点:**
+> ① **脆弱性は公開 issue に書かない。** `SECURITY.md` が「Do not open a public issue for a
+> vulnerability.」と明記し、private advisory か **`security@flop.finance`**（公式リンク一覧と同じ唯一の
+> アドレス）に送れ、としています。非公開対象は検証バイパス・slash 回避・**metering（報酬の過大計上）**・
+> escrow/HTLC/voucher の窃取・consensus・DA・鍵。
+> ② **逆に「経済的におかしい」という指摘は公開 issue が正しい窓口になりました:**
+>
+> > Open a public issue instead when the finding is "this does not work well" rather than "this can
+> > be exploited": a crash with no attacker benefit, a bound you think is loose, an incentive you
+> > find unconvincing.
+>
+> **我々の文書が6週間ためてきた指摘（E.49 の「no runtime common-control rule binds either」、
+> E.40 のエージェント枠が誰も引き出せないプールに積まれる話、どの枠も支配しない90日曲線など）は
+> まさにこの「an incentive you find unconvincing」です。** 出す先ができました（急ぐ必要はありません）。
+> なお「価格・トークン・上場の話はここでは扱わない（There is no FLOP price）」とも書かれています。
+>
+> **その他は全部不変**: testnet status は `planned`、8ページ・コーパス38ページ・npm/PyPI の
+> 6パッケージ（maintainer `svidyuk`・install フックなし）・`tclk` 0.1.0・contract address 0件。
+> **Jack の手順は変わりません（`init` まで）。**
+
 > ✅ **2026-10-30 追記 — 昨日の「まだ入れないで」は撤回します。運営が公開を明記しました。**
 > 昨日この欄に「receipt が出るまで `npm i @flop-labs/...` は打たない」と書きました。
 > **その条件は 10-30 に満たされました。** `/docs/upgrade` が書き換わり:
