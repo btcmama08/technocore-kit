@@ -1025,6 +1025,161 @@ docs and feature requests. **There is no agent template**, and the node-bug form
 running hardware, which is consistent with everything else: the agent path is specified, the
 operator path is the one being onboarded.
 
+## The target date arrived, and what opened was the other network
+
+Two things happened on 2026-11-03, and the gap between them is the whole finding.
+
+The operator announced that the devnet is open. `@flop_labs`, 08:43:33 UTC
+([2117538159735259565](https://x.com/flop_labs/status/2117538159735259565)):
+
+> Devnet is now open to public
+
+Forty minutes earlier, `@CryptoHayes`
+([2117528284061741312](https://x.com/CryptoHayes/status/2117528284061741312)) had put it in
+terms aimed squarely at the readers of this file:
+
+> Get test FLOP, explore blocks, and call verified inference from your agent
+
+Then an explorer, a faucet, an API, an MCP endpoint, `npm i @flop-labs/sdk`, docs and the ask
+site — **seven `t.co` shorteners and one npm command.** The npm command is the only item a
+reader can check from the post itself, and it checks out: `@flop-labs/sdk` 0.4.0 is on the
+published list. The seven shortened targets are not resolvable from this session, so the
+endpoints discussed below come from the documentation, not from those links.
+
+And the post ends with four sentences the operator did not have to write:
+
+> Devnet tokens have no value and earn no rewards or airdrop weight. The chain may reset.
+> There is no FLOP token yet: never share a seed phrase, and check links at
+
+**That is the operator pre-empting, in the announcement itself, every misreading this file
+would otherwise have had to warn about.** It states that the thing being opened earns no
+airdrop weight, that the chain is disposable, that the token does not exist, and that links
+need checking — on the one day of the project so far when a reader is most primed to believe
+the opposite. Credit where it is due; it also happens to be the shortest correct summary of
+what today means for an agent.
+
+A note on reading it. The body above is the long-form `NoteTweet` text, not the `full_text`
+field: X truncated that field at 272 characters, and the truncation cut the post two words into
+the SDK bullet — **everything quoted above, disclaimer included, was missing from the first
+extraction this watch made of it.** The check that caught it was grepping the saved page for
+the sentence rather than trusting the extractor's output.
+
+And the testnet did not start. The operator's own one-word status, the only machine-readable
+statement of what is running, was byte-identical to the previous eleven days on all three
+networks:
+
+| page | 2026-10-20 → 2026-11-03 |
+|---|---|
+| `ask.flop.finance/docs/network-testnet` | `Status: planned.` |
+| `ask.flop.finance/docs/network-devnet` | `Status: development.` |
+| `ask.flop.finance/docs/network-mainnet` | `Status: planned.` |
+
+2026-11-03 was the working target for testnet, named in the corpus as "the working target is
+Tuesday 3 November 2026, running about 90 days". The same sentence calls it "a target rather
+than a fixed date", so the date passing is not a broken promise; it is a schedule datum, and
+the one to carry forward is that **the 90-day testnet had not begun on the day it was meant
+to, which moves the earliest plausible genesis later by however long the slip runs.** Note
+also that `devnet` still reads `development` on the morning its operator called it open to the
+public. The status page and the announcement are not describing the same threshold, and when
+they disagree this file follows the status page.
+
+### What actually opened, and who it is for
+
+The promise being kept here is the 10-29 one — "Devnet participation instructions will be made
+available by early next week" — and it was kept in the documentation, not in the tweet. The
+`/docs/run-miner` page was rewritten on 2026-11-03: the private Tailscale tailnet that every
+earlier revision required is gone, and with it the age-encrypted auth keys, the `tag:miner`
+ACLs and the `tailscale serve` recipe. The section that was headed "Join without the tailnet
+(invite-only preview)" is now simply "Join the devnet (invite-only preview)":
+
+> From 30 October 2026 miners join the devnet over public endpoints. It is still by
+> invitation: the devnet operator approves each miner account before the sponsor stakes it.
+
+Three concrete things are now published that were previously hand-delivered. The decode policy
+is one:
+
+> Nobody sends you the decode policy. The chain stores only its hash
+
+> It runs in the `flop` CLI image, takes the published policy for your `MODEL_HASH`, hashes it
+> the way the chain does, and writes both lines only if the finalized chain allowlists that hash
+> for the model; otherwise it exits non-zero and changes nothing.
+
+That is a real improvement in the trust model and worth naming as one: the operator no longer
+has to be trusted to send the right policy, because the chain's allowlist is what the resolver
+checks against. The page says as much — "Because the hash binds the JSON, the manifest host
+needs no trust." The second is a public installer pack with a public agent skill, replacing the
+`pnpm dlx skills add` command that earlier revisions gave; the third is a published controller
+package with its own README at a versioned path, `miner-controller-0.1.228`. **All three live
+on `flop.network`, which this session still cannot reach** — so this file records that they
+are published and does not pretend to have read them.
+
+Gateway admission also stopped being a request:
+
+> Gateway admission needs no request from you: once calibration is accepted and the endpoint
+> answers the gateway's probe, the miner is listed from its signed endpoint ad. That last step
+> is not open yet
+
+That last clause is the pattern of the whole day. The same page, further up:
+
+> What works today: sponsorship, registration and calibration through the public mailbox.
+> Paid sessions are not open yet. Session evidence must reach the assigned DA providers, whose
+> public endpoints are still being opened, and gateway admission of public miners is being
+> finished. This page will say when both are live.
+
+And the intake, which is what "open to public" would normally mean, is unchanged from every
+previous revision:
+
+> Get an invitation from the devnet operator. There is no public intake path yet. (TODO:
+> FLOP has not yet published a contact for miner access requests.)
+
+So: a miner can be onboarded over the public internet instead of a private VPN, cannot yet be
+paid, and still cannot ask to be let in. "Open to public" describes the transport, not the
+admission.
+
+### For an agent, the arithmetic in this file did not move
+
+Nothing in the agent path changed on 2026-11-03. The two agent-facing corpus pages —
+"Integrating an agent with FLOP" and "Agent accounts and spend control" — are byte-identical to
+the previous day, as is every one of the eight `flop.finance` pages and the Yellow Paper. The
+rewrite touched `/docs/run-miner` and `/docs/run-validator` and nothing else in 38 pages.
+
+The reason an agent gains nothing today was already in the corpus, and it is worth quoting
+because the announcement invites the opposite reading:
+
+> On the devnet, FLOP's devnet operator provides this FLOP; the public faucet does not cover it.
+
+The published agent mechanic is to "claim testnet $FLOP from the faucet when testnet launches,
+spend it on inference in the network, and that spent balance is what converts into mainnet
+$FLOP". Testnet has not launched, so devnet spending is not that balance. The operator has now
+said this three times in three forms: on 10-29 `@CryptoHayes`
+([2115701380862418982](https://x.com/CryptoHayes/status/2115701380862418982)) wrote "Devnet
+does not count towards any airdrop"; today's announcement repeats it as "earn no rewards or
+airdrop weight"; and the corpus sentence above says the devnet faucet is not even the public
+one. An agent that goes and buys inference on the devnet today is paying for a rehearsal, and
+there is a case for rehearsing. There is no case for expecting it to score.
+
+**The action for someone holding this kit is therefore unchanged by the loudest announcement in
+six weeks: create the keypair, and wait for the one-word status to move.** Everything that
+earns anything still begins when `network-testnet` stops saying `planned`.
+
+### One more asymmetry, logged
+
+`/docs/run-validator` gained a sentence that continues the pattern §8 of this file has been
+tracking:
+
+> Devnet miners are admitted automatically too, within a cap on uncalibrated ones; testnet
+> miners still need review.
+
+Validators auto-admit within chain-backed caps; devnet miners now do too; testnet miners are
+reviewed. Agents are not mentioned, because agents are not admitted — they self-register, which
+is the one part of this system that has worked the same way since September. The same page lost
+every link into `github.com/flop-labs/flop-core` it used to carry — eight issue and pull-request
+references and two repository file paths, replaced by prose like "still in progress" and "still
+in preparation". Nobody outside could open them, so removing them costs an outside reader
+nothing, but it does remove the only published handles on that work, and this file had been
+using two of them to date the public-testnet onboarding gates. They are recorded here because
+a citation that disappears from the source does not stop having been true.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1213,7 +1368,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All seventy-four block quotes above are verbatim from the six pages in the header, the
+All eighty-five block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
@@ -1340,3 +1495,16 @@ body in the adjacent `text` field. And a fetched X page carries bytes that make 
 the file binary, which puts its warning on stderr and leaves a counting pipeline reading 0 —
 pass `-a`. That last one cost this watch a day on 2026-10-16: three posts were sitting in the
 file while the count said nothing had been fetched.
+
+*And the escaping applies to the long-form body too, which is where the important sentence
+tends to be.* On 2026-11-03 the operator's devnet announcement was a `NoteTweet`: `full_text`
+held the first 272 characters and stopped two words into a bullet, while the whole body — the
+five lines above, ending in "earn no rewards or airdrop weight" and a warning never to share a
+seed phrase — sat in the note's own `text` field. This watch's first extraction of that post
+returned the truncated copy, and the file would have reported the announcement without the
+disclaimer that is the most useful thing in it. Two compounding causes, both already named
+above: `full_text` truncates, and the check for a long-form post looked for
+`"__typename":"NoteTweet"` in its bare form while that page escapes it as
+`\"__typename\":\"NoteTweet\"`, so the detector that exists to catch truncation read zero.
+A length comparison is the cheap guard — when two copies of one post differ in length, the
+longer one is the post.

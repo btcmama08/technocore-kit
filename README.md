@@ -13,6 +13,70 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🚨 **2026-11-03 追記 — Devnet が公開されました。ただし「テストネット目標日」は過ぎて、テストネットは始まっていません。Jack の手順は変わりません。**
+> 2日沈黙していた両アカウントが動きました。@flop_labs 08:43 UTC
+> （[2117538159735259565](https://x.com/flop_labs/status/2117538159735259565)）:
+>
+> > Devnet is now open to public
+>
+> 40分前の @CryptoHayes
+> （[2117528284061741312](https://x.com/CryptoHayes/status/2117528284061741312)）が中身で、
+> Explorer / Faucet / API / MCP / SDK / Docs / Ask の**7リンク＋`npm i @flop-labs/sdk`**。
+> **リンクは全部 t.co で中身を確認できません**（この環境からは解決不能）。確認できるのは npm コマンドだけで、
+> それは公式リスト（`@flop-labs/sdk` 0.4.0）と一致します。
+>
+> **そして、その投稿の最後に運営自身がこう書いています（今日いちばん重要な一文）:**
+>
+> > Devnet tokens have no value and earn no rewards or airdrop weight. The chain may reset.
+> > There is no FLOP token yet: never share a seed phrase, and check links at
+>
+> **＝「Devnet のトークンに価値は無く、報酬もエアドロップの加点も発生しない。チェーンはリセットされうる。
+> FLOP トークンはまだ存在しない」と、開放のアナウンス自身が宣言しています。**
+> だから **Jack がやることは変わりません（`init` まで）。** Devnet で推論を買っても加点はゼロです。
+> エージェント用 faucet は**テストネットのもの**で、コーパスも明記しています:
+>
+> > On the devnet, FLOP's devnet operator provides this FLOP; the public faucet does not cover it.
+>
+> **❶ テストネットは目標日を過ぎました。** 2026-11-03（火）は約90日テストネットの作業目標日でしたが、
+> 開始判定の1語 status は**11日間同じ**です: `network-testnet` は
+>
+> > Status: planned.
+>
+> `network-devnet` は `development`、`network-mainnet` は `planned`（3ページともバイト単位で前日と同一）。
+> コーパスが「a target rather than a fixed date」と書いているので**遅延そのものは仕様違反ではありません**が、
+> **90日が今日始まらなかった分だけ genesis（Q1 2027 予定）は後ろにずれます。**
+> なお **`devnet` の status は今日も `development`** です。運営の「公開した」と status ページは
+> 同じ基準を指していません。**判定は status ページ側で行います。**
+>
+> **❷ 実際に書き換わったのは「マイナーの参加手順」です。** `/docs/run-miner` が
+> Tailscale 私設 VPN 前提から**公開エンドポイント**（`rpc.devnet.flop.network` /
+> `mailbox.devnet.flop.network` / `faucet.flop.network`）に全面改稿されました。decode policy は
+> `flop.network/releases.json` で**公開**になり（チェーンの allowlist と照合するので運営を信用する必要が無くなった＝改善）、
+> 公開インストーラ pack と公開 skill も出ました。**ただし全部 `flop.network` 上で、この環境からはまだ読めません。**
+> そして肝心なところは閉じたままです:
+>
+> > What works today: sponsorship, registration and calibration through the public mailbox.
+> > Paid sessions are not open yet.
+>
+> > Get an invitation from the devnet operator. There is no public intake path yet. (TODO:
+> > FLOP has not yet published a contact for miner access requests.)
+>
+> **＝公開されたのは「通信経路」で、「申し込み窓口」ではありません。** 招待制のままで、支払いも未開通です。
+>
+> **❸ 🛡 今日からが詐欺のピークです。** 昨日までは「公式の参加手順は存在しないので、出回っている手順は全部偽物」で
+> 判定できました。**今日からその判定は使えません**（本物が出たため）。代わりに:
+> **① 手順は https://flop.finance/official/ と https://ask.flop.finance/docs/sdk-references に
+> 載っているものだけ ② 公式アナウンスのリンクは t.co なので、短縮リンクを踏む前にドメインを確認する
+> ③ 「claim」「請求」「受け取り」を促すものは全部偽物**（運営自身が「There is no FLOP token yet」と書いています）。
+> 実際、アナウンスへの返信には既に「Can't claim sir」「Can't access the faucet tokens」が付いています
+> （第三者の投稿・未検証）。**これは偽の「claim 代行」が湧く典型的な瞬間です。**
+> **秘密鍵を使う操作は Jack の Mac でだけ。`register --yes` もクラウドからは絶対に打ちません。**
+>
+> **その他は全部不変**: Yellow Paper（抽出バイト・件数とも同一、E.38 は 6 件＝未批准、E.58 は `[RATIFY]`）、
+> flop.finance 8ページ、technocore.chat 3ファイル（`faucet`=0・`$FLOP`=0）、npm 5＋PyPI 1
+> （maintainer `svidyuk`・install フックなし・`tclk-flop` は 404）、`tclk` 0.1.0、
+> `/official/` の contract address 0件、紹介受付は未開設（`not yet live` 6件）、org は8リポジトリ。
+
 > 🗳 **2026-10-31 追記 — 公開リポジトリが8個目に増えました。ノードのソースではなく「受付窓口」です。**
 > 9/11 以来7個で止まっていた `github.com/flop-labs` に **`network`** が増えました（10-30 更新）。
 > 中身はコードではなく**稼働中ネットワークの不具合受付**です:
