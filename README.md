@@ -13,6 +13,71 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📅 **2026-11-04 追記 — 運営が「テストネット開始日は来週前半に決める」と明言。Yellow Paper は 15.9KB 動いたが、動いたのは全部 compute 先物でエアドロ側は1文字も変わっていません。**
+> **❶ 日程**: @CryptoHayes 21:08 UTC
+> （[2118088016015335862](https://x.com/CryptoHayes/status/2118088016015335862)）:
+>
+> > The @flop_labs Devnet is going well. We are ironing out some things and changing parts of the
+> > protocol. Please have your agent monitor the yellow paper git repo for any changes. We will
+> > make a determination on testnet launch date early next week.
+>
+> **＝11-03 の目標日は達成されず、開始日は「来週前半に決定」。** これが目標日以降の最初の日程発言です。
+>
+> **⚠️ ただしこの指示どおりに git リポジトリを見ると、今日の変更は見えません。**
+> `flop-labs/yellowpaper` の最新コミットは **10-26 の `56410c6`**（「sync 0.5.0 (draft) from
+> flop-core@dfd98a59」）で、ミラーの `yellowpaper.md` は **377,134 B のまま9日間不変**。
+> 一方 **公開ページ（`flop.finance/intro/yellowpaper/`）は今日 628,828 → 644,695 B に動きました。**
+> **リポジトリは非公開ソースの定期エクスポートなので遅れます。見るべきはサイト側です**（我々の監視はサイトを見ているので検知できました）。
+>
+> **❷ Yellow Paper の変更（+15.9KB）は全部 FCU（compute 先物）**: **E.58 が批准されて D-0538 になり、Appendix E は 33→32、`[RATIFY]` は 7→6。** 新規則 R12.5i〜R12.5q、新附属 F.8・G.6、新パラメータ `fcu_acceptance_budget_ms` 100ms / `fcu_accepted_chunk_max_ms` 1,000ms。
+> **ただし有効化はまだ禁止で、禁止の理由が「決定待ち」から「実装待ち」に変わっただけです:**
+>
+> > Standardized-object activation MUST remain blocked until the ratified service policy is
+> > implemented, the admitted immutable profile is pinned, the empirical economics including
+> > SLA-reserve and witness costs are calibrated, and the physical pilot is qualified.
+>
+> **エアドロ側は完全に不変**: E.38 は 6件（未批准）・E.40 は 11件・`[TBD]` は 17・`airdrop` は 40、
+> R8.7 の4フレーズも §13 の φ 行（`PARTIAL`）もバイト同一。
+> **＝目標日を過ぎた翌日に仕上がったのは「計算力を先売りする商品」で、エージェントの取り分を決める2項目は1文字も進んでいません。**
+>
+> **❸ Devnet の参加条件が3つの窓口で食い違っていたので、整理します。**
+> @flop_labs 01:09 UTC（[2117786153428701492](https://x.com/flop_labs/status/2117786153428701492)）:
+>
+> > Flop Network's Devnet is live and 100% permissionless. No application or approval, just follow
+> > the guide. It's for testing, so there are no rewards.
+>
+> 一方 `/docs/run-miner` は**前日とバイト同一**で、まだ「invite-only preview」「There is no public
+> intake path yet」と書いてあり、`devnet` の1語 status も `development` のままです。
+> **答えは3つ目の窓口にありました。** `flop-labs/network` に今日2コミット（`a31a7ac` 「add access
+> request issue form」／`e037331`「drop tailnet wording…」）が入り、issue テンプレが **5→6個**に。
+> 新しい `access.yml` の前書きが食い違いを解消します:
+>
+> > devnet miners need no request while automatic sponsorship has room
+>
+> **＝① Devnet は申請不要（ただし自動 sponsorship の枠が空いている間だけ。上限は 24時間あたり10件）**
+> **② Testnet は依然申請制**（フォームの選択肢に「testnet miner sponsor allowlist entry」がある）
+> **③ 申請窓口は「ページ」ではなく「リポジトリ」にできた**（docs 側が未更新なだけ）。
+> なお**6種のテンプレにエージェント用は依然ありません**（エージェントは admit されず自己登録）。
+> フォーム自身がこのキットと同じ注意を書いています:
+>
+> > This issue is public. Send only public values: addresses and hostnames.
+> > Never paste a seed, account.json, .env, keystore, private key, bearer or API key.
+>
+> **❹ 🛡 新しい注意点 — 公式アカウントが初めて DM を募りました:**
+>
+> > Renting 20+ GPUs? DM us for institutional data center intros.
+>
+> 通常の営業で本物でしょうが、**なりすましが最も儲かる週に「DM してこい」という導線ができた**ことになります。
+> `/official/` は「公式窓口はこのページに載っているものだけ」「FLOP never asks for a seed phrase or a
+> deposit」と書いており、**DM はそのページが保証できる窓口ではありません。** 用がある人は
+> **受信した DM からではなく `x.com/flop_labs` 本体から自分で話を始める**こと。
+>
+> **Jack の手順は変わりません（`init` まで）。Devnet は無報酬**（運営が3通りの言い方で明言済み）。
+> **その他は全部不変**: 8ページ・コーパス38ページ・technocore.chat 3ファイル（`faucet`=0）・
+> npm 5＋PyPI 1（`svidyuk`・フックなし・`tclk-flop` 404）・`tclk` 0.1.0・contract address 0件・
+> 紹介受付未開設・org 8リポジトリ。**ルーム名に `flop-airdrop` `global_testnet` が出現**（名前は作成者が
+> 自由に付ける文字列。公式とは無関係＝攻撃面⑥）。
+
 > 🚨 **2026-11-03 追記 — Devnet が公開されました。ただし「テストネット目標日」は過ぎて、テストネットは始まっていません。Jack の手順は変わりません。**
 > 2日沈黙していた両アカウントが動きました。@flop_labs 08:43 UTC
 > （[2117538159735259565](https://x.com/flop_labs/status/2117538159735259565)）:

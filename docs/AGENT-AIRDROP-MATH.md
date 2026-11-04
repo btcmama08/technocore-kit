@@ -960,19 +960,22 @@ same GPUs scattered and that "no flat unit prices its topology".
 `airdrop` in the Yellow Paper is 40, the same as yesterday. D-0537's rule is explicit that
 existing "transfers/resales, cancellation, settlement, refunds, distribution claims and bond
 release MUST retain their existing rules", and that "Unpause MUST NOT bypass any other
-activation or eligibility gate". And the product is not switched on: R12.5e says the ownership
+activation or eligibility gate". And the product is not switched on: R12.5e said the ownership
 and payment rules "MUST NOT authorize standardized-object activation before that profile is
-complete", and that profile is the new open item:
+complete", and that profile was the new open item — **E.58, "FCU executable object profile",
+tagged `[RATIFY]`**, fixing 1 FCU at 1,000,000 G_n under a pinned meter, a purchaser-selected
+supported model, a maximum 1,000 ms completion after miner acceptance of an eligible chunk, and
+a default D+7 noon-UTC start with an explicit end. *(That entry was a block quote in this file
+until 2026-11-04, when E.58 was ratified and removed from Appendix E; the sentences above are
+now a summary of text that is no longer on the page, per the note on rewritten sources in
+"Checking these quotes yourself". What replaced it is in the last section.)*
 
-> **E.58 — FCU executable object profile [RATIFY]**. Fixed object inputs: 1 FCU = 1,000,000 G_n
-> under a pinned meter; purchaser-selected supported model; maximum 1,000 ms completion after
-> miner acceptance of an eligible chunk; default D+7 noon UTC start with an explicit end
-
-So the `[RATIFY]` count went from 6 to 7 — the first time an open item has been *added* since
-this watch began, and Appendix E grew from 32 items to 33. Read it as what it is: four days
+So the `[RATIFY]` count went from 6 to 7 — the first time an open item had been *added* since
+this watch began, and Appendix E grew from 32 items to 33. Read it as what it was: four days
 before the testnet target, the open-items list got longer rather than shorter, and the item
-that got added is about selling compute forward, not about the airdrop. E.38 is still
-`[RATIFY]`, `[TBD]` is still 17, and E.40's agent leg is still unassigned.
+that got added was about selling compute forward, not about the airdrop. E.38 was still
+`[RATIFY]`, `[TBD]` still 17, and E.40's agent leg still unassigned — and on 2026-11-04 all
+three of those were still true while E.58 itself closed.
 
 ## Somewhere to file the objection
 
@@ -1180,6 +1183,130 @@ nothing, but it does remove the only published handles on that work, and this fi
 using two of them to date the public-testnet onboarding gates. They are recorded here because
 a citation that disappears from the source does not stop having been true.
 
+## The one item that closed was the one that sells compute, and the operator pointed agents at the wrong file
+
+On 2026-11-04 the Yellow Paper grew by 15.9 KB — the largest single-day change this watch has
+recorded — and every byte of it is the compute-futures product. **E.58 was ratified as D-0538
+and removed from Appendix E**, which fell from 33 items to 32 and took `[RATIFY]` from 7 back to
+6. Nine new rules landed, R12.5i through R12.5q, with two new appendices (F.8, "FCU service and
+SLA claims", and G.6, the settlement interface with its `register_fcu_service_profile` Root
+extrinsic) and two new parameters, `fcu_acceptance_budget_ms` at 100 ms and
+`fcu_accepted_chunk_max_ms` at 1,000 ms. The core of it:
+
+> R12.5i — Immutable qualified service policy. A governance-admitted profile MUST pin model
+> bytes/root, meter, precision, decode/cache policy, context, prefill/output limits, chunk
+> boundaries, concurrency, ingress/delivery boundary, two independently operated witness
+> identities and qualification evidence.
+
+R12.5e, which this file quoted on 2026-10-30 for the clause that barred activation, lost that
+clause and gained the substance it was waiting for:
+
+> Fractional ownership MUST NOT weaken the maximum 1,000-ms completion time after miner
+> acceptance of an eligible chunk. Queueing, batching, execution and complete output availability
+> at the contracted provider delivery boundary MUST fit inside that bound.
+
+**The gate moved; it did not open.** Where §13 used to block activation "until the E.58 decisions
+are complete", it now reads:
+
+> Standardized-object activation MUST remain blocked until the ratified service policy is
+> implemented, the admitted immutable profile is pinned, the empirical economics including
+> SLA-reserve and witness costs are calibrated, and the physical pilot is qualified.
+
+And the parameter rows say the same in one phrase: "implementation remains default-inactive
+pending production, pilot and economics qualification." So the decision is made and the product
+is still off, now behind implementation and a physical pilot rather than behind a drafting
+decision. One sentence in the new material is worth lifting out because it is a security
+property stated plainly: "The clock stamp is inclusion data, not BFT finality evidence: serving
+authority must read it from the node client's verified BFT-finalized chain, never a reported head
+or tip fallback."
+
+**Nothing on the airdrop side moved at all.** E.38 is 6 occurrences, E.40 is 11, `[TBD]` is 17,
+the word `airdrop` is 40, R8.7's four load-bearing fragments are byte-identical, and §13's φ row
+is still `PARTIAL`. That is the fact to carry: on the day after the testnet target slipped, the
+spec work that got finished was the forward market in compute, and the two items that decide
+what an agent is actually paid did not advance by one character.
+
+### The operator named a decision date, and told agents to watch a file that has not changed
+
+`@CryptoHayes`, 21:08:29 UTC
+([2118088016015335862](https://x.com/CryptoHayes/status/2118088016015335862)):
+
+> The @flop_labs Devnet is going well. We are ironing out some things and changing parts of the
+> protocol. Please have your agent monitor the yellow paper git repo for any changes. We will
+> make a determination on testnet launch date early next week.
+
+Two things in that. The first is a date for a date: **the testnet launch date is to be decided
+early the following week**, which is the first schedule statement since the 3 November target
+passed, and it confirms the target was not quietly met.
+
+The second is an instruction worth testing rather than following, because this watch can check
+it. **The git repository it names has not changed.** `flop-labs/yellowpaper` is at commit
+`56410c6` from 26 October, "docs(yellowpaper): sync 0.5.0 (draft) from flop-core@dfd98a59", and
+the mirrored `yellowpaper.md` has been 377,134 bytes every day since — including today, while
+the published page moved 15.9 KB. An agent that did exactly what that post asks would have seen
+nothing today. **The protocol change the post is referring to exists only at
+`flop.finance/intro/yellowpaper/`**, and the repository is a periodic export of a private
+source, nine days stale at the moment it was recommended as the thing to monitor. This file
+reads the site for that reason, and the gap between the two is itself the daily measurement:
+item 1b of the watch exists because the mirror lags.
+
+### Three channels, three different accounts of who may join the devnet
+
+`@flop_labs`, 01:09:00 UTC
+([2117786153428701492](https://x.com/flop_labs/status/2117786153428701492)):
+
+> Flop Network's Devnet is live and 100% permissionless. No application or approval, just follow
+> the guide. It's for testing, so there are no rewards.
+
+Meanwhile `/docs/run-miner` is byte-identical to the previous day, which means it still says
+"Join the devnet (invite-only preview)", still says the operator "approves each miner account
+before the sponsor stakes it", and still carries "There is no public intake path yet. (TODO:
+FLOP has not yet published a contact for miner access requests.)" And the one-word devnet status
+is still `development`. A reader could be forgiven for thinking two of those three are wrong.
+
+The reconciliation turned up in a third place. The public intake repository took two commits on
+2026-11-04 — `a31a7ac`, "feat: add access request issue form", and `e037331`, "feat: drop tailnet
+wording from the access request form" — taking its issue templates from five to six. The new
+form is `access.yml`, described as being for:
+
+> Something only a FLOP operator can grant or remove — an allowlist entry, an operator quota, a
+> gateway allowance, a private endpoint.
+
+and its own preamble settles the contradiction in one clause:
+
+> devnet miners need no request while automatic sponsorship has room
+
+So all three statements are true of different things. **Devnet joins itself, up to a cap** — the
+sponsor admits approved accounts automatically now, within the ten-per-rolling-day limit this
+file recorded on 2026-10-25, which is what "100% permissionless" means and why it comes with
+"while automatic sponsorship has room". **Testnet still does not**: the form's first dropdown
+option is "testnet miner sponsor allowlist entry", matching the sentence `/docs/run-validator`
+gained yesterday, that "testnet miners still need review". And the docs page that denies an
+intake path exists simply has not been updated; the path is in the repository, not on the page.
+
+Two details in that form are worth keeping. It reinforces the rule this kit has had since
+September, in the operator's own words — "This issue is public. Send only public values:
+addresses and hostnames. Never paste a seed, account.json, .env, keystore, private key, bearer or
+API key." And of its six request types — miner sponsor allowlist, operator key quota, gateway
+allowance, private endpoint, retiring a host, other — **none is for an agent.** Six templates
+now, and the count of agent-facing ones is still zero, for the same reason as always: agents are
+not admitted, they self-register.
+
+### One new thing to be careful about
+
+The same announcement ends with an invitation to direct messages:
+
+> Renting 20+ GPUs? DM us for institutional data center intros.
+
+That is ordinary business development and almost certainly genuine. It is also the first time
+the official account has asked anyone to open a DM, and it arrives in the week when impersonation
+is most profitable. The official-links page still says every official channel is listed on it and
+that FLOP "never asks for a seed phrase or a deposit"; a DM is not a channel that page can
+vouch for. Anyone acting on that line should start the conversation from the account at
+`x.com/flop_labs` itself rather than from an incoming message, and nothing about it changes what
+a holder of this kit needs: the devnet pays nothing, which the operator has now said three times
+in three different wordings.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1368,7 +1495,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All eighty-five block quotes above are verbatim from the six pages in the header, the
+All ninety-two block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
