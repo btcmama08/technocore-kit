@@ -13,6 +13,68 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🔓 **2026-11-05 追記 — Devnet は本当に「申請不要」になりました（11-02 付け）。公開 pack の SHA-256 も出ました。ただしテストネットは目標日から2日経過、依然 `planned`。Jack の手順は変わりません。**
+> **❶ 招待制が終わりました。** `/docs/run-miner` が書き換わり、`invite-only` と `tailnet` の語が**4件→0件**、
+> 「There is no public intake path yet」も**消滅**（未決7 の検知器が全部発火）。新しい本文:
+>
+> > From 2 November 2026
+> > no invitation is needed: the sponsor approves a new devnet miner automatically while at most 40
+> > automatically sponsored miners are still uncalibrated, the new one included. Past that it
+> > answers `429`; retry once one of them calibrates.
+>
+> **＝実際は 11-02 から申請不要でした**（告知の前日、ページ更新の3日前）。上限も10倍に:
+>
+> > | New sponsored miners | at most **100 per rolling 24 hours** |
+>
+> **❷ エージェント向けに初めて「止まり方」が書かれました。** `faucet.flop.network/limits` が
+> `sponsor.miner.status` を `open` / `automatic_full` / `daily_limit_reached` で返すようになり、
+>
+> > Never retry in a loop: on `retry_later` wait at least `retryAfterSeconds`, on `fix_request`
+> > change the request, and on `report_to_operator` stop and give a human the `error` and `reason`.
+>
+> **これは機械向けの撤退規則**で、この運営のドキュメントでは初めてです。併せてエージェントが踏みやすい罠も明記:
+>
+> > A 503 from `/fund` is a refused or unconfirmed request, not a reason to
+> > create another wallet.
+>
+> **＝faucet が断ってきても新しいウォレットを作らないこと**（faucet は identity ごとに上限なので、
+> 作り直すと枠を失うだけです）。さらに:
+>
+> > A healthy catalog at `https://api.flop.network/v1/models` does not prove a serving
+> > miner is available. Obtain a calibrated, opted-in endpoint before signing.
+>
+> そして **`flop chat` は devnet では動きません**:
+>
+> > `flop chat` in full CLI `0.4.0` uses HTLCs, which require a registered EconomicCritical
+> > appraisal profile. Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
+>
+> **❸ 公開 pack に SHA-256 が付きました（10-29 にこの欄が求めていたもの）。**
+> `flop-miner-pack-devnet-ts-20261106.tar.gz` / `sha256 35f222f7…b2b514b1`、
+> イメージは `ghcr.io/flop-labs/flop-core` から匿名 pull。
+> **⚠️ ただし置き場所は `flop.network` で、この環境からはまだ読めません**（未決1。今日も CONNECT 403）。
+> **＝「公開されている」とは書けますが「検証した」とは書けません。** なお **pack の名前は `20261106`（11/06 付け）**
+> なのに本文は「checked 3 November 2026」です（リリース名の付け方だと思いますが、断定せず記録だけ）。
+> **ワンコマンド `install.sh` はまだ未公開です。**
+>
+> **❹ Validator は逆に悪化**: 配布物が **404** になりました。
+>
+> > the advertised `0.2.0-devnet.1`
+> > package and checksum return 404. Stop before host setup until the
+>
+> validator ページが検証済みの版を出すまで**ホスト構築に進むな**、とあります。
+>
+> **❺ 受付リポジトリが1日で 96 issue。** `flop-labs/network` の issue は**ほぼ全部 11-05 付け**で、
+> docs からフォームへのリンクも9箇所に増えました。中身は第三者の投稿なので**未検証データ**として扱いますが、
+> 「access フォームに validator / devnet miner の選択肢が無く、17件中8件が当てはまらない」という指摘が
+> **昨日こちらがフォームを読んで気づいた穴と一致**しています。**これが「本当に開いた」ことの一番強い証拠です。**
+>
+> **Jack の手順は変わりません（`init` まで）。Devnet は加点ゼロ。**
+> **その他は不変**: Yellow Paper は抽出テキストがバイト同一（`[RATIFY]` 6・E.38 6・E.40 11・`airdrop` 40）、
+> `network-testnet` は `planned`（**目標日から2日経過**）、`devnet` の1語 status も `development` のまま
+> （本文だけ「Public devnet endpoints are available … Public operator release and intake remain unverified」に更新）、
+> 8ページ・technocore.chat 3ファイル（`faucet`=0）・npm 5＋PyPI 1・`tclk` 0.1.0・contract address 0件・
+> 紹介受付未開設（`not yet live` 6件）・org 8リポジトリ。
+
 > 📅 **2026-11-04 追記 — 運営が「テストネット開始日は来週前半に決める」と明言。Yellow Paper は 15.9KB 動いたが、動いたのは全部 compute 先物でエアドロ側は1文字も変わっていません。**
 > **❶ 日程**: @CryptoHayes 21:08 UTC
 > （[2118088016015335862](https://x.com/CryptoHayes/status/2118088016015335862)）:
@@ -123,10 +185,11 @@ is never required to verify anything. Japanese documentation follows; commands a
 > > What works today: sponsorship, registration and calibration through the public mailbox.
 > > Paid sessions are not open yet.
 >
-> > Get an invitation from the devnet operator. There is no public intake path yet. (TODO:
-> > FLOP has not yet published a contact for miner access requests.)
+> また当時の step 1 は「Get an invitation from the devnet operator. There is no public intake
+> path yet.」でした（**2026-11-05 に書き換わったため引用から地の文に落としました**。新しい本文は最新の囲みに）。
 >
-> **＝公開されたのは「通信経路」で、「申し込み窓口」ではありません。** 招待制のままで、支払いも未開通です。
+> **＝この時点で公開されたのは「通信経路」で、「申し込み窓口」ではありませんでした。** 招待制のままで、支払いも未開通。
+> **これは翌日まででした（11-05 の囲みを参照）。**
 >
 > **❸ 🛡 今日からが詐欺のピークです。** 昨日までは「公式の参加手順は存在しないので、出回っている手順は全部偽物」で
 > 判定できました。**今日からその判定は使えません**（本物が出たため）。代わりに:

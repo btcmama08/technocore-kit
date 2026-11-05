@@ -1093,10 +1093,11 @@ available by early next week" — and it was kept in the documentation, not in t
 `/docs/run-miner` page was rewritten on 2026-11-03: the private Tailscale tailnet that every
 earlier revision required is gone, and with it the age-encrypted auth keys, the `tag:miner`
 ACLs and the `tailscale serve` recipe. The section that was headed "Join without the tailnet
-(invite-only preview)" is now simply "Join the devnet (invite-only preview)":
-
-> From 30 October 2026 miners join the devnet over public endpoints. It is still by
-> invitation: the devnet operator approves each miner account before the sponsor stakes it.
+(invite-only preview)" is now simply "Join the devnet (invite-only preview)", and on that day
+it read: **"From 30 October 2026 miners join the devnet over public endpoints. It is still by
+invitation: the devnet operator approves each miner account before the sponsor stakes it."**
+*(Block quote until 2026-11-05, when the page replaced the second sentence; the heading lost
+"(invite-only preview)" with it. The replacement is in the last section.)*
 
 Three concrete things are now published that were previously hand-delivered. The decode policy
 is one:
@@ -1129,15 +1130,15 @@ That last clause is the pattern of the whole day. The same page, further up:
 > public endpoints are still being opened, and gateway admission of public miners is being
 > finished. This page will say when both are live.
 
-And the intake, which is what "open to public" would normally mean, is unchanged from every
-previous revision:
+And the intake, which is what "open to public" would normally mean, was unchanged from every
+previous revision: step one read **"Get an invitation from the devnet operator. There is no
+public intake path yet,"** with a parenthetical "(TODO: FLOP has not yet published a contact for
+miner access requests.)" *(Block quote until 2026-11-05, when that step was replaced; see the
+last section.)*
 
-> Get an invitation from the devnet operator. There is no public intake path yet. (TODO:
-> FLOP has not yet published a contact for miner access requests.)
-
-So: a miner can be onboarded over the public internet instead of a private VPN, cannot yet be
-paid, and still cannot ask to be let in. "Open to public" describes the transport, not the
-admission.
+So, as of 2026-11-04: a miner could be onboarded over the public internet instead of a private
+VPN, could not yet be paid, and still could not ask to be let in. "Open to public" described the
+transport, not the admission. **That held for one more day.**
 
 ### For an agent, the arithmetic in this file did not move
 
@@ -1306,6 +1307,158 @@ vouch for. Anyone acting on that line should start the conversation from the acc
 `x.com/flop_labs` itself rather than from an incoming message, and nothing about it changes what
 a holder of this kit needs: the devnet pays nothing, which the operator has now said three times
 in three different wordings.
+
+## The gate opened, and the queue formed the same day
+
+On 2026-11-05 the documentation caught up with the announcements, and it caught up by more than
+the announcements had claimed. The `/docs/run-miner` page replaced the sentence this file quoted
+yesterday with a dated, bounded rule, and the date in it is the surprise:
+
+> From 2 November 2026
+> no invitation is needed: the sponsor approves a new devnet miner automatically while at most 40
+> automatically sponsored miners are still uncalibrated, the new one included. Past that it
+> answers `429`; retry once one of them calibrates.
+
+So the permissionless devnet was true from **2 November**, a day before the announcement that
+described it and three days before the page said so. The heading lost "(invite-only preview)",
+the words "invite-only" and "tailnet" went from four occurrences each to **zero**, and step one —
+"Get an invitation from the devnet operator. There is no public intake path yet" — became
+"Download and check the public release pack". The open item this file has carried since
+2026-10-25 is closed on the miner side.
+
+The limits moved with it, by a factor of ten:
+
+> | New sponsored miners | at most **100 per rolling 24 hours** |
+
+up from ten, with sponsored stake up from 20 million to 200 million FLOP per rolling day. And
+the page added something this file has not seen from this operator before: a machine-readable
+budget endpoint with explicit backoff rules.
+
+> Check before you ask, and back off when refused.
+
+> Never retry in a loop: on `retry_later` wait at least `retryAfterSeconds`, on `fix_request`
+> change the request, and on `report_to_operator` stop and give a human the `error` and `reason`.
+
+`GET https://faucet.flop.network/limits` reports `sponsor.miner.status` as `open`,
+`automatic_full` or `daily_limit_reached`. **That is written for an agent, and it is the first
+rate-limit contract in this documentation that tells a machine when to stop rather than only
+what the ceiling is.** It is also, read against the paragraph above, an admission that the
+forty-slot cap will bind: an operator does not ship a `automatic_full` status code for a limit
+nobody reaches.
+
+### The release pack exists, with a checksum, and the one-command installer still does not
+
+> **Public pack (checked 3 November 2026).** The manual release pack is published at
+
+at a versioned path under `flop.network/releases/cli/`, as
+`flop-miner-pack-devnet-ts-20261106.tar.gz`, with a published SHA-256 of
+`35f222f748447a8aabdd015d94260d8facfd29305691c3cf7ed033cbb2b514b1` and images that
+"pull anonymously from `ghcr.io/flop-labs/flop-core`". **A published digest is the thing this
+file asked for on 2026-10-29 and could not get**, and it is worth saying plainly that the
+operator has now supplied it. Two caveats stand. The pack is still on `flop.network`, which this
+session cannot reach, so the checksum is recorded here as published and not as verified. And the
+pack filename carries the date **20261106** while the page says it was checked on 3 November — a
+file named for a day that had not yet arrived. That is probably a release-train label rather than
+anything meaningful, and it is logged rather than interpreted.
+
+The one-command installer is still missing: "The one-command installer pack below (`install.sh`)
+is not published yet; until it is, an agent follows the release pack's README instead."
+
+### The agent path finally got its own instructions, and they are mostly warnings
+
+This is the part that matters for the arithmetic in this file. Until today the corpus told an
+agent to "create a DID and a wallet, draw from the faucet, and begin purchasing inference" and
+left the rest to inference. Today it names the endpoints and then spends most of its words on
+what *looks* like readiness and is not:
+
+> A gateway model catalog is discovery data and is not
+> proof that inference is available.
+
+> A healthy catalog at `https://api.flop.network/v1/models` does not prove a serving
+> miner is available. Obtain a calibrated, opted-in endpoint before signing.
+
+> Faucet `/health` on older deployments reports signer connectivity, not grant readiness;
+> check indexer lag separately.
+
+> A 503 from `/fund` is a refused or unconfirmed request, not a reason to
+> create another wallet.
+
+That last one is the most useful sentence published for an agent all week, and it is a warning
+against the exact failure mode an autonomous retry loop falls into: a refused faucet call looks
+like a bad wallet, so the agent makes another wallet, and now it has two identities and a faucet
+that rate-limits per identity. **Keep one wallet.** The instruction to compare the faucet's
+`/chain` against the RPC genesis before funding is the same kind of care, applied to the risk
+that the endpoint you reached is not the chain you think it is.
+
+And one route is explicitly closed:
+
+> `flop chat` in full CLI `0.4.0` uses HTLCs, which require a registered EconomicCritical
+> appraisal profile. Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
+
+So the friendliest-looking command in the published CLI does not work on the devnet, by the
+operator's own measurement, at a named block. An agent that tried `flop chat` and concluded the
+network was broken would be wrong; it is the appraisal registry that is empty.
+
+### The validator path went backwards
+
+While the miner path opened, the validator download broke:
+
+> the advertised `0.2.0-devnet.1`
+> package and checksum return 404. Stop before host setup until the
+
+validator page offers a verified versioned download, with the prepared `0.3.0-devnet.1` source
+"unpublished and not an alternative public download", and:
+
+> No verified operations intake channel or response
+> deadline is published.
+
+The operator-support row that used to read "None is published yet (TODO: FLOP has no public
+operator intake)" now points at the access form instead, so the TODO is discharged for miners and
+replaced by a 404 for validators. Both roles are being onboarded; only one of them can currently
+download anything.
+
+### Ninety-six issues, most of them from today
+
+The intake repository that opened on 2026-10-30 with five templates and no issues now carries
+**96 issues, nearly all opened on 2026-11-05**, and the documentation now links the forms directly
+in nine places. The titles are strangers' words and this file treats them as data, not findings,
+but the *shape* of the pile is a measurement in itself: access requests for testnet allowlist
+entries and gateway-allowance renewals, SDK bug reports, a gateway returning `429 overloaded`
+with miners listed, and one issue complaining that the access form "has no option for validator
+onboarding or devnet miners, so 8 of 17 requests do not fit it" — which is the same gap this file
+recorded yesterday from reading the form itself. **An intake that fills with 96 items in a day,
+a fifth of them not fitting the form, is what a launch week looks like from the operator's side.**
+It is also the strongest available evidence that the devnet really is open: nobody files a
+gateway-allowance renewal for a network they cannot join.
+
+### Where the operator put its argument
+
+`@flop_labs`, 06:19:45 UTC
+([2118226744180371863](https://x.com/flop_labs/status/2118226744180371863)), made the case for
+the verification layer by pricing somebody else's:
+
+> Proof that the answer came from the model you paid for costs 72 answers.
+
+> Attestation that the right model ran, a TOPLOC fingerprint, a validator re-running a random
+> slice, staked $ FLOP slashed on a miss. Cheating becomes extremely expensive.
+
+Taken as a claim about the design it is accurate to the spec: attestation, TOPLOC and sampled
+re-execution are all in the Yellow Paper, and R12.1d sends a slashed bond to the Foundation
+account. Taken as a comparison it is doing work the spec does not support — the 72× figure is a
+cost of *cryptographic* proof for a single user with no stake at risk, and FLOP's cheaper number
+buys a different thing: a bonded economic deterrent that assumes a miner has stake worth losing
+and a validator willing to re-run a slice. Those are not the same guarantee, and the spec's own
+open items are about exactly that assumption — E.49 still records that "no runtime common-control
+rule binds either" party to a self-dealing pair.
+
+**Nothing in the Yellow Paper moved today.** Extracted text byte-identical, `[RATIFY]` 6, `[TBD]`
+17, E.38 6, E.40 11, `airdrop` 40. The one-word testnet status is still `planned`, two days past
+its target. The devnet status page did change its prose to match reality — "Public devnet
+endpoints are available … Public operator release and intake remain unverified" — while leaving
+its one word at `development`, which remains the signal this file watches.
+
+**For a holder of this kit, nothing changed: `init`, and wait.** The devnet now admits anyone,
+and pays nothing for it.
 
 ## What is still open
 
@@ -1495,7 +1648,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All ninety-two block quotes above are verbatim from the six pages in the header, the
+All one hundred and four block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
@@ -1511,12 +1664,12 @@ curl -s -A "$UA" https://x.com/flop_labs/status/2112027080598982886 > flop.html 
 curl -s https://ask.flop.finance/llms-full.txt > ask.txt       # the whole published-tier corpus
 curl -s https://raw.githubusercontent.com/flop-labs/tclk/main/CHANGELOG.md > tclk.txt
 curl -s https://raw.githubusercontent.com/flop-labs/tclk/main/README.md >> tclk.txt
-sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' ask.txt > ask.html   # markdown marks out, as
-                                                      # for the repo markdown below
+sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' ask.txt > ask.norm   # markdown marks out, as
+                                   # for the repo markdown below. NOT *.html: see the note below
 python3 - <<'PY'
 import re, html, glob
 INLINE = r'code|span|a|strong|em|b|i|sup|sub|abbr|kbd|small|var|cite|q|mark|time'
-for f in sorted(glob.glob('*.html')):
+for f in sorted(glob.glob('*.html')):            # HTML ONLY. Never run this over .txt/.norm
     h = open(f, encoding='utf-8', errors='replace').read()
     t = re.sub(r'(?is)<(script|style)[^>]*>.*?</\1>', ' ', h)
     t = re.sub(r'(?is)</?(%s)(\s[^>]*)?>' % INLINE, '', t)  # inline: NO separator
@@ -1527,7 +1680,7 @@ grep -c 'whether spend-to-unlock ships' yellowpaper.txt  # 0 since 2026-10-05
 grep -o '\[TBD\]' yellowpaper.txt | wc -l                # 18 on 2026-10-05, was 19
 grep -o '\[RATIFY\]' yellowpaper.txt | wc -l             # 6; E.38 is one of them
 grep -o 'technocore.chat' testnet.txt | head -1          # the named agent on-ramp
-wc -c yellowpaper.html                     # 578805 since 2026-10-16, 578190 on 10-15, 567365 on 10-08
+wc -c yellowpaper.html   # 644695 since 2026-11-04, 628828 from 10-30, 578805 on 10-16, 567365 on 10-08
 ```
 
 The repository's own markdown is fetchable too, and it is a *different revision* — useful as a
@@ -1582,6 +1735,18 @@ across a tag and a newline, and `grep` works a line at a time. A multi-word phra
 against `.html` is not a measurement — it is a false zero that reads exactly like a removal.
 Count against `.txt`. Single words are safe either way, which is why this hid for as long as
 it did.
+
+*The tag stripper belongs to HTML and nothing else.* The `ask.flop.finance` corpus and the
+repository markdown are plain text, and plain text contains bare `<`. The operator-validator page
+carries shell lines like `node < ../../infra/devnet/operator.mjs`, and `<[^>]+>` then matches from
+that `<` to the next `>` anywhere later in the file — **two such spans were silently deleting
+about 6,500 characters of the operator documentation from this file's verification corpus from at
+least 2026-10-31 to 2026-11-05.** It surfaced the way it had to: on 11-05 two freshly published
+agent instructions refused to verify, `grep` found both of them in the saved file, and the fault
+was in the checker. A stripper that can only remove text cannot create a false quote, so nothing
+published here was wrong — but a whole region of the source had been unverifiable for six days,
+which is the same failure as not fetching it. Run the tag pass over `*.html` and let text files
+through untouched; the recipe above now says so.
 
 *HTML comments are invisible and must go first, with no separator.* X renders a mention as
 `@<!-- -->VeritaHealthHQ`; a stripper that treats the comment as a tag and leaves a space
