@@ -1401,16 +1401,13 @@ network was broken would be wrong; it is the appraisal registry that is empty.
 
 ### The validator path went backwards
 
-While the miner path opened, the validator download broke:
-
-> the advertised `0.2.0-devnet.1`
-> package and checksum return 404. Stop before host setup until the
-
-validator page offers a verified versioned download, with the prepared `0.3.0-devnet.1` source
-"unpublished and not an alternative public download", and:
-
-> No verified operations intake channel or response
-> deadline is published.
+While the miner path opened, the validator download broke. The page carried an "Availability
+checked 3 November 2026" note saying **"the advertised `0.2.0-devnet.1` package and checksum
+return 404,"** told readers to stop before host setup until the validator page offered a verified
+versioned download, called the prepared `0.3.0-devnet.1` source "unpublished and not an
+alternative public download", and added that **"No verified operations intake channel or response
+deadline is published."** *(Both were block quotes until 2026-11-06, when the whole note was
+replaced by a published `0.3.0-devnet.1` download; see the last section.)*
 
 The operator-support row that used to read "None is published yet (TODO: FLOP has no public
 operator intake)" now points at the access form instead, so the TODO is discharged for miners and
@@ -1459,6 +1456,170 @@ its one word at `development`, which remains the signal this file watches.
 
 **For a holder of this kit, nothing changed: `init`, and wait.** The devnet now admits anyone,
 and pays nothing for it.
+
+## "Get setup now" — and the one sentence that cuts against four others
+
+On 2026-11-06 `@CryptoHayes`
+([2118660133823897715](https://x.com/CryptoHayes/status/2118660133823897715)) posted the line
+this file has to deal with head-on:
+
+> Let's go @flop_labs Devnet. We are cooking, if you want to maximise your earnings during
+> Testnet get setup now before the airdrop period begins. We will announce the Testnet date next
+> week.
+
+Read carelessly that says devnet activity feeds the airdrop. **It cannot, and the same operator
+has said so four times**: "Devnet does not count towards any airdrop" (10-29), "Devnet tokens
+have no value and earn no rewards or airdrop weight" (11-03), "It's for testing, so there are no
+rewards" (11-04), and the corpus sentence that the devnet faucet is the operator's, not the
+public one. The spec is stronger still: R8.4 holds that a faucet grant or transferred balance
+"MUST NOT by itself create an allocation right" and that held balance and stake size "MUST NOT
+be scoring terms".
+
+The defensible reading is **operational**, and for one role it is good advice. A miner has to be
+calibrated and admitted before it can serve, automatic sponsorship stops at forty uncalibrated
+miners, and new sponsorships are capped at a hundred a rolling day — so queueing now genuinely
+does buy a head start on day one of testnet, when scoring begins. Nothing about that changes
+what the devnet pays, which is nothing.
+
+**For an agent it is not even operational advice.** The agent path is self-registration: no
+admission, no calibration, no queue. The faucet an agent draws from is a *testnet* faucet that
+does not exist yet, the devnet's FLOP comes from the operator instead, and `flop chat` on devnet
+still fails for an empty appraisal registry. There is no devnet position for an agent to take
+that carries into testnet except the keypair, which takes a minute. **"Get setup now" is a
+miner's instruction wearing an airdrop's clothes.**
+
+And the replies are already doing what this file predicted on 2026-11-03. Within twenty minutes
+the post had third-party "step-by-step guide, with both video and screenshots" links under it,
+all `t.co`-shortened, plus a Turkish miner-setup video guide. None is necessarily hostile. All of
+them are exactly the shape @mono_i_love warned about on 2026-09-15 — a helpful-looking link
+posted under an official announcement, at the moment the audience is largest and least careful.
+**The test has not changed: a setup instruction counts only if it is on `/official/` or in the
+`ask.flop.finance` docs.**
+
+Note also the second schedule statement in that post — "We will announce the Testnet date next
+week" — which matches 11-04's "determination on testnet launch date early next week". Two
+independent statements now point at the same window, and the one-word status is still `planned`,
+three days past the 3 November target.
+
+### D-0539 rewrote validator economics, and the open-items list grew
+
+The Yellow Paper added 14 KB and a decision, **D-0539**, and it is the largest change to the
+validator cohort since this watch began. Committee selection stops being stake-weighted:
+
+> Every seat carries equal weight in the draw; stake MUST NOT weight it.
+
+Seats are drawn uniformly from *live* seats under a new session-liveness predicate (R15.4d), the
+per-seat reward split becomes equal with the 1.1× committee premium deprecated, the validator
+floor goes flat — D-0539 "supersedes D-0416 rotation and the 9 %/yr growth of D-012" — and two
+new parameters change what a validator actually receives: `validator_reward_bond_ppt` at **500
+parts per thousand**, so **half of each active seat's block-reward leg is added to its bonded
+self-stake and locked**, and `validator_unlock_duration_blocks` at 315,360,000 blocks, a linear
+unlock applied to the genesis Validator grant "from block 0". New rules R15.4d, R15.5c, R15.5d
+and R15.7a arrive with it, including a bond ledger that separates bonded, locked and unbonding.
+
+**The status table went backwards for it.** R9.13, which this file quoted on 2026-10-08 as having
+been promoted to `LIVE`, is back to:
+
+> PARTIAL (miner leg, Labs/Foundation subsidy and sponsored-stake payouts are liquid as
+> required; the agent and staker legs accrue in pool accounts until E.40 ratifies their
+> distribution.
+
+Validator earnings are no longer in the liquid list, and the divergence note says why: the
+runtime "is paid 100 % liquid, with no `validator_reward_bond_ppt` bond or lock". So the spec now
+requires a bond the implementation does not take. Several §15 rows read `DIVERGENT` the same way
+— the runtime still samples stake-weighted off the BABE epoch seed while the rules now require a
+uniform draw over live seats.
+
+**And the open-items list got longer, not shorter.** `[TBD]` went 17 → 18, `[RATIFY]` 6 → 8,
+`[PLANNED]` 6 → 7, and Appendix E grew from 32 entries to 36:
+
+> E.58 — Committee size and seed lookahead [TBD].
+
+> E.59 — Seat SLA thresholds, re-selection margins and degraded mode [RATIFY].
+
+> E.60 — In-band finality-stall recovery [PLANNED].
+
+> E.61 — Penalty calibration, DA fault classes and reporter share [RATIFY].
+
+All four are validator and consensus items. **E.58 is a trap for anything that tracks these by
+number**: the E.58 this file reported ratified two days ago was "FCU executable object profile",
+closed as D-0538 — and the operator has now reused the number for an unrelated committee-sizing
+question. Appendix E identifiers are not stable; the titles are what to follow.
+
+### E.38 shrank, and the part that pays agents is not the part that moved
+
+E.38 is now titled "Unresolved conversion and release policy" and lost one of its four
+sub-items:
+
+> E.38 — Unresolved conversion and release policy [RATIFY]. §8.2 specifies the decided genesis
+> allocation and airdrop path. Placeholder: ratify conversion score caps and sublinear
+> aggregation, the accounting identity and owner-signed spend rules, verifiable-demand and
+> maintained-duration gates, the validator cohort's activity basis, and whether activity
+> under-counts can be appealed.
+
+> (D-0539 replaces the Validator release order with R8.7's linear unlock from genesis.) Decide
+> the disposition of Miner and Agent principal that never unlocks.
+
+So the count of `E.38` in the document fell from six to five, and **the reason is a validator
+fix, not an agent one.** Two details in that placeholder are new and matter to the arithmetic
+here. The conversion score will have **"verifiable-demand and maintained-duration gates"** — the
+first published hint that the formula tests whether demand was real and whether activity was
+sustained, not merely totalled, which is consistent with the fairness rule against self-routed
+spend and makes a short burst of self-dealing worth even less than the 15 % fee already made it.
+And an **"accounting identity and owner-signed spend rules"** is still unratified, which is the
+same question E.40 asks: whose spend counts as whose.
+
+One inconsistency is worth logging rather than resolving. Elsewhere the document still says "The
+conversion score, validator activity basis, Validator release order, and reserve disposition
+remain open in E.38", listing a release order that E.38's own entry now says D-0539 replaced. One
+of those two sentences is stale; the normative one is E.38's own.
+
+**E.40 did not move: eleven occurrences, still `[TBD]`, the agent leg still unassigned.** The
+word `airdrop` is still 40. On the day the operator told the public to get set up to maximise
+testnet earnings, the rule that decides how agent earnings convert was not touched, and the rule
+that decides whether the agent emission leg is ever paid was not touched either.
+
+### The devnet now has a published identity, which is the useful thing for an agent
+
+`/docs/run-validator` gained a section this file would have asked for. The devnet's chain
+identity is pinned publicly: raw spec ID `flop_devnet_ts`, protocol ID `flop-devnet-ts`, genesis
+`0x99c172c095340ace980631f9123544c6bebd4839f3437e463533422d8be2d631`, with a public raw chain
+spec and its own SHA-256. Yesterday's instruction to "compare faucet `/chain` with RPC genesis"
+had nothing to compare *against*; now it does. Three sentences in it are better operational
+writing than most of what is published for agents:
+
+> The built-in `flop-devnet-6` preset is a disposable network, not this live chain.
+
+> A SHA-256 file checksum and a genesis block hash are different values: do not compare
+> them to each other or derive the expected genesis from an arbitrary RPC response.
+
+> A matching genesis establishes chain identity; it does not establish sync, finality or activation.
+
+The validator download came back as `0.3.0-devnet.1` with a published archive SHA-256, replacing
+yesterday's 404 — but enrollment did not open:
+
+> Coordinate enrollment in your existing direct conversation with
+> the FLOP team member handling your invitation.
+
+> An issue or
+> interest-form submission does not grant admission, and no response deadline is promised.
+
+So validators remain invitation-only and still on a private network — `tailnet` went from zero
+occurrences back to seven, with an approved private DA peer directory the package "mounts
+read-only and refuses missing or invalid private routes before starting or signing". **Miners are
+public and automatic; validators are private and invited; agents are neither, because they
+self-register.** That three-way split is now explicit in the documentation for the first time.
+
+The intake tracker went from 96 issues to **120 in a day**, and two of the new ones are the
+agent-side gaps this file has been recording: a request to publish a "Day-1 Testnet Agent
+DID-signed inference and faucet contract", and a feature request for published miner endpoints
+or standing offers so a direct session has something to connect to. Both are strangers' asks and
+neither is a commitment — but they are being asked by the people who would use the answer, which
+is a better signal of what is missing than this file's own reading of the docs.
+
+**Unchanged for a holder of this kit: `init`, and wait for the status word.** The one thing worth
+doing differently after today is believing the spec over the tweet when they disagree, which on
+2026-11-06 they did.
 
 ## What is still open
 
@@ -1595,13 +1756,15 @@ placeholder says of each is the whole story:
 > work-settled bases open.
 
 And §13's status table, reworded on 2026-10-08, says the same from the other direction. The
-emission row flipped from `PARTIAL` to `LIVE` — but the promotion is the *validator* leg:
+emission row flipped from `PARTIAL` to `LIVE` — but the promotion was the *validator* leg: the
+row read **"LIVE (validator earnings and sponsored-stake payouts are liquid, like the miner leg
+and the Labs/Foundation subsidy; earnings do not grow stake or its freeze. The agent and staker
+legs accrue in pool accounts until E.40 ratifies their distribution."** *(Block quote until
+2026-11-06, when D-0539 sent that row back to `PARTIAL` and dropped validator earnings from the
+liquid list; the new wording is in the last section. The clause about the agent and staker legs
+survived the rewrite word for word.)*
 
-> LIVE (validator earnings and sponsored-stake payouts are liquid, like the miner leg and the
-> Labs/Foundation subsidy; earnings do not grow stake or its freeze. **The agent and staker
-> legs accrue in pool accounts until E.40 ratifies their distribution.**
-
-So of the four emission legs, three now pay and the agent leg does not. Two consequences worth
+So of the four emission legs, three paid and the agent leg did not. Two consequences worth
 keeping straight:
 
 - **The airdrop and the emission leg are different questions with different open items.** A
@@ -1648,7 +1811,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and four block quotes above are verbatim from the six pages in the header, the
+All one hundred and fifteen block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:

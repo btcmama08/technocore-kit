@@ -13,6 +13,81 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> ⚠️ **2026-11-06 追記 — 運営が「テストネットの稼ぎを最大化したいなら今セットアップしろ」と投稿しました。これは *マイナー向け* の実務助言で、Devnet がエアドロに加算されるという意味ではありません（運営自身が4回否定済み）。Jack の手順は変わりません。**
+> @CryptoHayes 11:01 UTC（[2118660133823897715](https://x.com/CryptoHayes/status/2118660133823897715)）:
+>
+> > Let's go @flop_labs Devnet. We are cooking, if you want to maximise your earnings during
+> > Testnet get setup now before the airdrop period begins. We will announce the Testnet date next
+> > week.
+>
+> **❶ 「Devnet で稼げる」とは読めません。** 同じ運営が4回明言しています: 「Devnet does not count
+> towards any airdrop」（10-29）／「Devnet tokens have no value and earn no rewards or airdrop
+> weight」（11-03）／「there are no rewards」（11-04）／コーパス「devnet の FLOP は運営が出す。公開 faucet
+> ではない」。仕様（R8.4）も「faucet grant … **MUST NOT by itself create an allocation right**」。
+> **＝妥当な読み方は「運用の前倒し」です。** マイナーは calibration と admission が必要で、自動 sponsorship は
+> **未校正40台まで**・新規は**100台/24h**が上限なので、**先に並ぶこと自体には意味があります**（テストネット初日から
+> 稼げる）。ただし **Devnet の支払いはゼロのままです。**
+> **❷ エージェント（＝Jack）には運用の前倒しすら存在しません。** エージェントは admit されず自己登録で、
+> 引く faucet は**まだ存在しないテストネットの faucet**、devnet の FLOP は運営支給、`flop chat` は
+> devnet で動きません。**持ち越せる devnet 上の仕込みは鍵だけで、それは1分で終わります。**
+> **＝この投稿は「マイナー向けの指示がエアドロの服を着ている」ものです。**
+> **❸ 🛡 返信欄がすでに予想どおりになっています。** 投稿から18分で「step-by-step guide（動画＋スクショ付き）」の
+> **t.co 短縮リンク**や、トルコ語の GPU マイナー設定動画が付きました。**悪意があるとは限りませんが、
+> @mono_i_love が 2026-09-15 に警告した型そのもの**です（公式告知の直下に、親切そうなリンク）。
+> **判定は不変: 手順は https://flop.finance/official/ と https://ask.flop.finance/docs/ に
+> 載っているものだけ。**
+>
+> **❹ Yellow Paper が +14KB、新 decision D-0539（validator 経済の全面改訂）。**
+> 委員会選出が stake 加重 → **均等**に:
+>
+> > Every seat carries equal weight in the draw; stake MUST NOT weight it.
+>
+> `validator_reward_bond_ppt` = **500ppt（＝報酬の半分が bond され lock される）**、
+> `validator_unlock_duration_blocks` で genesis grant は**ブロック0から線形解除**、floor は定額化
+> （9%/年成長は廃止）。**§13 の R9.13 は `LIVE` → `PARTIAL` に後退**し、validator earnings が
+> 「liquid」の列から外れました（runtime は 100% liquid で bond を取っていない＝新たな乖離）。
+> **開く項目が増えました**: `[TBD]` 17→18・`[RATIFY]` 6→8・`[PLANNED]` 6→7、Appendix E は 32→**36**
+> （E.58 / E.59 / E.60 / E.61 が新設。**全部 validator・consensus の話**）。
+> ⚠️ **E.58 は番号が再利用されました。** 11-04 に批准された E.58 は「FCU executable object profile」で、
+> 今日の E.58 は「Committee size and seed lookahead」です。**Appendix E の番号は安定しません。追うのは表題。**
+>
+> **❺ E.38 は 6→5 件に減りましたが、減った理由は validator 側の修正です。**
+> 「(D-0539 replaces the Validator release order with R8.7's linear unlock from genesis.)」
+> **残っているのはエージェントに効く部分**: conversion score の上限と sublinear 集計、accounting identity と
+> owner-signed spend 規則、**verifiable-demand と maintained-duration のゲート**、validator cohort の
+> activity basis、異議申立の可否、そして「解除されない Miner / Agent 元本の処分」。
+> **🆕 注目**: 換算式に「**実需の検証**」と「**継続期間**」のゲートが入ると明記されました
+> → **短期の自己取引バーストの価値はさらに下がります**（15% 手数料に続く2つ目の抑止）。
+> **E.40 は 11件のまま・`[TBD]`・agent leg 未割当。`airdrop` も 40 件のまま。**
+>
+> **❻ Devnet の chain identity が公開されました（エージェントに一番役立つ変更）。**
+> raw spec ID `flop_devnet_ts`、genesis `0x99c172c0…be2d631`、raw chain spec とその SHA-256 が公開。
+> **昨日の「faucet /chain と RPC genesis を比べよ」に、比べる相手ができました。** 併せて:
+>
+> > The built-in `flop-devnet-6` preset is a disposable network, not this live chain.
+>
+> > A SHA-256 file checksum and a genesis block hash are different values: do not compare
+> > them to each other or derive the expected genesis from an arbitrary RPC response.
+>
+> > A matching genesis establishes chain identity; it does not establish sync, finality or activation.
+>
+> **❼ Validator の配布物は復活（`0.3.0-devnet.1`＋SHA-256 公開）ですが、登録は招待制のままです:**
+>
+> > Coordinate enrollment in your existing direct conversation with
+> > the FLOP team member handling your invitation.
+>
+> > An issue or
+> > interest-form submission does not grant admission, and no response deadline is promised.
+>
+> `tailnet` が 0→7件に戻り、validator は**私設ネットワーク上**のままです。
+> **＝マイナーは公開・自動／validator は私設・招待／エージェントはどちらでもなく自己登録。** この三分割が
+> 初めて文書に明示されました。
+>
+> **その他は不変**: `network-testnet` は `planned`（**目標日から3日経過**）、`devnet` も `development`、
+> 8ページ・technocore.chat 3ファイル（`faucet`=0）・npm 5＋PyPI 1（`svidyuk`・フックなし・`tclk-flop` 404）・
+> `tclk` 0.1.0・contract address 0件・紹介受付未開設（`not yet live` 6件）・org 8リポジトリ。
+> `flop.network` は**今日も到達不能**（未決1）。受付 issue は 96→**120件**に増加（第三者投稿＝未検証）。
+
 > 🔓 **2026-11-05 追記 — Devnet は本当に「申請不要」になりました（11-02 付け）。公開 pack の SHA-256 も出ました。ただしテストネットは目標日から2日経過、依然 `planned`。Jack の手順は変わりません。**
 > **❶ 招待制が終わりました。** `/docs/run-miner` が書き換わり、`invite-only` と `tailnet` の語が**4件→0件**、
 > 「There is no public intake path yet」も**消滅**（未決7 の検知器が全部発火）。新しい本文:
@@ -58,10 +133,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **❹ Validator は逆に悪化**: 配布物が **404** になりました。
 >
-> > the advertised `0.2.0-devnet.1`
-> > package and checksum return 404. Stop before host setup until the
->
-> validator ページが検証済みの版を出すまで**ホスト構築に進むな**、とあります。
+> 当時の本文は「the advertised `0.2.0-devnet.1` package and checksum return 404」で、
+> validator ページが検証済みの版を出すまで**ホスト構築に進むな**、とありました
+> （**2026-11-06 に `0.3.0-devnet.1` が公開されたため引用から地の文に落としました**。最新の囲みを参照）。
 >
 > **❺ 受付リポジトリが1日で 96 issue。** `flop-labs/network` の issue は**ほぼ全部 11-05 付け**で、
 > docs からフォームへのリンクも9箇所に増えました。中身は第三者の投稿なので**未検証データ**として扱いますが、
