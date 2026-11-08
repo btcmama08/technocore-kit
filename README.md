@@ -13,6 +13,81 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📦 **2026-11-08 追記 — 公式パッケージ6本すべてが上がり、publish する主体が「個人アカウント」から「org の CI」に変わりました。この囲みより上に書いていた版番号は古くなっています（版では判定しないでください）。**
+> | パッケージ | 旧 | 新 | publish (UTC) |
+> |---|---|---|---|
+> | `flop-sdk`（PyPI） | 0.2.0 | **0.2.1** | 14:36 |
+> | `@flop-labs/contracts` | 0.1.1 | **0.1.2** | 14:49 |
+> | `@flop-labs/client` | 0.2.1 | **0.2.2** | 14:59 |
+> | `@flop-labs/sdk` | 0.4.0 | **0.5.1** | 16:13 |
+> | `@flop-labs/pi` | 0.3.1 | **0.3.2** | 16:19 |
+> | `@flop-labs/cli` | 0.4.0 | **0.4.1** | 16:25 |
+>
+> **❶ publish 主体の変更は「改善」です。** npm 5本の `_npmUser` が `svidyuk`（個人 gmail）から
+> **`GitHub Actions`（`npm-oidc-no-reply@github.com`）**になり、`trustedPublisher: {id: "github"}`
+> が付きました。**＝npm の trusted publishing（OIDC）で、個人の長期トークンではなく GitHub の
+> ワークフローが認証して publish したということです。** `maintainers` は `svidyuk` のまま＝
+> **公開の仕組みが変わっただけで、所有者が変わったわけではありません。** **install フックも無し。**
+> **ただし2点は未達**: ①`attestations` は無い（provenance 証明が付いていないので、成果物を特定の
+> ワークフロー実行に突き合わせて検証することはできません）②`oidcConfigId` は不透明なので、
+> npm が示すのは「GitHub だった」ことまでで「**どのリポジトリか**」は示しません（各パッケージが
+> 今回から持つ `repository` フィールドは**作者の自己申告**で、証明ではありません）。
+> **＝信頼の鎖は「個人アカウント」→「org の CI」に前進。ただし読者が自分で検証できる段階にはまだ届いていません。**
+>
+> **❷ PyPI 0.2.1 は連絡先が `FLOP Network <dev@flop.network>` のまま**で、
+> `Bug Tracker` に `github.com/flop-labs/network/issues/new/choose` が追加されました
+> （3日前に公開 issue で「SDK/CLI のバグ報告先が 404」と指摘されたことへの修正）。
+> なお **summary は今も「PoUI proofs」**で、10-30 の改称が新しい publish にも反映されていません。
+>
+> **❸ 🛡 この欄の訂正（重要）。** これまでこの README は**版番号を本物判定に使っていました**が、
+> 今日その判定は**本物を偽物と誤判定します**。運営のページ自身がこう書いています:
+>
+> > Versions below are the current releases as of 2026-10-30; the registry is authoritative if they
+> > differ.
+>
+> **＝判定するのは「名前」（npm 5つ＋PyPI 1つ）で、版はレジストリが正。** 上の該当箇所は直しました。
+> **自前の検査が勝手に古くなるのは、検査が無いより危険です**（本物を弾きつつ、読者は偽物を本物と思い込むため）。
+>
+> **❹ 🛡 攻撃面④c の格上げ — 運営が第三者製のワンクリック Windows マイナーを紹介しました。**
+> @CryptoHayes 22:56 UTC（[2119564872929464780](https://x.com/CryptoHayes/status/2119564872929464780)）:
+>
+> > You don't need to rent crazy high spec GPUs to mine FLOP. Check this out ...
+>
+> 引用元（第三者、4時間半前）:
+>
+> > I turned my RTX 5080 into a FLOP devnet miner, and packaged it so anyone can do the same from a
+> > Windows PC.
+>
+> > Official images only · double-click Start · live widget
+>
+> **作者が誠実である可能性は十分あり**（「12 sessions settled, 0 failed」は検証可能な具体的主張です）、
+> **創業者が紹介したこと自体も善意の表れ**です。**それでも公式ツールにはなりません**:
+> `/official/` にも `/docs/sdk-references/` にも無く、**運営自身のワンコマンド installer は今も未公開**
+> なので、**存在する唯一の「ダブルクリック FLOP マイナー」は第三者製です。**
+> **リツイートは checksum ではありません。** 「Official images only」は原理的には検証可能（pack が
+> `ghcr.io/flop-labs/flop-core` から pull しているか読めばよい）ですが、**ツイートからは検証できません**。
+> **鍵を扱う Windows インストーラは、この層の読者が差し出されるもののうち最も危険なカテゴリです。**
+> → **規則の精密化**: 「installer を配るものは偽物」ではなく、**「運営が紹介しても公式リストには載らない。
+> installer を安全にするのは、自分で確かめた image と checksum だけ」。**
+> なお作者の「12 sessions settled」は、`/docs/run-miner` の「**Paid sessions are not open yet**」
+> （今日も2件、不変）と食い違います。**外からは決着できないので、こちらは運営のページに従います。**
+>
+> **❺ 運営が「未回答の質問」を公募しました**（[2119206752248025514](https://x.com/CryptoHayes/status/2119206752248025514)、11-07 23:13 UTC）:
+>
+> > As @flop_labs prepares for Testnet and the airdrop, what questions are still unanswered? Reply
+> > and help us make sure all relevant information is made available.
+>
+> **この文書が6週間ためてきたものがちょうどそれです**（E.38 の換算式が未批准・E.40 のエージェント枠が
+> 引き出せないプールに積まれる・90日曲線がどの枠も支配しない）。**ただしこの監視は読むだけで、投稿しません。**
+> **出すかどうかは Jack の判断です。**
+>
+> **その他は不変**: Yellow Paper・8ページ・コーパス38ページ・technocore.chat 3ファイル（`faucet`=0）
+> がすべてバイト同一、`network-testnet` は `planned`（**目標日から5日経過**）、`devnet` も `development`、
+> contract address 0件、紹介受付未開設、`tclk` 0.1.0、`@flop-labs/tclk-flop` は 404、org 8リポジトリ。
+> 受付 issue は 135→**149件**。`flop.network` は**今日も到達不能**（未決1）。
+> **`/r/<16桁hex>` ルームが3度目の再開**（76/118・104/147、各 333〜334B・数秒前。10/25-26、11/01-02 と同形）。
+> **ルーム名は作成者が自由に付ける文字列です（攻撃面⑥）。原因は断定しません。**
+
 > ⚠️ **2026-11-06 追記 — 運営が「テストネットの稼ぎを最大化したいなら今セットアップしろ」と投稿しました。これは *マイナー向け* の実務助言で、Devnet がエアドロに加算されるという意味ではありません（運営自身が4回否定済み）。Jack の手順は変わりません。**
 > @CryptoHayes 11:01 UTC（[2118660133823897715](https://x.com/CryptoHayes/status/2118660133823897715)）:
 >
@@ -335,12 +410,14 @@ is never required to verify anything. Japanese documentation follows; commands a
 > > or Hermes plugin packages. A package with one of those names on a public registry is not
 > > FLOP's.
 >
-> **＝ 公式は npm の5つ（`@flop-labs/client` 0.2.1 / `contracts` 0.1.1 / `sdk` 0.4.0 /
-> `pi` 0.3.1 / `cli` 0.4.0）と PyPI の `flop-sdk` 0.2.0 だけ。それ以外の名前は全部偽物です。**
-> CLI はグローバルに入れずに `npx --yes --package @flop-labs/cli@0.4.0 flop --version` で版を固定。
-> **残る注意2点**: ①npm の maintainer は今も `svidyuk` 1名で、この**アカウント自体**を公式と示す
-> 公開情報はありません（運営が保証したのは**パッケージ**です）②コンテナ image の digest 固定に使う
-> `flop.network/releases.json` はこちらから 403 のままで**検証できません**。
+> **＝ 公式なのは npm の5つの「名前」（`@flop-labs/client` / `contracts` / `sdk` / `pi` / `cli`）と
+> PyPI の `flop-sdk` だけ。それ以外の名前は全部偽物です。**
+> ⚠️ **版番号は判定に使わないでください（2026-11-08 に6本全部が上がりました。最新の囲みを参照）。**
+> 運営のページ自身が「Versions below are the current releases as of 2026-10-30; **the registry is
+> authoritative if they differ**」と書いています。**＝判定するのは「名前」で、版はレジストリが正。**
+> CLI はグローバルに入れず `npx --yes --package @flop-labs/cli@<レジストリの最新版> flop --version` で版を固定。
+> **残る注意**: コンテナ image の digest 固定に使う `flop.network/releases.json` は
+> こちらから到達不能のままで**検証できません**。
 >
 > **📐 同日、仕様にも大きな追加がありました（エアドロには影響なし）。**
 > 「proof of **useful** inference / PoUI」という呼称が**全ページから消え**「proof of inference / PoI」に

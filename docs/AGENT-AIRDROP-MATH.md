@@ -870,9 +870,12 @@ list:
 
 Two caveats survive. The maintainer account is still `svidyuk` on all five npm packages and
 still appears in no primary source; what changed is that the operator now vouches for the
-packages, not for the account. And `flop.network/releases.json`, named on the new page as the
-way to get a reproducible digest pin for the container image, still returns CONNECT 403 to this
-session, so the image pins remain unverifiable from here.
+packages, not for the account. *(The publishing identity moved to GitHub Actions under npm
+trusted publishing on 2026-11-08, which narrows this caveat; see the last section. The listed
+versions are the ones that were current on 2026-10-30 and have since moved — the page's own rule
+is that the registry is authoritative.)* And `flop.network/releases.json`, named on the new page
+as the way to get a reproducible digest pin for the container image, still returns CONNECT 403 to
+this session, so the image pins remain unverifiable from here.
 
 ### "By early next week", which is also testnet week
 
@@ -1621,6 +1624,128 @@ is a better signal of what is missing than this file's own reading of the docs.
 doing differently after today is believing the spec over the tweet when they disagree, which on
 2026-11-06 they did.
 
+## Six packages moved, the publisher changed, and the version list in this file went stale
+
+On 2026-11-08 every official package was republished — the first release since the 29 October
+batch — and the identity doing the publishing changed:
+
+| package | was | now | published (UTC) |
+|---|---|---|---|
+| `flop-sdk` (PyPI) | 0.2.0 | **0.2.1** | 14:36:15 |
+| `@flop-labs/contracts` | 0.1.1 | **0.1.2** | 14:49:20 |
+| `@flop-labs/client` | 0.2.1 | **0.2.2** | 14:59:40 |
+| `@flop-labs/sdk` | 0.4.0 | **0.5.1** | 16:13:56 |
+| `@flop-labs/pi` | 0.3.1 | **0.3.2** | 16:19:18 |
+| `@flop-labs/cli` | 0.4.0 | **0.4.1** | 16:25:53 |
+
+**The publisher is no longer a person.** Every one of the five npm versions records its
+publisher as `GitHub Actions`, at `npm-oidc-no-reply@github.com`, carrying a
+`trustedPublisher` block with `id: "github"` and a per-package OIDC configuration id. The
+previous versions all recorded `svidyuk` with a personal gmail address. That is npm's trusted
+publishing: the release was authenticated by GitHub's OIDC token for a configured workflow
+rather than by a long-lived token on somebody's laptop, and **it narrows the gap this file has
+flagged since 2026-10-29**, where the only thing standing behind the packages was an npm account
+that no FLOP page mentions. The `maintainers` list is unchanged — still `svidyuk` alone — so this
+is a change of release mechanism, not of ownership.
+
+Two things it is not. It is **not** a provenance attestation: `dist.attestations` is absent on all
+five, so the registry does not let anyone verify the artefact against a specific workflow run.
+And the `oidcConfigId` is opaque, so npm tells us the publisher was *GitHub*, not *which
+repository* — the `repository` field each package now carries
+(`git+https://github.com/flop-labs/flop-core.git`, with a `directory` per package) is
+author-declared metadata, not proof. The honest summary: **the chain of custody improved from "a
+personal account" to "the org's CI", and still stops short of something a reader can verify
+independently.** No package has an install hook; the only `scripts` entries are `build`, `test`,
+`dev` and the like, which npm does not run on install.
+
+On PyPI, `flop-sdk` 0.2.1 keeps `FLOP Network <dev@flop.network>` as its contact — the official
+domain — and adds one `project_urls` entry that was missing: a `Bug Tracker` pointing at
+`github.com/flop-labs/network/issues/new/choose`. That is the fix for a complaint filed on the
+public tracker three days earlier, that the SDK and CLI packages sent bug reports to a 404. One
+piece of staleness survives the new release: the package summary still advertises "PoUI proofs",
+the name the specification dropped on 2026-10-30.
+
+### The correction that matters is to this file
+
+**Both this document and the README listed those exact version numbers as the test for whether a
+package is genuine.** As of today that test rejects the real packages. The operator's own page
+anticipated this and said so in the sentence this file should have leaned on from the start:
+
+> Versions below are the current releases as of 2026-10-30; the registry is authoritative if they
+> differ.
+
+So the rule is the **name**, not the number: six names are FLOP's, the registry decides which
+version is current, and the denylist sentence still rules out everything else. Both files are
+corrected above, and the CLI pin now reads `@flop-labs/cli@<the registry's current version>`
+rather than a number that will rot. **A security check that goes stale on its own is worse than
+no check, because it fails in the direction of rejecting the genuine article while a reader
+concludes the fake one must be real.**
+
+### The operator is now amplifying a third-party one-click Windows miner
+
+`@CryptoHayes`, 22:56:59 UTC
+([2119564872929464780](https://x.com/CryptoHayes/status/2119564872929464780)):
+
+> You don't need to rent crazy high spec GPUs to mine FLOP. Check this out ...
+
+quoting a post from a stranger four and a half hours earlier:
+
+> I turned my RTX 5080 into a FLOP devnet miner, and packaged it so anyone can do the same from a
+> Windows PC.
+
+> Official images only · double-click Start · live widget
+
+with a `t.co`-shortened "free guide" link. **This is the hardest case for the test in the scam
+section, and it is worth being precise rather than alarmed.** The packager may be entirely
+honest; "12 sessions settled on chain, 0 failed" is a specific, falsifiable claim rather than
+hype; and the founder pointing at it is a genuine signal of goodwill. None of that makes it
+official tooling. It is not on `/official/`, it is not in `/docs/sdk-references`, and the
+operator's *own* one-command installer is still unpublished — so the only double-click FLOP miner
+installer in existence belongs to a third party. **A retweet is not a checksum.** The claim
+"Official images only" is checkable in principle, by reading the pack and confirming it pulls
+`ghcr.io/flop-labs/flop-core`; it is not checkable from the tweet, and a Windows installer that
+handles keys is the single highest-risk artefact this audience will be offered.
+
+The earlier rule in this file — that anything distributing an `install.sh` is fake, since FLOP has
+not published one — needs the sharper form: **the operator having pointed at an installer does
+not move it onto the official list, and the only thing that makes any installer safe is images
+and checksums the reader verifies personally.**
+
+One claim in that post sits against the documentation. `/docs/run-miner` still says "Paid
+sessions are not open yet" — the phrase is in today's corpus twice, unchanged — while the
+packager reports a dozen settled sessions. This file cannot resolve that from outside: a
+stranger's screenshot against the operator's own page. It follows the page.
+
+### An open invitation, which is Jack's call and not this file's
+
+`@CryptoHayes`, 2026-11-07 23:13:57 UTC
+([2119206752248025514](https://x.com/CryptoHayes/status/2119206752248025514)):
+
+> As @flop_labs prepares for Testnet and the airdrop, what questions are still unanswered? Reply
+> and help us make sure all relevant information is made available.
+
+That is an operator-opened channel asking for exactly what this document is: six weeks of
+unanswered questions, each one quoted back to its own specification. The three that would be
+worth asking are already written down here — the conversion score of E.38 is unratified, so no
+agent can compute what its spend converts to; the agent leg of E.40 accrues to a pool with no
+distribution rule, so a tenth of every block reward is going somewhere nobody can draw from; and
+the ninety-day vesting curve in the runtime governs no ratified grant tier, so the implemented
+behaviour matches no decided policy.
+
+**This watch does not post.** The standing rule is that it reads and does not write, and whether
+to put any of that to the operator — here, or as a public issue in the repository that invites
+"an incentive you find unconvincing" — is a decision for the kit's owner, not for the thing
+keeping the notes.
+
+### Everything else held
+
+The Yellow Paper, all eight `flop.finance` pages, the 38-page corpus and technocore.chat's three
+files are byte-identical for a second day. The one-word statuses have not moved: `planned`,
+`development`, `planned`. The intake tracker went from 135 issues to 149. And the machine-made
+`/r/<16-hex>` rooms returned for a third run — 76 of 118 and 104 of 147 names on two independent
+uncached reads, each room 333 or 334 bytes and seconds old, the same signature as 25–26 October
+and 1–2 November. Five days quiet, then back. This file still declines to guess what makes them.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1811,7 +1936,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and fifteen block quotes above are verbatim from the six pages in the header, the
+All one hundred and twenty block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
