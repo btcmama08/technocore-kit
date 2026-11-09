@@ -1318,9 +1318,12 @@ the announcements had claimed. The `/docs/run-miner` page replaced the sentence 
 yesterday with a dated, bounded rule, and the date in it is the surprise:
 
 > From 2 November 2026
-> no invitation is needed: the sponsor approves a new devnet miner automatically while at most 40
+> no invitation is needed: the sponsor approves a new devnet miner automatically while at most 100
 > automatically sponsored miners are still uncalibrated, the new one included. Past that it
 > answers `429`; retry once one of them calibrates.
+
+*(The number in that sentence read **40** from 2026-11-05 to 2026-11-08 and became **100** on
+2026-11-09. Everything else in it is unchanged; the quote above is today's text.)*
 
 So the permissionless devnet was true from **2 November**, a day before the announcement that
 described it and three days before the page said so. The heading lost "(invite-only preview)",
@@ -1746,6 +1749,47 @@ files are byte-identical for a second day. The one-word statuses have not moved:
 uncached reads, each room 333 or 334 bytes and seconds old, the same signature as 25–26 October
 and 1–2 November. Five days quiet, then back. This file still declines to guess what makes them.
 
+## Yesterday's rule earned its keep in a day
+
+Four small things moved on 2026-11-09, and three of them are values this file had written down as
+if they would hold.
+
+**The uncalibrated-miner cap went from 40 to 100.** The sentence quoted two sections above is
+otherwise word for word what it was; only the number changed, and with it the practical force of
+the 6 November advice to get set up early. At forty slots the queue was a real constraint and
+"before the airdrop period begins" had teeth. At a hundred, with new sponsorships capped at a
+hundred a rolling day anyway, the headroom and the daily limit are the same size — **the cap has
+stopped being the binding constraint**, and the reason to register early is now ordinary
+readiness rather than scarcity.
+
+**The validator package moved from `0.3.0-devnet.1` to `0.4.0-devnet.1`, with a new archive
+SHA-256** (`95486a2b…085f7e5`). This file recorded the previous checksum three days ago as the
+value to check a download against. It was superseded in three days. Yesterday's note — that a
+check built on a version number or a digest rots on its own, so what belongs at the centre of a
+check is the name and the publisher — was written about the npm packages, and the validator
+download proved it the next morning. **Record a digest with the date you read it, and go back to
+the source before trusting it.** The npm `cli` package did the same thing on a smaller scale,
+going to 0.4.2 one day after 0.4.1.
+
+**And the devnet is now running a named runtime spec.** Where the corpus previously listed the
+candidate versions and said devnet had activated none of them, it now says:
+
+> Devnet runs 1014014; source admission or ratification alone does not establish that devnet has
+> activated a spec.
+
+That is the first time this watch has seen the operator state which runtime version the live
+devnet is on, and the clause after the semicolon is the same discipline this file keeps applying
+to itself: a thing existing in the source is not the thing running. The specs `1014012` through
+`1014014` are accepted by the unreleased source; one of them is live.
+
+Nothing else changed. The Yellow Paper, all eight `flop.finance` pages and technocore.chat's
+three files are byte-identical for a third day; the one-word statuses are `planned`,
+`development`, `planned`, six days past the testnet target; both X accounts posted nothing at all
+— identical post counts, identical bodies, identical status-id lists; npm's publisher is still
+GitHub Actions under trusted publishing with no install hooks and still no provenance
+attestation; `flop.network` is still unreachable. The intake tracker went from 149 issues to 171.
+The machine-made `/r/<16-hex>` rooms ran a second day.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1936,7 +1980,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and twenty block quotes above are verbatim from the six pages in the header, the
+All one hundred and twenty-one block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:

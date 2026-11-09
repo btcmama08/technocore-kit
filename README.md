@@ -13,6 +13,28 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🔁 **2026-11-09 追記 — 昨日の「版番号や checksum を判定の中心に置くな」が1日で実証されました。小さな変更4件。**
+> **❶ 未校正マイナーの上限が 40 → 100 に。** 上の引用文はこの数字以外は一字も変わっていません（引用は今日の本文に差し替え済み）。
+> **＝11-06 の「今セットアップしろ」の実務的な重みは下がりました。** 40枠なら行列は実際の制約でしたが、
+> 100枠は**新規 sponsorship の日次上限（100/24h）と同じ大きさ**なので、**上限は実質的な制約ではなくなりました。**
+> 早く登録する理由は「枠の希少性」ではなく「普通の準備」になります。
+> **❷ Validator 配布物が `0.3.0-devnet.1` → `0.4.0-devnet.1`、SHA-256 も新規**（`95486a2b…085f7e5`）。
+> **この欄が3日前に記録した checksum は3日で無効になりました。** 昨日 npm について書いた教訓
+> （勝手に古くなる値を判定の中心に置くな）が、翌朝に validator 側で証明された形です。
+> **→ digest は「いつ読んだか」を併記し、信じる前に必ず出典に戻る。** npm の `cli` も 0.4.1 → **0.4.2**（1日で）。
+> **❸ Devnet が走らせている runtime spec が初めて明示されました:**
+>
+> > Devnet runs 1014014; source admission or ratification alone does not establish that devnet has
+> > activated a spec.
+>
+> **＝セミコロンの後がこの文書の姿勢と同じです**（ソースに在ることと動いていることは別）。
+> **その他は不変**: Yellow Paper・8ページ・technocore.chat 3ファイルが3日連続バイト同一、
+> status は `planned`/`development`/`planned`（**目標日から6日経過**）、
+> **両アカウントの投稿はゼロ**（件数・本文・status ID 一覧がすべて一致）、
+> npm は publish 主体 `GitHub Actions`＋trusted publishing・install フックなし・attestation なしのまま、
+> PyPI は 0.2.1、contract address 0件、紹介受付未開設、`tclk` 0.1.0、`tclk-flop` 404、org 8リポジトリ。
+> 受付 issue は 149→**171件**。`flop.network` は**今日も到達不能**（未決1）。`/r/<16桁hex>` ルームは2日連続。
+
 > 📦 **2026-11-08 追記 — 公式パッケージ6本すべてが上がり、publish する主体が「個人アカウント」から「org の CI」に変わりました。この囲みより上に書いていた版番号は古くなっています（版では判定しないでください）。**
 > | パッケージ | 旧 | 新 | publish (UTC) |
 > |---|---|---|---|
@@ -168,9 +190,11 @@ is never required to verify anything. Japanese documentation follows; commands a
 > 「There is no public intake path yet」も**消滅**（未決7 の検知器が全部発火）。新しい本文:
 >
 > > From 2 November 2026
-> > no invitation is needed: the sponsor approves a new devnet miner automatically while at most 40
+> > no invitation is needed: the sponsor approves a new devnet miner automatically while at most 100
 > > automatically sponsored miners are still uncalibrated, the new one included. Past that it
 > > answers `429`; retry once one of them calibrates.
+>
+> （**この数字は 11-05〜11-08 は「40」で、2026-11-09 に「100」になりました。** 他は不変。上は今日の本文です。）
 >
 > **＝実際は 11-02 から申請不要でした**（告知の前日、ページ更新の3日前）。上限も10倍に:
 >
