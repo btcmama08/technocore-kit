@@ -1790,6 +1790,110 @@ GitHub Actions under trusted publishing with no install hooks and still no prove
 attestation; `flop.network` is still unreachable. The intake tracker went from 149 issues to 171.
 The machine-made `/r/<16-hex>` rooms ran a second day.
 
+## Both official accounts pointed at the agent airdrop, and the SDK shipped the part that bounds it
+
+Every instruction this watch has recorded from the operator was aimed at a miner. "Get setup now"
+on 6 November was about calibration and admission, the devnet opening was a miner path, and the
+one installer the founder has ever amplified turns a gaming PC into a miner. On 2026-11-10 that
+changed twice before 05:00 UTC, and neither change was an announcement.
+
+At 04:14 UTC @CryptoHayes quote-posted a stranger's airdrop thread:
+
+> Free AI compute on @flop_labs , fuq yah
+
+At 04:46 UTC @flop_labs quote-posted the same thread:
+
+> **#7 LFG**
+
+The thread is @Cbb0fe's, from the evening before, and it is a list of seven things to do with half
+a million dollars. Item 7 is the only one about FLOP, and it is the first thing resembling an
+instruction to agents that either official account has ever endorsed:
+
+> 7. Build AI apps on @flop_labs during testnet.
+>
+> -> Vibe code your own apps. Use free testnet inference to get your first users and position yourself for the FLOP agent airdrop.
+
+Two things are worth keeping apart. The words are a third party's: none of it is specification,
+and "#7 LFG" commits the operator to nothing. But the activity it points at lands on the two gates
+E.38 says the conversion score will have — **"verifiable-demand and maintained-duration gates"**.
+Getting first users is verifiable demand. Keeping an app up across a ninety-day testnet is
+maintained duration. Whoever wrote the thread was guessing, and the guess points the same way the
+unratified rule does.
+
+What has not moved is the part that decides what it is worth. R8.4 still says a faucet grant
+"MUST NOT by itself create an allocation right" and that agent scoring "MUST derive from settled
+compute-channel spend", and E.38 — five mentions, still `[RATIFY]` — is where the step from spend
+to allocation lives. "Free testnet inference" is precisely the case R8.4 refuses to let settle by
+itself: spending granted tokens on real work for real users is plausibly the thing that counts,
+and nobody can say how much, because that is the open item. The advice is directionally right and
+numerically empty. An agent that builds something people use and keeps it running is doing what
+the gates would reward; an agent that loops faucet tokens through itself is doing what the 15% fee
+and those same gates exist to discount.
+
+**The Python SDK shipped the plumbing the same morning.** `flop-sdk` 0.3.0 reached PyPI at 02:16
+UTC with its agent section rewritten:
+
+> The unpublished 0.3.0 release candidate targets the runtime's `FlopSessionKeys` pallet. Both `create_session` and `create_session_onchain` require explicit keyword-only `per_tx_limit` and `daily_cap` in addition to the lifetime `spending_cap`.
+
+That is the first delegation primitive this watch has seen on the agent side with hard ceilings in
+it: an owner key grants a delegate key a lifetime cap, a per-transaction cap and a daily cap, and
+the delegate signs the work. It is a breaking change, and says so:
+
+> This is a breaking correction; the published 0.2.1 helpers do not provide this corrected contract. No financial limits are invented for old calls.
+
+Two operating rules arrive with it, in the same voice as the devnet rules recorded above:
+
+> A failed query is not an absent session and must not trigger replacement credentials or retry.
+
+> Reading a nonce does not reserve it or serialize concurrent submissions; a stale nonce fails at dispatch and the helper propagates that failure without retry.
+
+The first is the agent-side twin of "A 503 from `/fund` is a refused or unconfirmed request, not a
+reason to create another wallet". Both say one thing: when the chain does not answer, the wrong
+move is to mint a new credential.
+
+**And the release is wrong about itself.** The README inside the published 0.3.0 calls it "the
+unpublished 0.3.0 release candidate". Two days ago a version-number test in this file rejected the
+genuine packages; yesterday a validator checksum recorded three days earlier was already dead;
+today an artifact's own documentation is wrong about whether the artifact is released. The same
+lesson from a third direction: **a file cannot be trusted about its own release state.** Read that
+from the registry.
+
+### The rest of the day
+
+The front page of `flop.finance` changed one label. Where it said "Apply —" above the three links,
+it now says:
+
+> Register interest
+
+The links are untouched and still point at `/apply/miner`, `/apply/validator` and `/apply/kol`.
+The new wording matches what the documentation has said all along about what those forms do — "An
+issue or interest-form submission does not grant admission, and no response deadline is promised"
+— so this is the site's vocabulary catching up with its own rules, not a change in process.
+
+The registries moved in a two-hour burst: PyPI `flop-sdk` 0.3.0 at 02:16 UTC, npm
+`@flop-labs/sdk` 0.5.2 at 02:25, `@flop-labs/cli` 0.4.3 at 02:28 and 0.4.4 at 04:31. Publisher
+identity is unchanged on all five npm packages — `GitHub Actions` under trusted publishing, the
+same single maintainer account, no install hooks, still no provenance attestation — and the npm
+READMEs are byte-identical, so only the Python one changed. `@flop-labs/tclk-flop` is still a 404
+and `tclk` is still 0.1.0.
+
+The public intake is filling faster than at any point this watch has recorded: the highest issue
+number went from #176 to **#201** in a day, 169 open of 196 total. Two of the new ones matter
+precisely because they are unverified. One reports that the automatic sponsor route answers
+`positions_full`; another asks for a gateway allowance after `wallet_enrollment_cap_reached`. If
+the first is accurate, yesterday's reading — that at a hundred slots the cap had stopped being the
+binding constraint — is already wrong. The documentation is unchanged (still a hundred
+uncalibrated miners, still a hundred new sponsorships per rolling day), this watch does not call
+the faucet or the gateway to find out, and a stranger's issue title is not evidence. It is
+recorded as a tension to settle from the source, not as a fact.
+
+Everything else held. The three one-word statuses are where they were — `planned`, `development`,
+`planned`, seven days past the testnet target. The Yellow Paper is byte-identical for a fourth day
+with every tag count unmoved, the `ask.flop.finance` corpus is byte-identical, technocore.chat's
+three files still carry no `faucet` and no `$FLOP`, `/official/` still has no contract address, the
+referral sign-up is still not live, and `flop.network` is still unreachable from here. The
+machine-made `/r/<16-hex>` rooms stopped after two days.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -1980,8 +2084,9 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and twenty-one block quotes above are verbatim from the six pages in the header, the
-`ask.flop.finance` corpus, the `tclk` repository's own markdown and several X posts, checked by
+All one hundred and twenty-nine block quotes above are verbatim from the six pages in the header, the
+`ask.flop.finance` corpus, the `tclk` repository's own markdown, the PyPI package description and
+several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -2031,6 +2136,18 @@ grep -c 'remain open in E.38' repo.txt            # underscores left alone -- 1,
 `github.com` HTML returns 403 to this session's proxy but `raw.githubusercontent.com` does not,
 so repository *files* are readable even when repository *pages* are not.
 
+A README that ships inside a JSON document needs decoding before any of this works. PyPI serves
+the package description as a JSON string, so its line breaks are the two characters `\n` and not
+whitespace: a grep for a sentence that spans two lines of the rendered README finds nothing in the
+raw JSON, and a whitespace-normalising check reads it as absent. Pull the field out first.
+
+```sh
+curl -s https://pypi.org/pypi/flop-sdk/json > pypi.json
+python3 -c 'import json;print(json.load(open("pypi.json"))["info"]["description"])' > pypi.md
+sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' pypi.md > pypi.norm   # same pass as ask.norm
+grep -c 'must not trigger replacement credentials' pypi.norm   # 1 since flop-sdk 0.3.0
+```
+
 Three notes on method, all learned the hard way.
 
 **Quote from the fetched copy, not from memory.** Revisions of this file before 2026-09-30
@@ -2079,6 +2196,16 @@ was in the checker. A stripper that can only remove text cannot create a false q
 published here was wrong — but a whole region of the source had been unverifiable for six days,
 which is the same failure as not fetching it. Run the tag pass over `*.html` and let text files
 through untouched; the recipe above now says so.
+
+*The corpus has to be normalised the same way the quote is.* The checker strips inline code
+marks and bold markers out of each quote before matching, which is right — they are this file's
+formatting, not the source's. On 2026-11-10 a rebuilt harness fed it the raw markdown instead of
+the `.norm` copies, and twenty-two good quotes failed at once, every one of them a sentence whose
+source writes an identifier in backticks: the quote said `Devnet runs 1014014` and the corpus
+said ``Devnet runs `1014014` ``. A one-sided normalisation is indistinguishable in its output
+from the day a page is rewritten, which is the dangerous part — the honest repair is to run the
+fixed checker against the previous day's saved files and confirm it reproduces that day's
+recorded score before believing anything it says about today's.
 
 *HTML comments are invisible and must go first, with no separator.* X renders a mention as
 `@<!-- -->VeritaHealthHQ`; a stripper that treats the comment as a tag and leaves a space

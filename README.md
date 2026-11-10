@@ -13,6 +13,48 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🤖 **2026-11-10 追記 — 運営の両アカウントが初めて「エージェント向けの行動」を是認しました。同じ朝、Python SDK がその土台を出荷しています。**
+> **❶ 04:14 UTC に @CryptoHayes が、04:46 UTC に @flop_labs が、第三者（@Cbb0fe）のエアドロ指南スレッドを引用しました。**
+>
+> > Free AI compute on @flop_labs , fuq yah
+>
+> > **#7 LFG**
+>
+> 引用元スレッドの「7番」が FLOP の項目です（[@flop_labs 側](https://x.com/flop_labs/status/2120015248476496285)／[@CryptoHayes 側](https://x.com/CryptoHayes/status/2120007039644848328)／[元スレッド](https://x.com/Cbb0fe/status/2119871710975406555)）:
+>
+> > 7. Build AI apps on @flop_labs during testnet.
+>
+> > -> Vibe code your own apps. Use free testnet inference to get your first users and position yourself for the FLOP agent airdrop.
+>
+> **＝「テストネット中にアプリを作れ。無料の推論で最初の利用者を得て、エージェント・エアドロに備えろ」。**
+> **文言は第三者のもので仕様ではありません**（「#7 LFG」は運営を何も拘束しない）。
+> ただし**向きは E.38 が予告しているゲートと一致します** —「verifiable-demand and maintained-duration gates」
+> ＝**実需の検証**と**継続期間**。「最初の利用者を得る」が前者、「90日のテストネット中に動かし続ける」が後者です。
+> **一方で値は未定のまま**: R8.4 は faucet grant が「MUST NOT by itself create an allocation right」と言い、
+> エージェントの採点は「settled compute-channel spend」由来と定めています。**その換算こそ E.38（未批准・5件）です。**
+> → **実際に人が使うものを作って動かし続ける**のがゲートに沿った行動。
+> **自己取引ループは15%手数料と同じゲートで割り引かれる側**という整理は変わりません。
+> **❷ PyPI `flop-sdk` が 0.2.1 → 0.3.0**（02:16 UTC）。`FlopSessionKeys` パレット向けに、
+> **委任鍵に上限が3つ必須**になりました（生涯 `spending_cap`・1件あたり `per_tx_limit`・日次 `daily_cap`）。**破壊的変更**と明記。
+> **＝エージェント側で初めて「上限付きの委任」が出てきました**（所有者が枠を与え、委任鍵が実行に署名する）。
+> 同時に運用規則も追加:
+>
+> > A failed query is not an absent session and must not trigger replacement credentials or retry.
+>
+> **＝「問い合わせが失敗しても、セッションが無いことにはならない。代わりの資格情報を作るな／再試行するな」**
+> — devnet の「503 で新しいウォレットを作るな」と同じ型です。
+> **❸ そして 0.3.0 の README は自分を「the unpublished 0.3.0 release candidate」と書いています。**
+> **＝成果物は自分の公開状態について信用できません。** 版番号（11-08）→ digest（11-09）→ 自己記述（11-10）と
+> **3日連続で同じ教訓**です。**状態はレジストリで読む。**
+> **❹ トップページの文言が「Apply —」→「Register interest」に変わりました**（リンク先 `/apply/miner` `/apply/validator` `/apply/kol` は不変）。
+> ドキュメント側の「An issue or interest-form submission does not grant admission」に表現が追いついただけで、手続きの変更ではありません。
+> **その他**: npm は `sdk` 0.5.2 / `cli` 0.4.3→0.4.4（publish 主体は `GitHub Actions`＋trusted publishing のまま・install フックなし・attestation なし）。
+> status は `planned`/`development`/`planned`（**目標日から7日経過**）、Yellow Paper と ask コーパスは**4日連続バイト同一**、
+> technocore.chat 3ファイルも不変（faucet 0 / `$FLOP` 0）、contract address 0件、紹介受付未開設、`tclk` 0.1.0、`tclk-flop` 404、org 8リポジトリ。
+> 受付 issue は**最大番号 #176 → #201**（1日で約25件・open 169 / 全196）。うち**「automatic sponsor route が `positions_full` を返す」という未検証の報告**があり、
+> もし本当なら**昨日の「上限はもう実質的な制約ではない」は覆ります**（docs の数字は 100 のまま、我々はエンドポイントを叩かないので外からは決着できません）。
+> `flop.network` は**今日も到達不能**（未決1）。`/r/<16桁hex>` の機械生成ルームは2日で止まりました。
+
 > 🔁 **2026-11-09 追記 — 昨日の「版番号や checksum を判定の中心に置くな」が1日で実証されました。小さな変更4件。**
 > **❶ 未校正マイナーの上限が 40 → 100 に。** 上の引用文はこの数字以外は一字も変わっていません（引用は今日の本文に差し替え済み）。
 > **＝11-06 の「今セットアップしろ」の実務的な重みは下がりました。** 40枠なら行列は実際の制約でしたが、
