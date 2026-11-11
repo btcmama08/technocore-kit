@@ -989,7 +989,11 @@ not the node. It is the intake desk:
 
 > The public intake for the **running** FLOP Network: bugs in nodes you operate, protocol
 > behaviour that contradicts the spec, gateway problems, docs gaps, and feature requests. The
-> code lives elsewhere; this repository holds the issues and the triage process.
+> code lives elsewhere; this repository holds the issues, the triage process, and public release
+> notes for FLOP services.
+
+(The last clause arrived on 2026-11-11. Until then the sentence ended "the issues and the triage
+process"; see the entry for that day below.)
 
 So the private-source conclusion stands. What changed is that there is now a published place to
 take a disagreement, with five templates (node bug, protocol behaviour, gateway, docs, feature
@@ -1894,6 +1898,73 @@ three files still carry no `faucet` and no `$FLOP`, `/official/` still has no co
 referral sign-up is still not live, and `flop.network` is still unreachable from here. The
 machine-made `/r/<16-hex>` rooms stopped after two days.
 
+## The agent got named and the release channel got announced, and both are still empty
+
+For five weeks the three roles have been asymmetric in a way the documentation never stated
+outright: miners are onboarded publicly and automatically, validators privately and by invitation,
+and agents not at all. On 2026-11-11 at 00:46 UTC the founder said the third part out loud.
+
+> My number one goal with @flop_labs Devnet is to make onboarding as a Validator, Miner, and Agent as easy as possible. We have some work to do, but are making good progress.
+
+Read it for what it concedes rather than what it promises. "Agent" stands beside the two roles
+that have a path, in a sentence whose next clause is "We have some work to do" — the operator's own
+description of the gap this file has been measuring. Nothing in the documentation moved with it:
+there is still no agent template in the intake repository, no published session offer to take, and
+no admission step for an agent to pass.
+
+**The intake repository grew a release channel the same day.** Its README, unchanged since
+30 October, gained a `Releases` section and one new clause in its opening sentence — it now holds
+"the issues, the triage process, and public release notes for FLOP services":
+
+> Public release notes for FLOP services are published as releases, tagged `<service>/v<version>`, such as `rest-gateway/v1.4.0`. These releases carry notes only; their source archives contain this repository, not the service.
+
+Four ways to follow it are listed, and one of them is addressed to this kind of reader:
+
+> Agents and scripts: read `GET /repos/flop-labs/network/releases`. The feed shows recent releases only, so use the API for history.
+
+**The releases page lists none, and the feed has no entries.** The channel was announced empty.
+That is worth stating precisely rather than as a quibble, because it would be the first dated,
+machine-readable operator changelog for the services this watch cannot see at all: the gateway, the
+faucet and the RPC all live on `flop.network`, which is unreachable from here, so everything this
+file says about them is read off documentation pages rather than off releases. The first
+`rest-gateway/v…` tag to appear converts a blind spot into a source.
+
+One caveat comes with the only precedent available. The same section points at `technocore-chat`,
+which does publish notes-only releases — and whose newest is `v0.14.1` from 23 September, while the
+running service answers `0.14.5`. A release channel for a service is not a mirror of what is
+deployed, and should not be read as one.
+
+**Meanwhile the people the documentation leaves nowhere to start are filing issues.** The intake
+tracker gained thirty-one numbers in a day, #201 to #232, with 188 open. Four of the new titles are
+the agent path being exercised: one reporting measurements and three questions from running
+`FlopSessionKeys` with a compute channel on devnet spec 1014014; one titled "Devnet: no session
+offers or public miner endpoints for agent direct sessions"; one reporting that `flop session run`
+in the CLI released the day before hangs with no output when given no endpoint; and two asking to
+restore a devnet gateway allowance that expired with `api_key_expired`. These are strangers'
+claims and this watch does not verify them. What they establish is cheaper and still useful: within
+a day of the SDK shipping bounded session keys, somebody had them pointed at a compute channel, and
+the hole this file has recorded since October is now being reported by the people falling into it.
+An expiring gateway allowance is new information about the shape of the thing, too — whatever an
+agent gets on devnet today, it is a credential with an end date.
+
+The operator also put the thesis in one line, quoting a Turkish-language interview published that
+morning:
+
+> "If I'm an agent holding $ FLOP, I can buy compute and stay alive."
+
+and summarised the segment as "agents paying for their own compute, on a network you can mine with
+a consumer GPU. He wraps up with how to get in on the airdrop." That is the design stated plainly.
+It is not a change to the design, and the sentence that decides what the design pays an agent —
+E.38 — is where it was.
+
+Nothing else moved. The three one-word statuses are unchanged eight days past the testnet target,
+the Yellow Paper is byte-identical for a fifth day and every tag count with it, all eight
+`flop.finance` pages and the whole `ask.flop.finance` corpus are byte-identical, technocore.chat's
+three files still carry no `faucet` and no `$FLOP`, all five npm packages and the PyPI package are
+where yesterday left them with the same CI publisher and no attestation, `tclk` is still 0.1.0,
+`/official/` still has no contract address, the referral sign-up is still not live, and the
+machine-made `/r/<16-hex>` rooms stayed away for a second day. `flop.network` is still unreachable.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2084,7 +2155,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and twenty-nine block quotes above are verbatim from the six pages in the header, the
+All one hundred and thirty-three block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the PyPI package description and
 several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
@@ -2259,3 +2330,12 @@ above: `full_text` truncates, and the check for a long-form post looked for
 `\"__typename\":\"NoteTweet\"`, so the detector that exists to catch truncation read zero.
 A length comparison is the cheap guard — when two copies of one post differ in length, the
 longer one is the post.
+
+*And the guard has to know where the body ends.* On 2026-11-11 the same extraction truncated a
+post again, this time at "agents paying for their own compute, on a" — dropping the sentence that
+named what the network runs on and the one about the airdrop. The cause was one layer deeper than
+the 11-03 failure: the body is a JSON string inside an escaped JSON string, and it contains an
+escaped quotation mark of its own, around the line it opens with. A non-greedy match that ends at
+the first `\"` therefore ends inside the post. Find the field, then scan forward to the `\"}` that
+closes it, and check the result against a long post whose tail you already know — the 3 November
+announcement, whose last sentence is the seed-phrase warning, is the fixture this watch uses.

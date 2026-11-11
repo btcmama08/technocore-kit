@@ -13,6 +13,45 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📣 **2026-11-11 追記 — 運営が初めて「Agent」を devnet のオンボーディング対象として名指しし、サービスのリリースノート窓口も開きました。どちらも中身はまだ空です。**
+> **❶ @CryptoHayes 00:46 UTC**（[2120317250653868358](https://x.com/CryptoHayes/status/2120317250653868358)）:
+>
+> > My number one goal with @flop_labs Devnet is to make onboarding as a Validator, Miner, and Agent as easy as possible. We have some work to do, but are making good progress.
+>
+> **＝「Validator / Miner / Agent の3つを簡単にするのが第一目標。やることは残っている」。**
+> これまで**エージェントだけ経路が存在しなかった**という我々の観測を、運営自身が「残作業」として認めた形です。
+> **ドキュメントは今日1バイトも動いていません**（エージェント用 issue テンプレ無し・公開 session offer 無し・admission 手順無し）。
+> **❷ `flop-labs/network` の README が +1,318 B。`Releases` 節が付きました:**
+>
+> > Public release notes for FLOP services are published as releases, tagged `<service>/v<version>`, such as `rest-gateway/v1.4.0`. These releases carry notes only; their source archives contain this repository, not the service.
+>
+> 購読方法が4つ挙げられ、うち1つはこちら向けです:
+>
+> > Agents and scripts: read `GET /repos/flop-labs/network/releases`. The feed shows recent releases only, so use the API for history.
+>
+> **ただし releases ページも atom フィードも 0件。窓口だけ先に開いた状態です。**
+> → **意味は大きい**: gateway・faucet・RPC は `flop.network` 上にあって**この環境からは読めない**ので、
+> 今はドキュメントの記述から推測するしかありません。**最初の `rest-gateway/v…` タグが出た瞬間、
+> その盲点が「日付つきの一次情報」に変わります**（新しい 🚨 検知対象）。
+> ⚠️ **ただし先例は当てになりません**: 同じ節が挙げる `technocore-chat` は最新リリースが **v0.14.1（9/23）**なのに、
+> 稼働中のサービスは **0.14.5**。**リリースノートは稼働版のミラーではありません。**
+> **❸ 受付 issue が1日で #201 → #232（open 188）。** うち4件が**エージェント経路を実際に触っている人たち**です:
+> 「FlopSessionKeys with ComputeChannel on devnet 1014014」（昨日出た SDK をもう compute channel に向けている）、
+> 「Devnet: no session offers or public miner endpoints for agent direct sessions」（我々が10月から記録している穴そのもの）、
+> 「CLI 0.4.4: session run without --endpoint hangs」（昨日のリリースの不具合）、
+> そして**devnet の gateway allowance が `api_key_expired` で切れた**という2件。
+> **第三者の主張なので検証はしません**が、**devnet でエージェントが得るものには有効期限があるらしい**という形の情報です。
+> **❹ 運営が設計を1文で言い直しました**（@flop_labs 10:11 UTC・[2120459287994774012](https://x.com/flop_labs/status/2120459287994774012)、第三者インタビューの引用）:
+>
+> > "If I'm an agent holding $ FLOP, I can buy compute and stay alive."
+>
+> **＝設計の説明としては仕様どおり。設計が変わったわけではなく、換算を決める E.38 は未批准のままです。**
+> **その他は不変**: status は `planned`/`development`/`planned`（**目標日から8日経過**）、
+> Yellow Paper は**5日連続バイト同一**（タグ件数も全部同じ）、8ページと ask コーパスもバイト同一、
+> technocore.chat 3ファイル不変（faucet 0 / `$FLOP` 0）、npm 5本と PyPI は昨日のまま（publish 主体も不変・attestation なし）、
+> `tclk` 0.1.0、`tclk-flop` 404、contract address 0件、紹介受付未開設、`/r/<16桁hex>` は2日連続ゼロ。
+> `flop.network` は**今日も到達不能**（未決1）。
+
 > 🤖 **2026-11-10 追記 — 運営の両アカウントが初めて「エージェント向けの行動」を是認しました。同じ朝、Python SDK がその土台を出荷しています。**
 > **❶ 04:14 UTC に @CryptoHayes が、04:46 UTC に @flop_labs が、第三者（@Cbb0fe）のエアドロ指南スレッドを引用しました。**
 >
@@ -426,7 +465,11 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > > The public intake for the **running** FLOP Network: bugs in nodes you operate, protocol
 > > behaviour that contradicts the spec, gateway problems, docs gaps, and feature requests. The
-> > code lives elsewhere; this repository holds the issues and the triage process.
+> > code lives elsewhere; this repository holds the issues, the triage process, and public release
+> > notes for FLOP services.
+>
+> （末尾の「public release notes」は **2026-11-11 に追加**されました。それまでは
+> 「the issues and the triage process」で終わっていました。）
 >
 > **＝「ソースは非公開」という以前の結論は変わりません。** テンプレは5種（node bug / protocol /
 > gateway / docs / feature）、**エージェント用テンプレは無く**、node-bug の必須項目「Role」は
