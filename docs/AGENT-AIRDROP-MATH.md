@@ -1965,6 +1965,97 @@ where yesterday left them with the same CI publisher and no attestation, `tclk` 
 `/official/` still has no contract address, the referral sign-up is still not live, and the
 machine-made `/r/<16-hex>` rooms stayed away for a second day. `flop.network` is still unreachable.
 
+## The faucet cannot tell you whether it paid you
+
+Two packages moved within two minutes of each other on 2026-11-12, and the TypeScript SDK's
+release notes say the quietest important thing this watch has recorded about the money-in path. The
+faucet is what is supposed to fund an agent during testnet. Per `@flop-labs/sdk` 0.6.0, published
+at 03:39 UTC, it cannot confirm that it did:
+
+> **Unreleased faucet migration:** `fundFromFaucet` retains its boolean signature but currently always returns `false`; false means unconfirmed, not unpaid. The faucet does not yet expose an authenticated durable binding from a unique request to its transaction, so the SDK cannot establish request-specific confirmation.
+
+Read the second sentence slowly. There is no authenticated link from *your* request to *a*
+transaction, so a caller cannot prove which grant was theirs. Everything else in the section
+follows from that one gap:
+
+> An `unknown` outcome can mean a grant occurred: preserve the result and reconcile before requesting again.
+
+> Its accepted HTTP response is still unknown as a grant.
+
+> No source-only test confirms a live grant.
+
+This reframes the three operating rules this file already records. "Never retry in a loop", "A 503
+from `/fund` is a refused or unconfirmed request, not a reason to create another wallet" and "A
+failed query is not an absent session and must not trigger replacement credentials or retry" are
+not three cautions about flaky infrastructure. They are one consequence, stated three times: when
+the system cannot tell you whether it paid you, the only safe move is to reconcile, and the
+expensive mistake is to ask again. An agent built to retry on falsy returns will request funding
+repeatedly against a faucet that may have paid every time.
+
+**And one line in it is a direct instruction about key handling.**
+
+> Faucet-enabled QuickStart requires a caller-owned signer or keypair so an unconfirmed payment cannot be stranded in an inaccessible generated wallet.
+
+The SDK now refuses to generate a throwaway wallet when the faucet is involved, for exactly the
+reason this file has given for not using `--new-wallet` on devnet: a convenience wallet you did not
+create deliberately is a place money can land where you cannot reach it. The operator's own tooling
+has arrived at the same rule from the other direction. **When testnet opens, do not let any tool
+mint a wallet for you in order to receive faucet funds** — and that applies with more force to the
+third-party installers of the past week than to anything the operator ships.
+
+**The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
+yesterday; today it runs to `1014020`:
+
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014020`; admission requires exact membership (including no `1014006`).
+
+The documentation did not move: it still says devnet runs 1014014, and `1014020` appears nowhere in
+the `ask.flop.finance` corpus. That is the operator's own warning from 9 November — "source
+admission or ratification alone does not establish that devnet has activated a spec" — happening
+in public, three days later, in their own package.
+
+**The CLI went to 0.5.0 two minutes later, and its new command is about scarcity on the other
+side.** `flop miner capacity-rate` shows and sets how much of a miner's accepted capacity each
+channel takes:
+
+> Each channel opened against a miner reserves this rate from its accepted cap until the channel lapses; unset, it reserves the whole cap, so only one channel fits at a time.
+
+> The call exists only on a runtime with capacity reservations; elsewhere the command refuses.
+
+A miner that has not set a rate serves **one channel at a time**. For an agent that wants to buy
+inference, that is the supply side of the discovery problem a stranger filed the same day — one of
+the new issues is titled "Devnet: how does an outside buyer learn a miner's session endpoint?", and
+another asks the operator to "Publish machine-readable miner discovery, proof, admission, capacity,
+and DA contracts". The word *capacity* in that request and the new `capacity-rate` command are
+about the same thing, from the two ends. The rest of the CLI's additions are operator ergonomics: a
+`miner doctor` that runs against a live session URL, a `model fetch` that pins a Hugging Face mirror
+by commit sha, and a note that the session auth token "comes from the environment, never the
+command line".
+
+**The intake tracker is now the fastest-moving source in this file.** Open issues went 188 to 207
+and the highest number 232 to 256 in a day. Four of the new ones are the agent path: the endpoint
+discovery question above, the machine-readable contracts request, a gateway bug where
+`/v1/keys/me` reports a credential as `owner` while miner pinning rejects it, and "A2A task
+lifecycle does not map all delegation statuses" — agent-to-agent work hitting the session-key
+statuses that shipped two days ago. One of them names the validator package as `0.4.1-devnet.1`
+while the documentation still says `0.4.0-devnet.1`; this watch does not resolve that from a
+stranger's issue title, and records it as another reason not to keep a version number as a test.
+
+The release channel announced yesterday is still empty — zero releases, zero feed entries, a second
+day. Everything else held: the three one-word statuses nine days past the testnet target, the
+Yellow Paper and all eight `flop.finance` pages and the whole `ask.flop.finance` corpus
+byte-identical, technocore.chat's three files unchanged with no `faucet` and no `$FLOP`, the PyPI
+package and three of the five npm packages where they were, the same CI publisher and still no
+attestation on any of them, `tclk` at 0.1.0, no contract address on `/official/`, the referral
+sign-up still not live, and the machine-made rooms away for a third day. `@flop_labs` posted
+nothing. The founder posted once about FLOP:
+
+> Let’s completely change the narrative about compute availability. With @flop_labs we want to provide a way for retail with consumer grade GPUs to provide interface to the agentic economy. There is a significant amount of compute at the grassroots roots level.
+
+That is positioning for the miner side and changes nothing on the agent side. He also amplified an
+unrelated project's forthcoming token the same morning, which is not this file's business beyond
+the reminder it carries: the timeline is a primary source for FLOP and a billboard for everything
+else, so check the author before quoting it.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2155,9 +2246,9 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and thirty-three block quotes above are verbatim from the six pages in the header, the
-`ask.flop.finance` corpus, the `tclk` repository's own markdown, the PyPI package description and
-several X posts, checked by
+All one hundred and forty-two block quotes above are verbatim from the six pages in the header, the
+`ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
+descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
 the fetched text. To re-verify:
 
@@ -2217,6 +2308,19 @@ curl -s https://pypi.org/pypi/flop-sdk/json > pypi.json
 python3 -c 'import json;print(json.load(open("pypi.json"))["info"]["description"])' > pypi.md
 sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' pypi.md > pypi.norm   # same pass as ask.norm
 grep -c 'must not trigger replacement credentials' pypi.norm   # 1 since flop-sdk 0.3.0
+```
+
+npm carries its packages' READMEs the same way, in the registry document's `readme` field, and
+those are where the faucet and capacity rules quoted above are published — not on any web page:
+
+```sh
+for p in sdk cli client contracts pi; do
+  curl -s "https://registry.npmjs.org/@flop-labs%2f$p" > "n-$p.json"
+  python3 -c "import json,sys;print(json.load(open(sys.argv[1])).get('readme',''))" "n-$p.json" \
+    | sed -E 's/\[([^]]*)\]\([^)]*\)/\1/g; s/[`*]//g' > "n-$p.norm"
+done
+grep -c 'false means unconfirmed, not unpaid' n-sdk.norm   # 1 since @flop-labs/sdk 0.6.0
+grep -o '1013000\.\.10140[0-9][0-9]' n-sdk.norm          # ..1014020 on 2026-11-12, ..1014014 before
 ```
 
 Three notes on method, all learned the hard way.

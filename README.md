@@ -13,6 +13,54 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🚰 **2026-11-12 追記 — faucet は「払ったかどうか」を教えられません。運営自身の SDK がそう書きました。**
+> **❶ npm `@flop-labs/sdk` 0.5.2 → 0.6.0**（03:39 UTC）。faucet の節が全面改稿され、核心はこの2文です:
+>
+> > **Unreleased faucet migration:** `fundFromFaucet` retains its boolean signature but currently always returns `false`; false means unconfirmed, not unpaid. The faucet does not yet expose an authenticated durable binding from a unique request to its transaction, so the SDK cannot establish request-specific confirmation.
+>
+> **＝`false` は「未払い」ではなく「未確認」。** faucet は「この要求がこの送金になった」という
+> 認証済みの対応を出していないので、**自分の grant がどれかを呼び出し側が証明できません。** 続く文も同じ帰結です:
+>
+> > An `unknown` outcome can mean a grant occurred: preserve the result and reconcile before requesting again.
+>
+> > Its accepted HTTP response is still unknown as a grant.
+>
+> > No source-only test confirms a live grant.
+>
+> **→ これまで記録してきた3つの運用規則**（「ループで再試行するな」「`/fund` の 503 で新しいウォレットを作るな」
+> 「問い合わせ失敗はセッション不在ではない」）**は、別々の注意ではなく同じ一つの帰結でした。**
+> **払われたか分からない系では、安全な手は「照合（reconcile）」で、高くつく手は「もう一度頼む」です。**
+> falsy で再試行するエージェントは、**毎回払っているかもしれない faucet に何度も請求します。**
+> **❷ そして鍵の扱いに直結する1文**:
+>
+> > Faucet-enabled QuickStart requires a caller-owned signer or keypair so an unconfirmed payment cannot be stranded in an inaccessible generated wallet.
+>
+> **＝SDK は faucet を使うとき、使い捨てウォレットの自動生成を拒むようになりました。**
+> 理由はこの欄が `--new-wallet` について書いてきたことと同じ —
+> **自分が意図して作っていないウォレットは、届いた金に手が届かなくなる場所**です。
+> **→ テストネットが開いたら、faucet を受けるためのウォレットを「ツールに作らせない」。**
+> この1週間に出てきた**第三者製インストーラには、より強く当てはまります**（攻撃面④d/④e）。
+> **❸ SDK が受け付ける runtime spec が `1014014` → `1014020` に増えました**（envelope `1013000..1014020`）。
+> **docs は動いていません**（今も「Devnet runs 1014014」・コーパスに `1014020` は0件）。
+> **＝11-09 に運営自身が書いた「ソースに入った/批准された ≠ devnet で動いている」が、3日後に自社パッケージで実演された形。**
+> **❹ npm `cli` 0.4.4 → 0.5.0**（03:41 UTC）。新コマンド `flop miner capacity-rate`:
+>
+> > Each channel opened against a miner reserves this rate from its accepted cap until the channel lapses; unset, it reserves the whole cap, so only one channel fits at a time.
+>
+> **＝rate を設定していないマイナーは同時に1チャネルしか受けられません。** 買う側（エージェント）から見ると供給側の制約で、
+> 同じ日に第三者が立てた issue「**Devnet: how does an outside buyer learn a miner's session endpoint?**」と
+> 「**docs: Publish machine-readable miner discovery, proof, admission, capacity, and DA contracts**」は、同じ穴の反対側です。
+> 他は運用者向け（`miner doctor` の live セッション対応・`model fetch --revision`・「session auth token は環境変数から、コマンドラインには書かない」）。
+> **❺ 受付 issue が open 188 → 207、最高 #232 → #256。** 新規にはエージェント側が4件
+> （上記2件＋gateway の `/v1/keys/me` が owner を名乗るのに miner pinning が弾くバグ＋「A2A task lifecycle does not map all delegation statuses」）。
+> **1件は validator パッケージを `0.4.1-devnet.1` と書いていますが docs は `0.4.0-devnet.1` のまま＝未検証**（版を判定に使わない理由がまた増えました・鉄則Z）。
+> **その他は不変**: リリース窓口は**2日連続で0件**（未決12）、status は `planned`/`development`/`planned`（**目標日から9日経過**）、
+> Yellow Paper・8ページ・ask コーパス・technocore.chat 3ファイル・raw の11ファイルすべてバイト同一、
+> PyPI 0.3.0、npm の他3本も不変、publish 主体も不変（attestation なし）、`tclk` 0.1.0、`tclk-flop` 404、
+> contract address 0件、紹介受付未開設、hex ルーム3日連続ゼロ、**@flop_labs は新規投稿ゼロ**。
+> 創業者の FLOP 関連は1件のみ（「retail with consumer grade GPUs」でマイナー側の位置づけ、[2120735954596233707](https://x.com/CryptoHayes/status/2120735954596233707)）。
+> `flop.network` は**今日も到達不能**（未決1）。
+
 > 📣 **2026-11-11 追記 — 運営が初めて「Agent」を devnet のオンボーディング対象として名指しし、サービスのリリースノート窓口も開きました。どちらも中身はまだ空です。**
 > **❶ @CryptoHayes 00:46 UTC**（[2120317250653868358](https://x.com/CryptoHayes/status/2120317250653868358)）:
 >
