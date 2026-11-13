@@ -13,6 +13,68 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🗓 **2026-11-13 追記 — 🚨 テストネット／エアドロの日付が出ました（X のみ・「tentative」付き）。同じ日に docs は旧日程を撤回し、faucet の数字を初めて公開しました。**
+> **❶ 創業者 @CryptoHayes 07:33 UTC**（[2121144411484827836](https://x.com/CryptoHayes/status/2121144411484827836)）:
+>
+> > 24 Nov 2026 will be the date that @flop_labs Testnet / Airdrop begins.
+>
+> > Any changes or update to this timing will be communicated in advance. LFG!
+>
+> 8分後に **@flop_labs が引用**（[2121146318135644275](https://x.com/flop_labs/status/2121146318135644275)）:
+>
+> > **2026.11.24 (tentative)**
+>
+> **一方、同じ日に書き換わった docs はこう書いています:**
+>
+> > As checked on 13 November 2026, no replacement public Testnet start date is verified in these sources. The 3 November 2026 target has passed and must not be presented as an upcoming date or proof that Testnet launched.
+>
+> **そして1語 status は今日も `planned`。** → **判定規則は変えません（鉄則A）: 開始シグナルは1語 status です。**
+> 今夜の事実は「**日付は出た（11/24）・プロジェクト自身が tentative と付けた・docs は載せない・まだ何も開いていない**」。
+> **11日後なので、ここの差は実務的です**（「24日で確定」と読んでハードウェアを借りる人が出ます）。
+> **❷ 旧日程は文書で撤回されました。** 11-03 は「historical target」、Q1 2027／2月の TGE も
+> 「**no current date is verified here**」「**that arithmetic does not establish a current launch promise**」。
+> validator の「testnet 成績で上位1,000」という表現も消え、「**published performance policy**」に置き換わりました。
+> **❸ 🚨 faucet の数字が初公開（エージェントに直撃）:**
+>
+> > Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane is capped at 2 FLOP and requires approved productive spend before a repeat grant.
+>
+> > Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant, and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity cooldown.
+>
+> **＝匿名エージェントの枠は1日 2 FLOP。** しかも2回目の grant には「**approved productive spend**」が要ります
+> （＝E.38 の「実需の検証」ゲートが運用形になって先に出てきた形）。桁を上げるには**人間の本人確認を紐付ける**必要があります。
+> **Self / BrightID は同じ linked tier の確認手段であって、エアドロの別枠ではありません**
+> （「**not extra airdrop categories**」。provider ごとに nullifier が別なので**名寄せもされません**）。
+> **そしてエアドロ本体についての一文:**
+>
+> > For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns credit merely by being received or held. Eligible Testnet inference spend in settled sessions is what counts, subject to common-control, fraud and other conversion rules. A verification provider does not itself add an airdrop multiplier. Devnet grants and Devnet spend have no airdrop weight.
+>
+> **＝もらう・持つ・本人確認する、では1点も入りません。「settled session での実際のテストネット推論支出」だけが数えられ、
+> それも common-control（E.49）と conversion rules（E.38）次第。** 仕組みは変わっていませんが、**運営が初めて参加者の言葉で言いました。**
+> **❹ devnet のエージェント経路は「存在する」と明記されました**（この README の従来の説明を訂正します）:
+>
+> > Devnet agents can already exercise the public gateway and documented direct-session routes subject to admission, credential scope, reachable miners and paid-settlement prerequisites; Devnet work does not establish an airdrop claim.
+>
+> 新節「Gateway allowance and wallet funds」の要点: **faucet grant と gateway allowance は別物**
+> （「**A faucet grant funds your on-chain wallet. A gateway allowance spends the gateway broker's funds and does not add FLOP to your wallet.**」）、
+> allowance は**FLOP 建ての支出枠**で `expires_at` は epoch ミリ秒、**「the public wallet lifetime is at most 24 hours」**（＝昨日の `api_key_expired` の答え）、
+> 新規ウォレット発行は**共有の rolling 24時間上限**（既定 200件／24h・運営が変更可・「not a verified live cap」）。
+> **「Do not replace the wallet to evade limits.」** — 昨日 SDK が言ったことと同じです。
+> **❺ 配布物が両方とも更新**: validator `0.4.0-devnet.1` → **`0.4.1-devnet.1`**（SHA-256 も新規）、
+> miner pack `…-20261106` → **`…-20261110`**（SHA-256 も新規）。
+> **昨日「第三者 issue が 0.4.1 と書いているが docs は 0.4.0・未検証」と書きましたが、今日 docs が第三者に追いつきました。**
+> → **版番号と digest は毎回その場で出典から読む**（鉄則Z・6日で4回目の実例）。
+> **❻ FLOP Labs は TechnoCore で「1体だけ」エージェントを動かしていると明記**: `flop-devnet-faucet` ルームの faucet bot で、
+> 返信はすべて `faucet.flop.network/chain` 公開の DID で署名、とのこと。
+> **ただしルーム名は誰でも付けられる文字列のままです**（攻撃面⑥）。**証拠は署名であって名前ではなく、その DID はこの環境から読めません。**
+> **その他は不変**: Yellow Paper・8ページ・technocore.chat 3ファイル・raw 11ファイルすべてバイト同一、
+> npm 5本と PyPI は 11-12 のまま（publish 主体も不変・attestation なし）、`tclk` 0.1.0、`tclk-flop` 404、
+> contract address 0件、紹介受付未開設、hex ルーム4日連続ゼロ。`flop.network` は**今日も到達不能**（未決1）。
+> **📌 Jack の手順は今日も変わりません（`init` まで）。** ただし**初めて「いつまでに準備するか」が決まりました**:
+> tentative ながら **11/24**。開いた瞬間にやることも、今日の公開で具体的になりました —
+> **匿名のまま走るなら1日 2 FLOP**、2回目には「実需のある支出」が要る。桁を上げたいなら**人間の本人確認の紐付け**が要る。
+> **どちらを選ぶかは Jack の判断**で、これは鍵の話ではなく**身元を出すかどうかの話**です。
+> **`register --yes` は引き続き Jack の Mac で Jack 自身が打ってください。**
+
 > 🚰 **2026-11-12 追記 — faucet は「払ったかどうか」を教えられません。運営自身の SDK がそう書きました。**
 > **❶ npm `@flop-labs/sdk` 0.5.2 → 0.6.0**（03:39 UTC）。faucet の節が全面改稿され、核心はこの2文です:
 >
@@ -41,7 +103,8 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **→ テストネットが開いたら、faucet を受けるためのウォレットを「ツールに作らせない」。**
 > この1週間に出てきた**第三者製インストーラには、より強く当てはまります**（攻撃面④d/④e）。
 > **❸ SDK が受け付ける runtime spec が `1014014` → `1014020` に増えました**（envelope `1013000..1014020`）。
-> **docs は動いていません**（今も「Devnet runs 1014014」・コーパスに `1014020` は0件）。
+> **docs は動いていません**（当時は「Devnet runs 1014014」のまま・コーパスに `1014020` は0件。
+> **その文自体が翌 11-13 に削除されました**）。
 > **＝11-09 に運営自身が書いた「ソースに入った/批准された ≠ devnet で動いている」が、3日後に自社パッケージで実演された形。**
 > **❹ npm `cli` 0.4.4 → 0.5.0**（03:41 UTC）。新コマンド `flop miner capacity-rate`:
 >
@@ -153,8 +216,8 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **→ digest は「いつ読んだか」を併記し、信じる前に必ず出典に戻る。** npm の `cli` も 0.4.1 → **0.4.2**（1日で）。
 > **❸ Devnet が走らせている runtime spec が初めて明示されました:**
 >
-> > Devnet runs 1014014; source admission or ratification alone does not establish that devnet has
-> > activated a spec.
+> **「Devnet runs 1014014; source admission or ratification alone does not establish that devnet
+> has activated a spec.」**（**2026-11-13 にこの文は docs から削除されました**。最新の囲みを参照）
 >
 > **＝セミコロンの後がこの文書の姿勢と同じです**（ソースに在ることと動いていることは別）。
 > **その他は不変**: Yellow Paper・8ページ・technocore.chat 3ファイルが3日連続バイト同一、
@@ -193,8 +256,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **❸ 🛡 この欄の訂正（重要）。** これまでこの README は**版番号を本物判定に使っていました**が、
 > 今日その判定は**本物を偽物と誤判定します**。運営のページ自身がこう書いています:
 >
-> > Versions below are the current releases as of 2026-10-30; the registry is authoritative if they
+> > Versions below are the current releases as of 2026-11-11; the registry is authoritative if they
 > > differ.
+>
+> （この文の日付は 2026-10-30 → **2026-11-11**（11-13 確認）と動きました。文そのものは不変です。）
 >
 > **＝判定するのは「名前」（npm 5つ＋PyPI 1つ）で、版はレジストリが正。** 上の該当箇所は直しました。
 > **自前の検査が勝手に古くなるのは、検査が無いより危険です**（本物を弾きつつ、読者は偽物を本物と思い込むため）。
@@ -548,9 +613,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > 昨日この欄に「receipt が出るまで `npm i @flop-labs/...` は打たない」と書きました。
 > **その条件は 10-30 に満たされました。** `/docs/upgrade` が書き換わり:
 >
-> > **Release candidate, 26 October 2026.** The five JavaScript packages below were published to
-> > npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
-> > registry configuration.
+> **「Release candidate, 26 October 2026. The five JavaScript packages below were published to
+> npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
+> registry configuration.」**（**2026-11-13 に見出しが "Published package baseline, 11 November
+> 2026." に差し替わりました**）
 >
 > さらに**新ページ `/docs/sdk-references`（38ページ目）**ができ、こう始まります:
 >

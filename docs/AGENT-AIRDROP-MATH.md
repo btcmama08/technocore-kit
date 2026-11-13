@@ -440,10 +440,10 @@ corpus is primary, and it answers questions this file has been carrying open for
 The first is a date. Until 10-19 the only published timing was the testnet page's conditional
 opening and a CEO post saying "a few weeks". Now:
 
-> Testnet: the working target is Tuesday 3 November 2026, running about 90 days. It is a
-> target rather than a fixed date and will be confirmed as devnet onboarding completes.
-
-> Mainnet, TGE and token listing: Q1 2027, tracking to early February.
+**"Testnet: the working target is Tuesday 3 November 2026, running about 90 days. It is a
+target rather than a fixed date and will be confirmed as devnet onboarding completes."** And:
+**"Mainnet, TGE and token listing: Q1 2027, tracking to early February."** *(Both were block
+quotes until 2026-11-13, when the page retracted them; see the last section.)*
 
 The arithmetic is given rather than asserted — ninety days from 3 November lands at the start
 of February — and a private devnet has been admitting outside operators "from the week of 13
@@ -466,8 +466,9 @@ Two sentences follow it that settle what the preparation is worth:
 > If you don't use it, you lose it. Creating DIDs earns nothing; posting your DID in a
 > TechnoCore room earns nothing.
 
-> None of this is live until testnet opens — the working target is 3 November; today you can
-> only do step one.
+**"None of this is live until testnet opens — the working target is 3 November; today you can
+only do step one."** *(Block quote until 2026-11-13, when the sentence was replaced; the
+replacement is in the last section.)*
 
 Step one is a keypair. That is the whole of what can be done before the window opens, and it
 is what this kit's `init` already does.
@@ -714,19 +715,21 @@ still 3 November and whose one-word status is still `planned`.
 The same day, the corpus gained a thirty-seventh page: an upgrade guide for miners, validators,
 SDKs and agents, headed
 
-> **Release candidate, 26 October 2026.** The five JavaScript packages below were published to
-> npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
-> registry configuration.
-
-> The other versions below are prepared for publication after review and merge; their presence
-> in this guide does not mean they are published.
+**"Release candidate, 26 October 2026. The five JavaScript packages below were published to
+npm, and the Python SDK `flop-sdk` 0.2.0 to PyPI, on 29 October 2026; they install with no
+registry configuration."** And: **"The other versions below are prepared for publication after
+review and merge; their presence in this guide does not mean they are published."** *(Both were
+block quotes until 2026-11-13, when the heading became a published-package baseline; see the
+last section.)*
 
 That is the 2026-10-30 wording. Until that day the same paragraph read "Package versions below
 are prepared for publication after review and merge. Their presence in this guide does not mean
 they are available on npm or PyPI. Obtain the release operator's publication receipt before
 installing." — and the receipt requirement now applies only to what is still unpublished:
 
-> Obtain the release operator's publication receipt before installing those.
+**"Obtain the release operator's publication receipt before installing those."** *(Block quote
+until 2026-11-13, when the sentence went; the bundles now "require the release operator's
+independently approved version, digest and source receipt".)*
 
 It names `@flop-labs/contracts@0.1.1`, `@flop-labs/client@0.2.1`, `@flop-labs/sdk@0.4.0`,
 `@flop-labs/pi@0.3.1`, `@flop-labs/cli@0.4.0` and a Python `flop-sdk` at source version 0.2.0,
@@ -747,8 +750,10 @@ publication receipt exists was put there by somebody else.
 This also settles a question this watch has been carrying as its strongest pre-testnet signal —
 whether a public node repository would appear. The guide answers it directly:
 
-> The source repository is private; external operators receive the reviewed runtime or
-> validator bundle from the network operator.
+**"The source repository is private; external operators receive the reviewed runtime or
+validator bundle from the network operator."** *(Block quote until 2026-11-13, when the second
+clause was shortened to "receive reviewed bundles from the network operator". The private-source
+statement itself is unchanged.)*
 
 The organisation's public listing has held at the same seven repositories since 11 September and
 should not be expected to grow a node. Miner images come from a manifest at
@@ -851,8 +856,12 @@ gained a thirty-eighth page whose whole job is to list the published packages.
 
 > These are the FLOP packages anyone can install today without a token or a private registry.
 > Each name links to its registry page, which carries the full reference README for the
-> published version. Versions below are the current releases as of 2026-10-30; the registry is
+> published version. Versions below are the current releases as of 2026-11-11; the registry is
 > authoritative if they differ.
+
+(The date in the last sentence read 2026-10-30 when this section was written and 2026-11-11
+from 2026-11-13; the sentence is otherwise unchanged, and by then it was a day behind the
+registry again.)
 
 It lists the same five at the same versions this watch measured on the registry, plus
 `flop-sdk` **0.2.0** on PyPI — whose metadata gives `FLOP Network <dev@flop.network>`, an
@@ -1358,18 +1367,19 @@ nobody reaches.
 
 ### The release pack exists, with a checksum, and the one-command installer still does not
 
-> **Public pack (checked 3 November 2026).** The manual release pack is published at
+> **Public pack (checked 10 November 2026).** The manual release pack is published at
 
 at a versioned path under `flop.network/releases/cli/`, as
-`flop-miner-pack-devnet-ts-20261106.tar.gz`, with a published SHA-256 of
-`35f222f748447a8aabdd015d94260d8facfd29305691c3cf7ed033cbb2b514b1` and images that
+`flop-miner-pack-devnet-ts-20261110.tar.gz`, with a published SHA-256 of
+`72546fc4f020ec665d7b8c54aa0cddd336e95d2c93b650ca77e82e35607e8f0d` and images that
 "pull anonymously from `ghcr.io/flop-labs/flop-core`". **A published digest is the thing this
 file asked for on 2026-10-29 and could not get**, and it is worth saying plainly that the
 operator has now supplied it. Two caveats stand. The pack is still on `flop.network`, which this
 session cannot reach, so the checksum is recorded here as published and not as verified. And the
-pack filename carries the date **20261106** while the page says it was checked on 3 November — a
-file named for a day that had not yet arrived. That is probably a release-train label rather than
-anything meaningful, and it is logged rather than interpreted.
+name and the digest both move: this section first recorded a pack checked on 3 November and named
+`20261106` — a file named for a day that had not yet arrived — and on 2026-11-13 the page carried
+the pair above instead, with a different archive and a different SHA-256. Read both out of the
+page in the run you need them, never out of this file.
 
 The one-command installer is still missing: "The one-command installer pack below (`install.sh`)
 is not published yet; until it is, an agent follows the release pack's README instead."
@@ -1678,7 +1688,7 @@ the name the specification dropped on 2026-10-30.
 package is genuine.** As of today that test rejects the real packages. The operator's own page
 anticipated this and said so in the sentence this file should have leaned on from the start:
 
-> Versions below are the current releases as of 2026-10-30; the registry is authoritative if they
+> Versions below are the current releases as of 2026-11-11; the registry is authoritative if they
 > differ.
 
 So the rule is the **name**, not the number: six names are FLOP's, the registry decides which
@@ -1778,8 +1788,9 @@ going to 0.4.2 one day after 0.4.1.
 **And the devnet is now running a named runtime spec.** Where the corpus previously listed the
 candidate versions and said devnet had activated none of them, it now says:
 
-> Devnet runs 1014014; source admission or ratification alone does not establish that devnet has
-> activated a spec.
+**"Devnet runs 1014014; source admission or ratification alone does not establish that devnet has
+activated a spec."** *(Block quote until 2026-11-13, when the sentence was removed and the
+surrounding paragraph rewritten; the replacement is in the last section.)*
 
 That is the first time this watch has seen the operator state which runtime version the live
 devnet is on, and the clause after the semicolon is the same discipline this file keeps applying
@@ -2056,6 +2067,138 @@ unrelated project's forthcoming token the same morning, which is not this file's
 the reminder it carries: the timeline is a primary source for FLOP and a billboard for everything
 else, so check the author before quoting it.
 
+## A date, a retraction, and the faucet's actual numbers — all on the same day
+
+2026-11-13 is the day this watch was built for. The testnet has a date, the documentation
+formally gave up both of the old ones, and the faucet's per-identity limits were published with
+numbers for the first time. Take them in that order, because the order is the point.
+
+### The date exists on X and nowhere else yet
+
+At 07:33 UTC the founder posted:
+
+> 24 Nov 2026 will be the date that @flop_labs Testnet / Airdrop begins.
+>
+> Any changes or update to this timing will be communicated in advance. LFG!
+
+Eight minutes later the project account quote-posted it with two words of its own:
+
+> **2026.11.24 (tentative)**
+
+So the operator's two mouths disagree by exactly one word, and the operator's documentation —
+rewritten the same day — disagrees with both:
+
+> As checked on 13 November 2026, no replacement public Testnet start date is verified in these sources. The 3 November 2026 target has passed and must not be presented as an upcoming date or proof that Testnet launched.
+
+And the one-word status this file has used as its opening detector since 2026-10-05 still reads
+`planned`, as it has every day for twenty-five days.
+
+Four sources, four degrees of commitment, and the rule does not change because the news is good:
+**the status word is the start signal.** What is true tonight is that a date has been named by the
+people who would know, that their own project account called it tentative, that their own
+documentation declines to carry it, and that nothing has opened. Eleven days is close enough that
+the difference between those four readings stops being academic — a reader who treats "24 Nov"
+as settled will rent hardware against it.
+
+### The old schedule was retracted in writing
+
+The same page that would not confirm a new date withdrew the old ones. Where the corpus had
+carried a working target and an arithmetic path to February, it now says the 3 November target
+"was a historical target and has passed without establishing a public Testnet launch", that "No
+replacement date is verified", and about the end of the line:
+
+> Mainnet, TGE and token listing: no current date is verified here. The earlier Q1 2027 / early-February estimate was derived from the historical 3 November Testnet target and ninety-day duration; that arithmetic does not establish a current launch promise. TGE is planned with mainnet, not before it.
+
+Both of the quotes this file carried from 2026-10-19 — the 3 November target and the Q1 2027
+listing — are now historical text, and are marked as such above. **The ninety-day figure survives
+as a plan, not a schedule**, and the validator selection rule lost its number along the way: where
+the page said validators are selected "top-1,000 on testnet performance at cutover", it now says
+participation has "no miner cap, with validators selected at cutover under the published
+performance policy".
+
+### The faucet's numbers, at last
+
+A new question on the same page answers the one this file has been unable to cost: what an agent
+can actually draw.
+
+> Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane is capped at 2 FLOP and requires approved productive spend before a repeat grant.
+
+> Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant, and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity cooldown.
+
+**Two FLOP.** That is the anonymous agent lane, per day, and the second grant is conditional on
+"approved productive spend" — a demand gate in operational form, published eleven days before the
+window it governs. An agent that wants two orders of magnitude more has to be linked to a verified
+human, and the page is careful about what that does and does not buy:
+
+> Self and BrightID are verification methods for the same linked tier, not extra airdrop categories. The verified provider nullifier keys the cooldown and weekly cap across funding wallets. Do not assume different providers are deduplicated into one identity: the implementation uses provider-specific nullifiers.
+
+A tier that does not exist is named too — "The proposed 50-FLOP linked-owner-agent tier (up to
+five agents per owner) has no implemented grant path and is not an available entitlement" — which
+is the operator pre-empting exactly the scheme a reader would invent.
+
+**And then the sentence this whole file has been circling:**
+
+> For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns credit merely by being received or held. Eligible Testnet inference spend in settled sessions is what counts, subject to common-control, fraud and other conversion rules. A verification provider does not itself add an airdrop multiplier. Devnet grants and Devnet spend have no airdrop weight.
+
+That is R8.4 restated in plain words for agents, and it names the two open items as the live
+constraints: **common-control** is E.49, and **conversion rules** is E.38. Nothing about the
+mechanism changed today; what changed is that the operator said it in the register a participant
+reads, with the numbers attached. Holding tokens earns nothing. Verifying your identity earns
+nothing by itself. Settled spend on real inference is the whole of it.
+
+### The agent path on devnet is now documented, and one of this file's standing claims is wrong
+
+This file has written for weeks that agents have no devnet path at all. That is no longer right:
+
+> Devnet agents can already exercise the public gateway and documented direct-session routes subject to admission, credential scope, reachable miners and paid-settlement prerequisites; Devnet work does not establish an airdrop claim.
+
+A new section on the agent page sets out the terms, and most of it is about the difference between
+two things this watch had treated as one:
+
+> A faucet grant funds your on-chain wallet. A gateway allowance spends the gateway broker's funds and does not add FLOP to your wallet.
+
+The allowance is metered in FLOP of spend rather than requests, it reports `expires_at` in epoch
+milliseconds, and **"the public wallet lifetime is at most 24 hours"** — which settles the
+question this file logged yesterday from a stranger's issue title about `api_key_expired`. New
+wallet issuance has a **shared rolling 24-hour cap**, not a midnight reset, defaulting to "200 new
+wallet allowances per trailing 24 hours" and overridable by operators, "not a verified live cap".
+Re-enrolment rotates a bearer and cannot resurrect an expired one. The instruction at the end of
+that sequence is the one to keep:
+
+> Do not replace the wallet to evade limits.
+
+Which is the same rule the SDK gave yesterday from the other side, and the same rule the 503
+guidance gave a week ago. Three documents, one sentence.
+
+### Both release packs rotated, and a stranger was right before the documentation was
+
+The validator package went from `0.4.0-devnet.1` to `0.4.1-devnet.1` with a new archive SHA-256,
+and the miner pack from `…-20261106` to `…-20261110`, also with a new SHA-256. Yesterday this file
+recorded that an access issue named `0.4.1-devnet.1` while the documentation still said
+`0.4.0-devnet.1`, and declined to resolve it from a stranger's issue title. Today the
+documentation agrees with the stranger. **The lesson is not that the issue tracker is
+authoritative — it is that a version number in this file is a perishable good**, which is now
+demonstrated four times in six days.
+
+Two smaller things. The package table on `/docs/sdk-references` was refreshed to "as of
+2026-11-11" and lists `sdk` 0.5.2 and `cli` 0.4.4 — both already superseded on npm by the 0.6.0
+and 0.5.0 published on 12 November, so the page is a day behind its own registry on the day it was
+updated, exactly as its own sentence allows. And FLOP Labs now says it runs precisely one agent on
+TechnoCore: the devnet faucet bot in the `flop-devnet-faucet` room, which "only answers faucet
+requests, signing each reply with the DID published at faucet.flop.network/chain". This file had
+that room name on its list of strings anyone can register — it still is one. The name is not the
+proof; the signature would be, and `faucet.flop.network` is unreachable from here.
+
+The founder also restated the miner pitch twice, once to say that mining "isn't just for folks
+with access to the highest spec GPUs" and that they "specially want retail users to mine with
+consumer graphics cards, Mac Mini's, etc." Nothing in that is new.
+
+Everything else held: the Yellow Paper and all eight `flop.finance` pages byte-identical,
+technocore.chat's three files unchanged with no `faucet` and no `$FLOP`, every npm package and the
+PyPI package where yesterday left them with the same CI publisher and no attestation, `tclk` at
+0.1.0, no contract address on `/official/`, the referral sign-up still not live, the machine-made
+rooms away for a fourth day, and `flop.network` unreachable for the twenty-second day.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2246,7 +2389,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and forty-two block quotes above are verbatim from the six pages in the header, the
+All one hundred and forty-five block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
