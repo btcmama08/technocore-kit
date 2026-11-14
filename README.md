@@ -13,6 +13,55 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📅 **2026-11-14 追記 — docs が 11/24 を採用しました。同時に、昨日の faucet の数字は1日で消えました。**
+> **❶ 39ページ目 `/docs/agent-onboarding` が新設され、日付が docs に入りました:**
+>
+> > Public Testnet is targeted for 24 November 2026, subject to readiness. This is a target, not a confirmed launch date. Devnet remains available, but its activity does not earn airdrop credit.
+>
+> 同じ日付が `official-links`・`testnet-and-timeline`・`demand-and-broker`・`miner-and-validator-economics` にも入り、
+> mainnet 側はこうなりました:
+>
+> > Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
+>
+> **ただし2つはまだ 11/24 を言っていません**: `https://flop.finance/testnet/` は昨日とバイト同一で今も
+> 「**Testnet opens Q4 2026**」「Dates are provisional: the testnet opens when its readiness criteria are met.」、
+> そして**1語 status は26日連続で `planned`**。
+> → **矛盾ではありません**（target は開始ではない）。**今夜の公開状態は「planned・目標日あり」であって「24日に開く」ではありません。**
+> **❷ 🚨 昨日この欄の見出しにした数字が、1日で消えました。**
+> 「匿名エージェント枠は1日 2 FLOP」「25 FLOP/匿名ウォレット/24h」「approved productive spend」「50-FLOP tier」は
+> **すべてコーパスから削除**。残ったのはこれだけです:
+>
+> > Final Testnet faucet limits have not been announced.
+>
+> > On Devnet, Self and BrightID use the same linked tier: a 500-FLOP base grant, up to 2,000 FLOP per grant, a 2,000-FLOP rolling seven-day cap and a 24-hour cooldown.
+>
+> **＝linked tier（本人確認あり）の数字は残り、匿名レーンの数字は無くなりました。**
+> **昨日の報告で「2 FLOP」を見出しにしたのは、1日しか生きない数字でした。** 訂正として明記します。
+> → **規則**: **一度公開された数字は「パラメータ」ではなく「スナップショット」。** linked tier の数字も
+> 「Devnet の設定で、live な Testnet 設定は未発表」と同じページが書いています。**計画の土台にしない。**
+> **❸ エアドロの規則は短縮されて残りました:**
+>
+> > Receiving a faucet grant does not itself earn airdrop credit. Eligible, settled Testnet inference spend counts under the airdrop rules. Self and BrightID do not add a multiplier. Devnet grants and spend earn no airdrop credit.
+>
+> **中身は同じ**ですが、昨日あった「**subject to common-control, fraud and other conversion rules**」
+> （＝E.49 と E.38 への参照）が落ちました。**短い版は「これで規則が全部」と読めてしまいます。実際は換算を決める2項目が未決のままです。**
+> **❹ 受付 issue が1日で #256 → #289（open 238）。** 新規は**ウォレット発行上限とエージェント経路に集中**:
+> 「funded existing wallet blocked by rolling enrollment cap」「Wallet enrollment blocked by daily cap — `wallet_enrollment_cap_reached`」
+> 「four miner-policy questions we cannot validate ourselves」「CLI does not enforce planned-network genesis pin requirements」。
+> **リリース窓口は4日連続で0件。**
+> **❺ 創業者はマイナー向けに2回投稿。** 片方は供給側から見た同じ依存関係です:
+>
+> > On the FLOP network, you can use whatever hardware you want to mine. Your income will depend on agentic demand for the models your hardware can run.
+>
+> もう片方は**収益モデル（試算ツール）**へのリンクですが、`t.co` なのでこの環境では解決できません（**公開されたとだけ記録**）。
+> ⚠️ **「運営が出した収益試算ツール」は偽コピーが作られる典型です。** 開始10日前という時期も合っています。
+> **その他は不変**: Yellow Paper・8ページ・technocore.chat 3ファイル・raw 11ファイルすべてバイト同一、
+> npm 5本と PyPI も不変（publish 主体も・attestation なし）、`tclk` 0.1.0、`tclk-flop` 404、
+> contract address 0件、紹介受付未開設、hex ルーム5日連続ゼロ。`flop.network` は**今日も到達不能**（未決1）。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 は**「target, subject to readiness」**で、
+> status が `planned` のままなので**まだ何も開いていません。** 数字が1日で消えた今日の件からの実務的な結論は、
+> **「開始日に docs を読み直してから決める」**で、今から匿名/本人確認のどちらで走るかを数字で決め打ちしないことです。
+
 > 🗓 **2026-11-13 追記 — 🚨 テストネット／エアドロの日付が出ました（X のみ・「tentative」付き）。同じ日に docs は旧日程を撤回し、faucet の数字を初めて公開しました。**
 > **❶ 創業者 @CryptoHayes 07:33 UTC**（[2121144411484827836](https://x.com/CryptoHayes/status/2121144411484827836)）:
 >
@@ -26,7 +75,8 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **一方、同じ日に書き換わった docs はこう書いています:**
 >
-> > As checked on 13 November 2026, no replacement public Testnet start date is verified in these sources. The 3 November 2026 target has passed and must not be presented as an upcoming date or proof that Testnet launched.
+> **「As checked on 13 November 2026, no replacement public Testnet start date is verified in these
+> sources. …」**（**2026-11-14 に docs が 11/24 を採用したため、この文は消えました**。最新の囲みを参照）
 >
 > **そして1語 status は今日も `planned`。** → **判定規則は変えません（鉄則A）: 開始シグナルは1語 status です。**
 > 今夜の事実は「**日付は出た（11/24）・プロジェクト自身が tentative と付けた・docs は載せない・まだ何も開いていない**」。
@@ -36,9 +86,13 @@ is never required to verify anything. Japanese documentation follows; commands a
 > validator の「testnet 成績で上位1,000」という表現も消え、「**published performance policy**」に置き換わりました。
 > **❸ 🚨 faucet の数字が初公開（エージェントに直撃）:**
 >
-> > Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane is capped at 2 FLOP and requires approved productive spend before a repeat grant.
+> **「Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane
+> is capped at 2 FLOP and requires approved productive spend before a repeat grant.」**
+> （**この文が載っていたのは 11-13 の1日だけ。11-14 に削除されました**。最新の囲みを参照）
 >
-> > Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant, and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity cooldown.
+> **「Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant,
+> and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity cooldown.」**
+> （**11-14 に短い表現へ書き換え。数字は同じ**。最新の囲みを参照）
 >
 > **＝匿名エージェントの枠は1日 2 FLOP。** しかも2回目の grant には「**approved productive spend**」が要ります
 > （＝E.38 の「実需の検証」ゲートが運用形になって先に出てきた形）。桁を上げるには**人間の本人確認を紐付ける**必要があります。
@@ -46,7 +100,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > （「**not extra airdrop categories**」。provider ごとに nullifier が別なので**名寄せもされません**）。
 > **そしてエアドロ本体についての一文:**
 >
-> > For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns credit merely by being received or held. Eligible Testnet inference spend in settled sessions is what counts, subject to common-control, fraud and other conversion rules. A verification provider does not itself add an airdrop multiplier. Devnet grants and Devnet spend have no airdrop weight.
+> **「For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns
+> credit merely by being received or held. Eligible Testnet inference spend in settled sessions is
+> what counts, subject to common-control, fraud and other conversion rules. …」**
+> （**11-14 に短縮され、common-control / fraud の明記が落ちました**。最新の囲みを参照）
 >
 > **＝もらう・持つ・本人確認する、では1点も入りません。「settled session での実際のテストネット推論支出」だけが数えられ、
 > それも common-control（E.49）と conversion rules（E.38）次第。** 仕組みは変わっていませんが、**運営が初めて参加者の言葉で言いました。**

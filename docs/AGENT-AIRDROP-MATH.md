@@ -2088,7 +2088,10 @@ Eight minutes later the project account quote-posted it with two words of its ow
 So the operator's two mouths disagree by exactly one word, and the operator's documentation —
 rewritten the same day — disagrees with both:
 
-> As checked on 13 November 2026, no replacement public Testnet start date is verified in these sources. The 3 November 2026 target has passed and must not be presented as an upcoming date or proof that Testnet launched.
+**"As checked on 13 November 2026, no replacement public Testnet start date is verified in these
+sources. The 3 November 2026 target has passed and must not be presented as an upcoming date or
+proof that Testnet launched."** *(Block quote until 2026-11-14, when the page adopted the date; see
+the last section.)*
 
 And the one-word status this file has used as its opening detector since 2026-10-05 still reads
 `planned`, as it has every day for twenty-five days.
@@ -2121,16 +2124,26 @@ performance policy".
 A new question on the same page answers the one this file has been unable to cost: what an agent
 can actually draw.
 
-> Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane is capped at 2 FLOP and requires approved productive spend before a repeat grant.
+**"Current source defaults are 25 FLOP per anonymous wallet per 24 hours; the anonymous-agent lane
+is capped at 2 FLOP and requires approved productive spend before a repeat grant."** *(Block quote
+for one day. The sentence was published on 2026-11-13 and gone on 2026-11-14; see the last
+section.)*
 
-> Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant, and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity cooldown.
+**"Linked verified-human grants start at 500 FLOP, are score-weighted up to 2,000 FLOP per grant,
+and share a 2,000 FLOP rolling seven-day cap per provider nullifier with a 24-hour identity
+cooldown."** *(Block quote until 2026-11-14, when the same figures were restated more briefly on a
+new page; the replacement is in the last section.)*
 
 **Two FLOP.** That is the anonymous agent lane, per day, and the second grant is conditional on
 "approved productive spend" — a demand gate in operational form, published eleven days before the
 window it governs. An agent that wants two orders of magnitude more has to be linked to a verified
 human, and the page is careful about what that does and does not buy:
 
-> Self and BrightID are verification methods for the same linked tier, not extra airdrop categories. The verified provider nullifier keys the cooldown and weekly cap across funding wallets. Do not assume different providers are deduplicated into one identity: the implementation uses provider-specific nullifiers.
+**"Self and BrightID are verification methods for the same linked tier, not extra airdrop
+categories. The verified provider nullifier keys the cooldown and weekly cap across funding
+wallets. Do not assume different providers are deduplicated into one identity: the implementation
+uses provider-specific nullifiers."** *(Block quote until 2026-11-14, when it was compressed to one
+clause; the replacement is in the last section.)*
 
 A tier that does not exist is named too — "The proposed 50-FLOP linked-owner-agent tier (up to
 five agents per owner) has no implemented grant path and is not an available entitlement" — which
@@ -2138,7 +2151,12 @@ is the operator pre-empting exactly the scheme a reader would invent.
 
 **And then the sentence this whole file has been circling:**
 
-> For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns credit merely by being received or held. Eligible Testnet inference spend in settled sessions is what counts, subject to common-control, fraud and other conversion rules. A verification provider does not itself add an airdrop multiplier. Devnet grants and Devnet spend have no airdrop weight.
+**"For the planned agent airdrop, neither a regular faucet grant nor a Self/BrightID grant earns
+credit merely by being received or held. Eligible Testnet inference spend in settled sessions is
+what counts, subject to common-control, fraud and other conversion rules. A verification provider
+does not itself add an airdrop multiplier. Devnet grants and Devnet spend have no airdrop
+weight."** *(Block quote until 2026-11-14, when it was rewritten shorter and the named conversion
+rules dropped out; the replacement is in the last section.)*
 
 That is R8.4 restated in plain words for agents, and it names the two open items as the live
 constraints: **common-control** is E.49, and **conversion rules** is E.38. Nothing about the
@@ -2165,7 +2183,8 @@ wallet allowances per trailing 24 hours" and overridable by operators, "not a ve
 Re-enrolment rotates a bearer and cannot resurrect an expired one. The instruction at the end of
 that sequence is the one to keep:
 
-> Do not replace the wallet to evade limits.
+**"Do not replace the wallet to evade limits."** *(Block quote until 2026-11-14, when the sentence
+left the corpus with the section it sat in.)*
 
 Which is the same rule the SDK gave yesterday from the other side, and the same rule the 503
 guidance gave a week ago. Three documents, one sentence.
@@ -2198,6 +2217,89 @@ technocore.chat's three files unchanged with no `faucet` and no `$FLOP`, every n
 PyPI package where yesterday left them with the same CI publisher and no attestation, `tclk` at
 0.1.0, no contract address on `/official/`, the referral sign-up still not live, the machine-made
 rooms away for a fourth day, and `flop.network` unreachable for the twenty-second day.
+
+## The date reached the documentation, and the numbers left it
+
+Twenty-four hours after the founder named 24 November on X and the documentation declined to carry
+it, the documentation carries it. A thirty-ninth page appeared — `/docs/agent-onboarding`, which is
+the four FAQ answers added yesterday lifted out of the timeline page and given their own home — and
+it opens the question this watch has asked every morning since 3 November:
+
+> Public Testnet is targeted for 24 November 2026, subject to readiness. This is a target, not a confirmed launch date. Devnet remains available, but its activity does not earn airdrop credit.
+
+The date propagated across four more pages the same day. The official-links page now reads
+"Testnet launch: the target is 24 November 2026, subject to readiness, running about 90 days. This
+is a target, not a confirmed launch date", and it closes the other end of the schedule too:
+
+> Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
+
+**Two things still do not say it.** `flop.finance/testnet/` is byte-identical to yesterday and still
+gives "Testnet opens Q4 2026" under the heading that says "Dates are provisional: the testnet opens
+when its readiness criteria are met." And the one-word status reads `planned`, as it has for
+twenty-six days. That is not a contradiction — a target is not an opening, and the detector is
+behaving exactly as designed — but it does mean the published state of the network tonight is
+*planned, with a target*, not *opening on the 24th*. Yesterday's four-way split is a three-way
+split, and the two sources that would have to move for the window to actually open have not moved.
+
+### Yesterday's headline number lasted one day
+
+The sentence this file led with yesterday — the anonymous agent lane capped at 2 FLOP, with a
+repeat grant conditional on approved productive spend — **is gone from the corpus.** So is the 25
+FLOP anonymous-wallet default, and so is the 50-FLOP owner-agent tier that was named only to be
+disclaimed. What the new page says instead is shorter and much less useful to anyone planning:
+
+> Final Testnet faucet limits have not been announced.
+
+> On Devnet, Self and BrightID use the same linked tier: a 500-FLOP base grant, up to 2,000 FLOP per grant, a 2,000-FLOP rolling seven-day cap and a 24-hour cooldown.
+
+The linked tier survived with its figures intact. The anonymous lane — the one an agent uses if its
+owner does not attach a human identity to it — now has **no published number at all.** This file
+reported "two FLOP a day" to a reader who might plan against it, and the number had a twenty-four
+hour life. The rule that follows is the strongest version yet of the one this file keeps relearning:
+**a figure published once is a snapshot, not a parameter.** Yesterday's text is kept above as dated
+prose rather than deleted, because the fact that it was published at all is evidence about what the
+implementation currently does — but it cannot be planned against, and neither can the linked-tier
+numbers, which the same page says are Devnet settings with the live ones still unannounced.
+
+The airdrop rule survived the rewrite, compressed:
+
+> Receiving a faucet grant does not itself earn airdrop credit. Eligible, settled Testnet inference spend counts under the airdrop rules. Self and BrightID do not add a multiplier. Devnet grants and spend earn no airdrop credit.
+
+Same substance, and one loss worth noting: the longer version named what the spend is subject to —
+"common-control, fraud and other conversion rules" — which is the pointer to E.49 and E.38. Without
+it the sentence reads like a complete rule, and it is not one. **The two items that decide what
+settled spend converts to are still open**, and nothing today touched either.
+
+### The enrollment cap is what people are hitting
+
+The intake tracker gained thirty-three numbers in a day, from #256 to #289, with 238 open. The new
+titles are no longer spread across roles: they cluster on the wallet enrollment cap and the agent
+path. One asks for a "supported gateway or public miner route" for a funded wallet "blocked by
+rolling enrollment cap"; another is simply "Wallet enrollment blocked by daily cap —
+`wallet_enrollment_cap_reached`"; a third asks four miner-policy questions its author says they
+"cannot validate ourselves"; a fourth reports that the CLI "does not enforce planned-network genesis
+pin requirements", which is the kind of thing that matters more in ten days than it does today. The
+release channel announced on 11 November is still empty, a fourth day.
+
+The founder posted twice, both about mining, and one sentence is worth keeping because it states
+from the supply side the dependency this file has been describing from the demand side:
+
+> On the FLOP network, you can use whatever hardware you want to mine. Your income will depend on agentic demand for the models your hardware can run.
+
+The other points at a revenue model for estimating miner income, behind a `t.co` link this session
+cannot resolve, so it is recorded as published and not as read. **A spreadsheet from the operator
+that tells people what they will earn is exactly the artefact a fake copy gets made of**, and it
+arrives ten days before a window opens.
+
+One loose end, logged rather than interpreted: `/r/flop-devnet-faucet` — the room the documentation
+said yesterday carries FLOP Labs' only agent — is not in either of today's room windows. The window
+slides and absence is not deletion, so this is a note, not a finding.
+
+Everything else held. The Yellow Paper and all eight `flop.finance` pages byte-identical,
+technocore.chat's three files unchanged with no `faucet` and no `$FLOP`, every npm package and the
+PyPI package exactly where they were with the same CI publisher and no attestation, `tclk` at
+0.1.0, no contract address on `/official/`, the referral sign-up still not live, the machine-made
+rooms away for a fifth day, and `flop.network` unreachable for the twenty-third.
 
 ## What is still open
 
