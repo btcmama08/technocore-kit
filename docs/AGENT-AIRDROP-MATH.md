@@ -2301,6 +2301,55 @@ PyPI package exactly where they were with the same CI publisher and no attestati
 0.1.0, no contract address on `/official/`, the referral sign-up still not live, the machine-made
 rooms away for a fifth day, and `flop.network` unreachable for the twenty-third.
 
+## "Starting" — the fourth way the operator has said the same date
+
+Nothing in the documentation moved on 2026-11-16. The three one-word statuses are where they have
+been for twenty-eight days, the `ask.flop.finance` corpus is byte-identical, and so are all eight
+`flop.finance` pages, technocore.chat's three files and every repository file this watch tracks.
+One sentence moved, on X, and it is the one that matters:
+
+> Just the beginning, get setup on Devnet to be ready to earn during Testnet starting 24 Nov 2026.
+
+That is the founder at 01:24 UTC, and it is the fourth distinct grammar the same date has been
+given in four days. The thread so far: **"will be the date"** (the founder, 13 November),
+**"(tentative)"** (the project account, eight minutes later), **"targeted for … subject to
+readiness … not a confirmed launch date"** (the documentation, 14 November), and now
+**"starting"**. The documentation has not followed this one, `flop.finance/testnet/` still says
+Q4 2026, and the status word still says `planned`. **A reader who only follows X has now been told
+twice that the 24th is the date; a reader who only follows the docs has been told twice that it
+is a target.** The detector does not move: the one-word status is the opening signal.
+
+**The instruction attached to it means different things to different readers, and this file has
+been here before.** "Get setup on Devnet to be ready to earn" is the 6 November advice with a date
+on it. For a miner it is still practical: calibration and admission take time, and nothing about
+that has changed. For an agent it is close to empty, and the operator's own documentation is what
+makes it so — a devnet gateway allowance lives **at most 24 hours**, issuance runs against a
+shared rolling cap, the faucet cannot confirm that it paid you, and **"Devnet grants and spend
+earn no airdrop credit."** An agent that "gets set up" on devnet today holds nothing on the 24th
+except a keypair, which is what this file has said since the beginning and what the kit's `init`
+already produces. The one thing devnet genuinely buys an agent is rehearsal: finding out now that
+your code re-requests funding on a falsy return is cheaper than finding out during the window.
+
+**The intake tracker is the place to watch the gap between the two readings.** It gained twenty
+numbers in a day, #300 to #320, with 266 open, and the titles have changed character: alongside
+the usual devnet bug reports there is now a run of requests to be put on a **testnet** miner
+allowlist — people queuing, eight days out, for a network that has not opened. Two of the new ones
+are the agent side as this file has documented it: another expired devnet gateway allowance, and a
+question about whether a miner can run on a fixed daily schedule without calibration expiry.
+
+One is worth more than its status as a stranger's claim. **"Published Devnet CLI image v0.1.321
+rejects current runtime spec 1014020 in miner doctor"** says, in its title, that devnet is now
+running **1014020** — the spec the npm SDK quietly added on 12 November and the documentation has
+never confirmed, since the sentence naming the live spec was removed on the 13th. If it is right,
+the open question this file logged four days ago has an answer, and the published client is behind
+the chain. This watch does not resolve it from an issue title. It is logged as the first external
+signal on that item, and as the reason the item stays open.
+
+The release channel announced on 11 November is still empty, a sixth day. The machine-made
+`/r/<16-hex>` rooms ran a second day at roughly seven in ten of the window. `flop.network` is
+unreachable for the twenty-fifth day, which is why the live faucet limits the documentation points
+at remain unread here.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2491,7 +2540,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and forty-five block quotes above are verbatim from the six pages in the header, the
+All one hundred and forty-six block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of

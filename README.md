@@ -13,6 +13,36 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> ⏳ **2026-11-16 追記 — 同じ日付の「4つ目の言い方」が出ました。ドキュメントは今日1バイトも動いていません。**
+> **❶ 創業者 01:24 UTC**（[2122138684845867022](https://x.com/CryptoHayes/status/2122138684845867022)）:
+>
+> > Just the beginning, get setup on Devnet to be ready to earn during Testnet starting 24 Nov 2026.
+>
+> **＝「starting（始まる）」。** 4日間で同じ日付に**4通りの言い方**が付きました:
+> **「will be the date」**（創業者・11-13）→ **「(tentative)」**（プロジェクト公式・その8分後）→
+> **「targeted for … subject to readiness … not a confirmed launch date」**（docs・11-14）→ **「starting」**（今日）。
+> **docs はこれに追随せず、`flop.finance/testnet/` は今も Q4 2026、1語 status は28日連続で `planned`。**
+> → **X だけ見ている人は「24日で確定」と2回言われ、docs だけ見ている人は「target」と2回言われています。**
+> **判定は変えません: 開始シグナルは1語 status。**
+> **❷ 付いてきた指示（「Devnet で準備しろ」）は、読む人によって意味が違います。**
+> **マイナーには実務的に正しい**（calibration と admission に時間がかかる）。
+> **エージェントにはほぼ空です** — 運営自身の docs がそう書いています:
+> gateway allowance は**最長24時間**、発行枠は**共有の rolling 24h**、**faucet は入金を確認できない**、そして
+> **「Devnet grants and spend earn no airdrop credit.」**
+> → **今日 devnet で「準備」しても、24日に残るのは鍵だけ**（＝このキットの `init` で足りる）。
+> **ただし1つだけ devnet に実利があります: リハーサル。**
+> 「falsy の戻り値で再請求してしまうコード」を**本番の窓ではなく今**見つけられる、という価値です。
+> **❸ 受付 issue が1日で #300 → #320（open 266）。** 中身の性格が変わり、**「testnet の miner allowlist に入れてほしい」**
+> という申請が並び始めました（**まだ開いていないネットワークに8日前から行列**）。
+> **🚨 1件は未決15 に直結**:「**Published Devnet CLI image v0.1.321 rejects current runtime spec 1014020 in miner doctor**」
+> ＝**devnet が 1014020 で動いている**と件名が言っています（11-12 に npm SDK が足し、11-13 に docs から「Devnet runs 1014014」が消えた、あの番号）。
+> **第三者の件名なので確定とはしません。** ただし**公開済みクライアントがチェーンに追いついていない**可能性の初の外部シグナルとして記録します。
+> **その他は不変**: Yellow Paper・8ページ・ask コーパス・technocore.chat 3ファイル・raw 11ファイルすべてバイト同一、
+> npm 5本と PyPI も不変、`tclk` 0.1.0、`tclk-flop` 404、contract address 0件、紹介受付未開設、
+> **リリース窓口は6日連続で0件**、`/r/<16桁hex>` ルームは2日連続で窓の約7割。
+> `flop.network` は**25日連続で到達不能**（未決1。docs が「live faucet limits はここ」と指しているページが読めないまま）。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで8日。**数字で計画は立てない**（11-13 の 2 FLOP は1日で消えました）。
+
 > 📅 **2026-11-14 追記 — docs が 11/24 を採用しました。同時に、昨日の faucet の数字は1日で消えました。**
 > **❶ 39ページ目 `/docs/agent-onboarding` が新設され、日付が docs に入りました:**
 >
