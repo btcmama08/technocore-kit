@@ -13,6 +13,43 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🔑 **2026-11-17 追記 — 「faucet を受けるウォレットをツールに作らせない」の例外は、運営の公式 CLI でした。ドキュメントは2日連続で1バイトも動いていません。**
+> **❶ 今日の発見は「変化」ではなく「我々の読み落とし」です。**
+> `@flop-labs/cli` **0.5.0**（11-12 公開・以後バイト同一）の readme に、こう書いてあります
+> — `flop --network devnet agent credential` を**初回に実行したとき**の挙動です:
+>
+> > On first use it creates a local sr25519 account in `~/.flop/devnet-enroll-wallet.json` (unencrypted, devnet only, mode 0600; its secret is never printed). If that account holds less than 1 FLOP, it requests a grant from `https://faucet.flop.network/fund` and waits for the grant to finalize on `wss://rpc.devnet.flop.network`
+>
+> **起きる順に読んでください。** ①**呼び出し側が見たこともない鍵を生成する** ②**暗号化せずに書く**
+> ③**その鍵に faucet から送金させる** ④着金を待つ。**全部ドキュメント通りの意図された挙動で、devnet 限定です。**
+> **❷ そして同じ運営の SDK は、同じ週に同じレジストリへ、これを禁じる文を出しています:**
+>
+> > Faucet-enabled QuickStart requires a caller-owned signer or keypair so an unconfirmed payment cannot be stranded in an inaccessible generated wallet.
+>
+> **＝「確認できない入金が、手の届かない生成ウォレットに取り残されないように、呼び出し側が所有する鍵を要求する」。**
+> **同一 publisher・同一 CI の2パッケージが、同じ危険に正反対の答えを出しています。**
+> → **だから規則の書き方を変えます。「第三者のツールを断る」では足りない。**
+> **規則は形そのもの: 入金を受ける鍵は、自分が作って・今も中身を読める鍵だけ。** 便利さを差し出すのが誰であっても同じです。
+> **❸ 同じ段落が「Devnet で準備する」の正味の中身も書いています:**
+>
+> > The operator must explicitly fund and configure the allowance; the recommended casual-use grant is 20,000 devnet FLOP, scoped to the exact model returned by enrollment, and expires within 24 hours. Re-enrolling rotates the bearer but never renews quota or expiry.
+>
+> **＝20,000 devnet FLOP・モデル1つに限定・24時間で失効・再 enroll は bearer が変わるだけで期限も枠も戻らない。**
+> **リハーサル用の台です（加点はゼロ）。数字は 鉄則Z のスナップショット扱い。**
+> **❹ 受付 issue が1日で #320 → #341（open 285）＝観測史上最大の1日増。**
+> 昨日は「testnet の**マイナー** allowlist に入れて」でしたが、今日の新顔は3件が「**エージェント**の testnet allowlist」。
+> **運営のどの文書にも testnet allowlist という仕組みは書かれていません。** 行列の存在根拠は行列だけです。
+> **第三者報告3件（いずれも未検証・件数と形だけ記録）**: ①faucet の indexer が24時間で8回停止、UI は「60秒後に再試行」と案内
+> （**SDK が「ループで再試行するな」と書いている相手です**） ②agent credential が keystore 指定を無視して平文ウォレットを書く
+> （**readme が「意図された挙動」と書いている側**） ③calibrated なマイナーが gateway の price_sources に出てこない。
+> **❺ この文書の数字3つを訂正しました**: ask 索引 10,324→**10,372**（11-14 以降）／Yellow Paper の確認フレーズ
+> 「すべて1件」は2件が誤り（`with zero burn` は5件・`validator_min_self_stake_ratio_percent` は2件。**0 になったら 🚨 は不変**）／
+> `flop.network` 言及数「約66」→**文書コーパスで 71**（X の HTML を含めると 297。**数え方を数字の隣に書く**）。
+> **その他は不変**: contract address 0件、紹介受付未開設、`tclk` 0.1.0、`tclk-flop` 404、npm 5本と PyPI 不変、
+> E.38 `[RATIFY]`・E.40 `[TBD]`、**リリース窓口は7日連続で0件**、1語 status は29日連続 `planned`。
+> hex ルームは2日の波が引いて 5/161・16/197（**窓は流れる＝事実ではない**）。`flop.network` は**26日連続で到達不能**。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで7日。
+
 > ⏳ **2026-11-16 追記 — 同じ日付の「4つ目の言い方」が出ました。ドキュメントは今日1バイトも動いていません。**
 > **❶ 創業者 01:24 UTC**（[2122138684845867022](https://x.com/CryptoHayes/status/2122138684845867022)）:
 >

@@ -2350,6 +2350,95 @@ The release channel announced on 11 November is still empty, a sixth day. The ma
 unreachable for the twenty-fifth day, which is why the live faucet limits the documentation points
 at remain unread here.
 
+## The tool that creates the wallet, and then asks the faucet to pay it, is the operator's own
+
+Nothing in the documentation moved on 2026-11-17. The three one-word statuses are in their
+twenty-ninth day of `planned`, `development`, `planned`; the `ask.flop.finance` corpus is
+byte-identical for a fourth day, and so are all eight `flop.finance` pages, technocore.chat's three
+files and all eleven repository files this watch tracks. The founder posted once, about other
+people's tokens, which this file does not carry.
+
+The finding today is not a change in the sources. It is a section of the operator's own
+command-line tool that this watch had been measuring by length and had never read.
+`@flop-labs/cli` 0.5.0 — published on 12 November, byte-identical in every check since —
+documents what `flop --network devnet agent credential` does the first time it runs:
+
+> On first use it creates a local sr25519 account in `~/.flop/devnet-enroll-wallet.json` (unencrypted, devnet only, mode 0600; its secret is never printed). If that account holds less than 1 FLOP, it requests a grant from `https://faucet.flop.network/fund` and waits for the grant to finalize on `wss://rpc.devnet.flop.network`
+
+Read that in the order the events happen. The tool **generates a keypair the caller has never
+seen**, writes it to disk unencrypted, **asks the faucet to send money to that keypair**, and waits
+for a grant to finalize. Every one of those steps is documented, deliberate, and devnet-only. And
+the same operator's SDK, published to the same registry in the same week, states the rule that this
+sequence breaks:
+
+> Faucet-enabled QuickStart requires a caller-owned signer or keypair so an unconfirmed payment cannot be stranded in an inaccessible generated wallet.
+
+Two packages, one publisher, one CI pipeline, opposite answers to the same hazard. The SDK refuses
+to fund a wallet the caller does not own because a payment it cannot confirm would be stranded
+there; the CLI creates exactly such a wallet as its default path. Nothing in the CLI's
+documentation offers a way to hand it an account you already hold — the flag that loads an
+encrypted keystore is documented for the signing commands, not for this one — and a third-party
+issue filed today asks for precisely that missing ability. That request is unverified and is
+recorded here as a request, not as a fact about the code.
+
+This matters less for what it says about the operator than for what it says about the rule. **The
+shape this file has told Jack to refuse — let nothing else create the wallet that will receive a
+faucet grant — is the shape the official tool uses by default.** So the rule cannot be "refuse
+third-party tools". It has to be the shape itself: *the key that receives the grant is one you
+made and can still read*, whoever is offering the convenience. On devnet the stakes are small by
+construction, because devnet tokens carry no airdrop weight and the file is mode 0600 inside a
+mode-0700 directory with the secret never printed. The habit is what travels to the 24th.
+
+The same passage answers, in the operator's own words, what "get setup on Devnet" actually hands
+an agent:
+
+> The operator must explicitly fund and configure the allowance; the recommended casual-use grant is 20,000 devnet FLOP, scoped to the exact model returned by enrollment, and expires within 24 hours. Re-enrolling rotates the bearer but never renews quota or expiry.
+
+Twenty thousand devnet FLOP, usable against one model, gone in a day, and re-enrolling buys a new
+bearer token and not a single hour more. It is a rehearsal rig, exactly as this file has said, and
+the figure in it is a snapshot and not a parameter: the last faucet number published in this
+project's documentation survived twenty-four hours.
+
+### The queue is now asking to be let into a network that has not opened
+
+The intake tracker gained twenty-one numbers in a day, from #320 to #341, with 285 open — the
+largest single-day jump this watch has recorded. The shape changed again. Yesterday's new arrivals
+asked to be placed on a testnet *miner* allowlist; today three of the newest ask for an
+"agent testnet allowlist entry". **No operator document describes a testnet allowlist for either
+role.** People are queueing at a door whose existence is attested only by other people queueing.
+
+Three of the day's titles bear directly on things this file tracks, and all three are third-party
+reports this session cannot verify. One says the faucet's indexer went stale eight separate times
+in twenty-four hours, for five to sixty minutes each, and that the interface tells users to retry
+after sixty seconds — on an endpoint whose own SDK says never to retry in a loop and whose refusals
+cannot be distinguished from unconfirmed payments. One says the agent-credential command writes an
+unencrypted wallet file while ignoring the keystore flag, which is the behaviour the published
+readme documents as intended, filed as a bug. One says a calibrated miner with a ready proof is
+absent from the gateway's price sources, which is the live version of the sentence this file has
+quoted twice: a healthy catalog is not a serving miner. Counts and shapes are the record here;
+none of these is a finding until a primary source says so.
+
+### Three numbers in this file were wrong
+
+Measurement, again, is part of the instrument. The `ask.flop.finance` index was recorded at 10,324
+bytes; it has been 10,372 since 14 November, when the new agent page was added to it. The Yellow
+Paper's ten confirmation phrases were recorded as appearing exactly once each; two do not —
+"with zero burn" appears five times and `validator_min_self_stake_ratio_percent` twice. The
+detector still works, because what fires it is a phrase reaching zero, but the recorded count was
+wrong and would have looked like a change to anyone re-measuring. And the `flop.network` mention
+count, recorded as "about 66", is 71 today and 71 yesterday over the document corpus — or 297 if
+the X status pages are counted, which is why the basis now travels next to the number.
+
+Everything else held. No contract address on `/official/`, the referral sign-up still not live,
+`tclk` at 0.1.0 and `@flop-labs/tclk-flop` still absent from the registry, five npm packages and
+the PyPI package unchanged with the same CI publisher and no attestations, E.38 still awaiting
+ratification and E.40 still a placeholder, and the release channel announced on 11 November empty
+for a seventh day. The machine-made rooms that filled about seven-tenths of both windows on 15 and
+16 November are back to a handful — five of 161 and sixteen of 197 — which is what a sliding window
+looks like and not a fact about the network. `flop.network` has been unreachable for twenty-six
+days, so the page the documentation points at for live faucet limits is still a page this watch
+cannot read. Seven days to the target.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2540,7 +2629,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and forty-six block quotes above are verbatim from the six pages in the header, the
+All one hundred and forty-nine block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
