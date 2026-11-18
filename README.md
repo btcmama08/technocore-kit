@@ -13,6 +13,62 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📜 **2026-11-18 追記 — Yellow Paper が8週間ぶりに動き、リリース窓口が開き、`/official/` が日付を取り込みました。それでも E.38 と E.40 は1文字も動いていません。**
+> **❶ Yellow Paper: `Updated2026-09-24` → `Updated2026-11-18`。** 版は `0.5.0 (draft)` のまま、可視本文 **+14,694 字**、
+> **新決定7件（D-0540〜D-0545・D-0547）**、FCU 29→39・R12.5 29→42、**リポジトリのミラーも同日に追随**（377,134→436,476 B・初）。
+> **しかし `[TBD]` 18・`[RATIFY]` 8・E.40 11件・Appendix E 36項目はすべて不変。E.38 も `[RATIFY]` のまま。**
+> **❷ 🚨 いちばん効く新ルール R8.5a（シーズン長）**:
+>
+> > R8.5a — Season length. The Era-T season length is the testnet configuration value era_t_season_blocks, whose default is also its maximum; governance MAY ratify an earlier snapshot height, so a season can be shorter. The three conversion pools of R8.3 MUST NOT scale with the season length: each cohort's pool is fixed and is allocated over the cohort's eligible activity in the actual season under R8.4 and the scoring and aggregation rule that E.38 leaves open. The season length MUST NOT change a pool's size or the cohort boundaries. Reaching the season end MUST NOT by itself authorize a payout: conversion still MUST use the governance-ratified, finalized snapshot of R8.5 within the configured window, and only eligible activity through that height MUST count. A shorter season MUST NOT move any unallocated remainder between cohorts.
+>
+> **読み方4つ**: ①**90日は上限で、長さではない**（公開ページも「About 90 days」→「**Up to 90 days**」に変更、
+> 「**Governance may end the season earlier; the airdrop pools stay the same size whatever its length.**」が追加）
+> ②**プールは固定なので、短いシーズンは1単位の支出を濃くする**＝記録上はじめて「小さく早く正直に参加する人」に有利な事実
+> ③**余りはコホート間を移動しない**＝エージェントが使い残しても miner 側へは行かない
+> ④**それでも計算はできない。ルール自身が「the scoring and aggregation rule that E.38 leaves open」と書いている。**
+> → **固定の分子・未定のシーズン長・未公開の採点関数。割り算が仕様の中で未定義です。**
+> ＋**「シーズン終了だけでは支払いを許可しない。governance が批准した確定スナップショットが必要」**＝90日目に自動では起きません。
+> **❸ 🚨 リリース窓口が開きました（7日間空のあと）。** **13本すべて 11/18 付**、publish 主体は `flop-github-release-publisher`。
+> 既知の10本（sdk 0.6.0/0.5.2・cli 0.5.0/0.4.4・client 0.2.2・contracts 0.1.2・pi 0.3.2・python-sdk 0.3.0）に加え、
+> **初の版付きサーバ側イメージ5本: `node v0.2.0`・`miner v0.2.0`・`miner-worker v0.2.0`・`miner-vllm-toploc v0.2.0`・`da-validator v0.2.0`。**
+> → **判定規則は不変**（ドメイン＋パス＋その run で docs から読んだ digest）。**ただし「公式のリリースページ」という偽装先が増えました（攻撃面④b）。**
+> **❹ `/official/` が15日遅れで日付を取り込みました**（10/23 以来初の改訂・`last updated 2026-11-18`）:
+>
+> > Testnet launch: the target is 24 November 2026, subject to readiness, running up to about 90 days. This is a target, not a confirmed launch date.
+>
+> > Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
+>
+> **＝詐欺対策の基準ページが、ようやく告知と一致しました。** `flop.finance/testnet/` は今も Q4 2026、1語 status は**30日連続 `planned`**。**判定は1語 status のまま。**
+> **❺ validator の書き換えが公開ページに到達**（D-0539 は 11-06 批准）。`/airdrop/` に新情報:
+>
+> > Half of each validator's block-reward share is added to its bond and locked, each tranche unlocking linearly over the same five halving intervals from its bonding; the other half is liquid.
+>
+> whitepaper は席のルールを全面改訂（均等席・毎セッション再選・強制ローテなし）。**運営自身がこう書きました**:
+>
+> > This rule is ratified; it is not yet live in the runtime, which still rotates on a thirty-day cycle.
+>
+> **＝「批准済み」と「動いている」は別物。この文書が6週間測ってきたことを、運営が自分のページに書いた形です。**
+> **❻ 🚨 エスクローの助言を1段きつくします。** §12 の新しい1文:
+>
+> > The escrow is a minimum capacity payment, not refundable collateral: a cooperative settle pays all of it to the miner, and a unilateral close withholds refund_penalty_phi_percent of the unused part from the agent's refund. An open channel that reaches its deadline unsettled is refunded in full by timeout.
+>
+> **これまで「中途半端に閉じると未使用分の20%が戻らない」と書いてきました。20% は*一方的な*クローズの話で、**
+> **普通に協調して settle すると、未使用分も含めてエスクロー全額がマイナーに行きます。** **過大なエスクローの損は20%ではなく100%。**
+> → **助言は同じ（実作業量に合わせる）。理由の重さが4倍でした。**
+> **❼ エージェント側の上限に決定番号が付きました（D-0540）**: `max_active_reservations_base` **400**（1 agent identity あたりの同時予約）、
+> `escrow_per_reservation_slot` **50 FLOP**（基本枠を超える1枠あたり）。**値は昨日の表にもありました（我々が拾っていなかった）。** 新しいのは「決定になった」こと。
+> **❽ 受付 issue 285 → 298・#341 → #357。** 新顔は**「access: devnet validator onboarding」が6件**（紹介者名つき）＝
+> **招待制と書かれている登録に公開の行列ができた**（未検証）。版の話2件のうち1件はここで検証できました:
+> **`@flop-labs/pi` 0.3.2 は `"@flop-labs/sdk": "^0.5.1"` を宣言**＝caret では 0.6.0 に届かず 0.5.2 に解決し、
+> docs によれば 0.5.2 が受け入れる spec は **1014014 まで**。**運営自身の `pi` が、運営自身の最新 SDK（1014020 まで）に追いつけない。**
+> 第三者は今日「devnet が **1014027** に上がって SDK 0.6.0 / CLI 0.5.0 が弾かれる」と書いています（**運営の文書にこの番号は0件＝未検証**）。
+> **❾ 公式アカウントが5日ぶりに投稿、`t.co` の購読リンク**（**解決不能＝「公開された」とだけ記録**）。
+> ⚠️ **同じ日に改訂された `/official/` に購読窓口は載っていません。** ページ自身の規則では、**載っていない宛先は公式と確認できません**（誰が投稿しても同じ）。
+> **その他は不変**: technocore.chat 3ファイル（faucet=0・`$FLOP`=0）、npm 5本と PyPI（publish 主体も同じ）、`tclk` 0.1.0、`tclk-flop` 404、
+> contract address 0件、紹介受付未開設、「Paid sessions are not open yet」健在、FCU のゲート健在。hex ルームは2窓とも0件。
+> `flop.network` は**27日連続で到達不能**（未決1）。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで6日。**シーズンは短くなりうるが、採点はまだ決まっていません。**
+
 > 🔑 **2026-11-17 追記 — 「faucet を受けるウォレットをツールに作らせない」の例外は、運営の公式 CLI でした。ドキュメントは2日連続で1バイトも動いていません。**
 > **❶ 今日の発見は「変化」ではなく「我々の読み落とし」です。**
 > `@flop-labs/cli` **0.5.0**（11-12 公開・以後バイト同一）の readme に、こう書いてあります

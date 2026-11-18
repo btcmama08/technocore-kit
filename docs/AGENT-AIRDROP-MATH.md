@@ -269,7 +269,13 @@ settlement fee)". It now splits the money:
 > `inference_fee_validator_share_ppt` = 15% to the validator pool (D-0525). The 1% audit pool
 > earmark (`audit_fee_split_ppm = 10,000 ppm`) MUST be deducted from the 15% validator share
 > to fund verification audits; the remainder of the validator leg is distributed intra-pool by
-> the R9.5 weighting, liquid on issue (R9.13, D-0518).
+> the R9.5 weighting.
+
+**On 2026-11-18 this sentence lost its tail.** Until that day it ended "liquid on issue (R9.13,
+D-0518)"; the Yellow Paper now stops at the R9.5 weighting and appends the integer arithmetic of a
+new prospective profile instead — `validatorGross = floor(payable × 150 / 1000)`, the audit pool
+from `floor(payable × 10000 / 1000000)`, and `miner = payable - validatorGross`. The 85/15 split
+and the audit earmark are unchanged; only the liquidity clause and the added formulas moved.
 
 The parameter table dates it precisely — `inference_fee_miner_share_ppt` 850 ppt and
 `inference_fee_validator_share_ppt` 150 ppt, both carrying "#2702 (D-0525): Executive ruling
@@ -806,8 +812,13 @@ The whitepaper keeps a standing list of its own statements that differ from the 
 $FLOP is burned, that validators take no delegated stake, and the seven staking tiers — the four
 things D-0525, D-0529 and D-0530 settled over the previous eleven days. Still differing:
 
-> These statements still differ from the Yellow Paper: governance decided by validators, an
-> hourly committee, per-block settlement, and slashing a miner for non-delivery.
+> These statements still differ from the Yellow Paper: governance decided by validators, per-block settlement, and slashing a miner for non-delivery.
+
+**That list was four entries until 2026-11-18 and is three now.** The entry that left was "an
+hourly committee" — not because the whitepaper conceded it, but because the committee rule itself
+changed under it: the page now describes a committee "redrawn every session of about fifteen
+minutes", so there was nothing left to disagree about. The quote above is today's text; the
+four-entry version is the one this file carried from 2026-10-26.
 
 None of the four touches the agent leg. And the Yellow Paper's own front matter now adds
 Appendix I (Pallet Index Reference) to the list of normative sections, while Appendix B's
@@ -2439,6 +2450,195 @@ looks like and not a fact about the network. `flop.network` has been unreachable
 days, so the page the documentation points at for live faucet limits is still a page this watch
 cannot read. Seven days to the target.
 
+## Eight weeks frozen, then everything moved at once — except the two items that decide the airdrop
+
+The Yellow Paper had carried `Updated2026-09-24` since this watch began. On 2026-11-18 it reads
+`Updated2026-11-18`, the version string still says `Version0.5.0 (draft)`, and the visible text is
+14,694 characters longer. Seven decisions appeared — D-0540 through D-0545 and D-0547 — the FCU
+mentions went from 29 to 39, the R12.5 mentions from 29 to 42, and the repository mirror that had
+sat at 377,134 bytes since 26 October jumped to 436,476 and now carries D-0547 too, the first time
+in this record that the mirror and the site moved on the same day. Six of the eight
+`flop.finance` pages changed. The release channel opened. `/official/` was rewritten.
+
+**`[TBD]` is still 18. `[RATIFY]` is still 8. E.40 is still eleven mentions of a placeholder, and
+E.38 still carries `[RATIFY]`.** Appendix E still holds 36 items. In the largest documentation
+movement since this file started, the two entries that decide what an agent's testnet spend
+converts into were not touched — and the clearest evidence of that is in the new rule itself.
+
+### The season can now end early, and the pools do not shrink with it
+
+The new rule is R8.5a, and it is the most planning-relevant sentence published about the airdrop
+since the cohort sizes:
+
+> R8.5a — Season length. The Era-T season length is the testnet configuration value era_t_season_blocks, whose default is also its maximum; governance MAY ratify an earlier snapshot height, so a season can be shorter. The three conversion pools of R8.3 MUST NOT scale with the season length: each cohort's pool is fixed and is allocated over the cohort's eligible activity in the actual season under R8.4 and the scoring and aggregation rule that E.38 leaves open. The season length MUST NOT change a pool's size or the cohort boundaries. Reaching the season end MUST NOT by itself authorize a payout: conversion still MUST use the governance-ratified, finalized snapshot of R8.5 within the configured window, and only eligible activity through that height MUST count. A shorter season MUST NOT move any unallocated remainder between cohorts.
+
+Four things follow, and the fourth is the reason the first three cannot be planned against.
+
+**The ninety days is a ceiling, not a length.** The public page changed to match on the same day:
+"Length**Up to 90 days**" where it said "About 90 days", and a new sentence under the timeline —
+
+> Testnet runs Up to about 90 days Work is verified and recorded on the testnet chain. Governance may end the season earlier; the airdrop pools stay the same size whatever its length.
+
+**The pool is fixed, so a short season concentrates it.** If the agent cohort's 1,200,000,000 FLOP
+is divided over whatever eligible settled spend occurs, then a season cut to half its length —
+with no corresponding cut to the pool — makes each unit of eligible spend worth more, not less.
+That is the first thing in this whole record that favours a small, early, honest participant.
+
+**An unspent remainder stays in its own cohort.** "A shorter season MUST NOT move any unallocated
+remainder between cohorts" means the agent pool cannot be swept into the miner pool because agents
+under-used it. Whatever the agent cohort does not earn is not redistributed to the other two.
+
+**And none of it is computable, because the rule says so out loud.** The pool is allocated "over
+the cohort's eligible activity in the actual season under R8.4 and *the scoring and aggregation
+rule that E.38 leaves open*." The operator's own new rule, written today, names E.38 as the thing
+that is still missing. A fixed numerator, an unknown season length, and an unpublished scoring
+function: the division is undefined in its own specification.
+
+One more clause closed a gap that mattered: reaching the end of the season does not authorize a
+payout by itself, because conversion still needs "the governance-ratified, finalized snapshot of
+R8.5 within the configured window". The snapshot is an act of governance at a chosen height, not
+an automatic event at day ninety.
+
+### The release channel opened, seven days after the heading appeared
+
+On 11 November a `Releases` section appeared on `flop-labs/network` with nothing in it. This file
+has recorded it empty every day since. Today it holds **thirteen releases, every one dated 18
+November 2026**, published by an account named `flop-github-release-publisher`, in exactly the
+`<service>/v<version>` shape this watch was waiting for.
+
+Ten of them are things already visible elsewhere — `sdk v0.6.0` and `v0.5.2`, `cli v0.5.0` and
+`v0.4.4`, `client v0.2.2`, `contracts v0.1.2`, `pi v0.3.2`, `python-sdk v0.3.0` — the npm and PyPI
+versions this file has tracked for a week, given tags on the day the channel opened. The other
+five are new information: **`node v0.2.0`, `miner v0.2.0`, `miner-worker v0.2.0`,
+`miner-vllm-toploc v0.2.0` and `da-validator v0.2.0`.** Those are the server-side components, and
+until today the operator published no version numbers for them at all. The `node` release notes
+say only that it is the "First versioned `node` image for `linux/amd64`, built with the default
+runtime" — that text came through a page-reading agent rather than a direct fetch, so it is
+recorded as read and not quoted as source.
+
+What changes for anyone running this stack is the provenance question, not the version numbers.
+Until today a miner image's identity came from one place, the digest printed in `/docs/run-miner`.
+There is now a second official place where images are named, which is an improvement — and a new
+surface to imitate, since a release page is far easier to mimic convincingly than a documentation
+site. The rule does not change: the pack's identity is its domain, its path and the digest read
+from the operator's own documentation in the same session you install it.
+
+### `/official/` finally took the date, fifteen days late
+
+The page that says it is the whole list of what is officially FLOP had, since 23 October, called
+the testnet launch "the working target", named Tuesday 3 November 2026, and put the mainnet and
+TGE at Q1 2027 "tracking to early February" — wording this file can no longer quote, because the
+page was rewritten today, and which is kept here as dated prose instead. That target had passed
+fifteen days earlier. Today the page reads:
+
+> Testnet launch: the target is 24 November 2026, subject to readiness, running up to about 90 days. This is a target, not a confirmed launch date.
+
+> Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
+
+So the layer count drops. The 24 November date is now on the documentation corpus, on the
+anti-impersonation page, and on X twice; `flop.finance/testnet/` still says "Opens **Q4 2026**"
+and the one-word status field has read `planned` for thirty days. **The detector does not move:
+the opening signal is the status word, not the date.** But the gap this file has been describing —
+X says confirmed, docs say target — is now narrower, and the page a scam victim would be told to
+check finally agrees with the announcement.
+
+### The validator rewrite reached the public pages, and said the quiet part
+
+D-0539 was ratified on 6 November. The public pages described the old scheme until today. Both
+`/airdrop/` and `/teaser/` now carry the linear unlock, and `/airdrop/` adds a term this file had
+not seen in public before:
+
+> Half of each validator's block-reward share is added to its bond and locked, each tranche unlocking linearly over the same five halving intervals from its bonding; the other half is liquid.
+
+The whitepaper went further and rewrote the seat rule — equal seats, re-selected every session by
+bonded self-stake above a service-level floor, no forced rotation — with two sentences worth
+keeping. The first is the design:
+
+> Stake above the floor buys rank only, never a larger reward share.
+
+The second is the operator stating, on its own public page, the exact pattern this file has spent
+six weeks measuring:
+
+> This rule is ratified; it is not yet live in the runtime, which still rotates on a thirty-day cycle.
+
+That is the whole thesis of this document, published by the people it describes. A ratified rule
+and a running system are different objects. E.38 is the same shape with the sign reversed: not
+ratified, and therefore not even eligible to be live.
+
+### One sentence sharpened the escrow advice
+
+A new line in §12 says what the escrow actually is, more plainly than the parameter table ever
+did:
+
+> The escrow is a minimum capacity payment, not refundable collateral: a cooperative settle pays all of it to the miner, and a unilateral close withholds refund_penalty_phi_percent of the unused part from the agent's refund. An open channel that reaches its deadline unsettled is refunded in full by timeout.
+
+This file has been telling its reader that closing a channel badly costs twenty percent of the
+unused escrow. That is right for the unilateral path and far too comforting for the ordinary one:
+**on a cooperative settle the miner receives the entire escrow, used or not.** Over-provisioning
+costs one hundred percent of the excess when a session ends the way sessions are supposed to end.
+Match the escrow to the work — the advice is unchanged, the reason it matters is four times
+larger than stated.
+
+### The agent-side limits now carry a decision number
+
+D-0540 attaches a decision to two parameters: `max_active_reservations_base` at 400 concurrent
+active capacity reservations per agent identity, and `escrow_per_reservation_slot` at 50 FLOP for
+each additional slot beyond the base, both filed under "A1 anti-spam". **The values are not new —
+both were in the parameter table yesterday, and this file had not surfaced either.** What changed
+is that they are now decided rather than merely listed. Four hundred concurrent reservations is
+far beyond anything a single honest agent needs, which is the point of an anti-spam bound; the
+50-FLOP slot price is the first published figure for buying agent-side concurrency.
+
+### The queue is now full of validator onboarding, and the published client is behind the chain
+
+The intake tracker went from 285 open to 298, and from #341 to #357. The newest arrivals are
+mostly a kind this watch has not seen before: six separate "access: devnet validator onboarding"
+requests, several naming a referrer. Validator enrollment is documented as invitation-only,
+coordinated "in your existing direct conversation with the FLOP team member handling your
+invitation" — so a public queue for it is a shape change, and an unverified one.
+
+Two of the day's issues bear on the version question, and one of them can be checked here. A
+third-party title says the published SDK and CLI now reject devnet after an upgrade to **spec
+1014027** — a number that appears nowhere in the operator's published text, which still tops out
+at 1014020 in the SDK readme and 1014014 in the documentation. That is a third-party claim and
+stays one. The other is checkable against the registry, and it holds: **`@flop-labs/pi` 0.3.2
+declares `"@flop-labs/sdk": "^0.5.1"`.** A caret range on 0.5.1 cannot reach 0.6.0, so installing
+the operator's own `pi` package resolves the SDK to 0.5.2 — the version the documentation says
+admits specs only up to `1014014`. The newest spec the operator's own newest SDK admits is
+1014020, and its own `pi` package cannot get there. No third party is needed to see that one; it
+is two fields in the registry.
+
+### The rest
+
+The founder posted the clearest statement yet of what a miner is actually buying:
+
+> Many retail and enterprise FLOP miners to be ask us:
+> - What's the best hardware?
+> - How do I setup my hardware to optimise performance?
+>
+> We cannot answer those questions. We can tell you the block reward, and that it's weighted by amount of inference processed measured by floating point operations (compute) meaning if in one block your miner processed 100 gigaflops out of a total of 200 gigaflops, you earn half of the miner block reward.
+>
+> If you buy hardware that can serve a certain AI model, and that model is not in demand, you will process zero inference requests and earn nothing.
+>
+> If you want to better forecast the types of models most in demand for agentic work, look at the most popular models on Open Router for example.
+>
+> Worst case, try out your configuration, and adjust your setup based on actual results.
+
+The project account broke a five-day silence to post a subscription link for network updates
+behind a `t.co` redirect this session cannot resolve. It is recorded as published and not as read.
+Worth noting precisely because the same operator's `/official/` page was rewritten today and still
+lists no subscription channel: by the page's own rule, a destination that is not on it is not
+verifiable as official, whoever posted the link.
+
+Everything else held. technocore.chat's three files byte-identical with no `faucet` and no
+`$FLOP`, all five npm packages and the PyPI package unchanged with the same CI publisher and no
+attestations, `tclk` at 0.1.0 and `@flop-labs/tclk-flop` still 404, no contract address on
+`/official/`, the referral sign-up still not live, "Paid sessions are not open yet" still in
+place, the FCU activation gate still blocking, and the machine-made rooms gone from both sampled
+windows after yesterday's handful — which is what a sliding window does. `flop.network` has been
+unreachable for twenty-seven days, so the live faucet limits the documentation points at remain a
+page this watch cannot read. Six days to the target.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2629,7 +2829,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and forty-nine block quotes above are verbatim from the six pages in the header, the
+All one hundred and fifty-eight block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
