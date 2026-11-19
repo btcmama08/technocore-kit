@@ -13,6 +13,71 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 📦 **2026-11-19 追記 — サイトは1バイトも動かず、パッケージが4本動きました。そして「鍵は自分で作る」に公式の道ができました（ただし未リリース）。**
+> **❶ sdk 0.6.0→0.7.0／cli 0.5.0→0.6.0／pi 0.3.2→0.3.3／PyPI 0.3.0→0.3.2。** publish 主体・install フック無し・attestations 無しは不変、`tclk-flop` も 404。
+> **❷ 🚨 昨日「未検証」と記録した spec 1014027 が、運営自身のパッケージに入りました。**
+>
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
+>
+> **＝1014021〜1014027 と 1014029 を追加、1014028 を新たに除外。** Python SDK も同じ変更。
+> **第三者 issue が「devnet の現況」を運営より先に言い当てたのは4回目**です。
+> → **規則化します: 「devnet が何で動いているか」の第三者報告は実績がある。「規則がどうなっているか」の第三者報告は実績ゼロ。**
+> **なお docs は動いていません**（今も「公開クライアントは 1014014 まで」。`1014020` も `1014027` もコーパスに0件）。
+> **＝昨日は「クライアントがチェーンより後ろ」、今日は「クライアントが docs より前」。ズレは消えず移動しました。**
+> **❸ ✅ 昨日レジストリで検証した不具合は直りました。** `pi` の依存が `sdk ^0.5.1` → **`^0.7.0`**。
+> **❹ 🚨 CLI の readme が約8,000字増え、`hermes` に支払い3モードの表が付きました。**
+> **Broker**（gateway の broker 口座が払う・scoped API key）／**Direct**（自分の資金入りウォレットが払う）／**Trial**（スポンサーの枠・要 enrollment）。
+> Broker について:
+>
+> > This path neither creates an agent wallet nor transfers FLOP to one. Its key still has a spending allowance, model scope and any configured expiry. Missing or exhausted keys stop without switching to a trial.
+>
+> Direct について:
+>
+> > Direct inference requires a funded encrypted wallet, its password environment variable, a reachable miner session endpoint, and an admitted tool-capable model using structured chat v2.
+>
+> **＝「資金を入れた暗号化ウォレットとそのパスワード環境変数」。2日前にこの文書が Jack に要求した形そのものです。**
+> （`agent credential` の「平文ウォレットを自分で作って faucet に送金させる」節は**今日も一字一句そのまま**。横に正しい道ができただけ。）
+> **⚠️ ただし落とし穴があります:**
+>
+> > The following payment separation is available from the source checkout and is not yet in the released launcher. Build with `pnpm --filter @flop-labs/cli build` and substitute `node sdk/cli/dist/cli.js` for `flop` until release.
+>
+> **＝正しい道は「文書」と「公開されていないソースツリー」にあり、リリース版に入っているのは鍵を勝手に作る方。**
+> **📌 結論は変わりません: ツールには自分が作ったウォレットを渡す。Direct がリリース版に来るまで、便利コマンドは使わない。**
+> **❺ 今回の目玉はエラー語彙です。** CLI が versioned な diagnostics（`failure.stage` = acknowledgement/session/settlement、
+> `failure.code` = ACK_TIMEOUT・TRANSACTION_UNCONFIRMED・RECONCILIATION_UNKNOWN 他、`recovery.outcome` = confirmed/rejected/unknown）を出すようになりました。**覚えるべき3文**:
+>
+> > `SETTLEMENT_POSTED` starts the challenge period and does not mean payment finalized; `TERMINAL_OUTCOME` alone does not identify a refund or settlement.
+>
+> > absence, unsupported versions and `UNCLASSIFIED` never authorize a retry.
+>
+> > An uncertain request blocks new purchases.
+>
+> **＝faucet の「払われたか分からない」問題が、セッション層で名前を持ちました。対処も書かれています: 読み取り専用で照合し、不確かな間は買わない。**
+> ＋**昨日のエスクロー訂正を CLI 側も繰り返しています**（しかも新情報2つ）:
+>
+> > Cooperative close can spend the entire per-completion escrow; chain transaction fees are additional. The total budget conservatively reserves that escrow for every attempted completion, including failed requests, across restart. Reuse the same state directory and authorization; creating another directory starts a new authorization.
+>
+> **＝①予算は「失敗したリクエストも含めて」全試行分のエスクローを確保する ②state ディレクトリを作り直すと認可が別物になる。**
+> **❻ SDK に `Agent` という稼得 identity が登場**:
+>
+> > Voucher earning identities are `Agent`, `MinerBlockReward` and `MinerInferenceFee`; fixed/floating mode is a separate, explicitly configured mapping with no production default.
+>
+> **エージェント側が Appendix E のプレースホルダ以外の実装物に初めて名前で出ました。** ただし voucher の構築は現 runtime では不可・mode は本番既定なし。**E.40 は依然 `[TBD]`。**
+> **❼ ⚠️ 両 SDK のリンク先が `docs.flop.network` になりました**（upgrade/migration ガイドと SDK references）。**＝28日連続で読めないホスト（未決1）。** 移行ガイドは「公開された」としか書けません。
+> **❽ リリース窓口は1日で既に古い**: レジストリは 0.7.0/0.6.0/0.3.3/0.3.2 なのに、release は昨日の13本のまま（atom も 10件・feed の更新時刻も 11/18）。**版はレジストリから、digest はその run の docs から。**
+> **❾ 創業者の新規4件のうち FLOP は1件**:
+>
+> > To become a miner , validator, KOL, and or user requires no application or approval. Just point your AI agent at https://t.co/MaSlIEqkne to learn how to participate and get setup.
+>
+> **🚨 4つの名詞のうち2つが docs と食い違います。** **validator は文書上は招待制**（「your existing direct conversation with the FLOP team member handling your invitation」）で、
+> 昨日から公開の申請行列ができています。**KOL は紹介リンクが「not yet live」。** **「申請も承認も不要」が支えられるのは miner と user だけ。**
+> リンクは `t.co`（解決不能）＋**昨日改訂された `/official/` に新しい宛先は載っていません**＝ページ自身の規則では公式と確認できない（攻撃面④j）。
+> **❿ 受付 issue 298→319・#357→#380（13ページ）。** 未検証3件が 24日に効きます: **devnet faucet が HTTP 503 で付与状況不明**／
+> **rpc.devnet と mailbox.devnet が 502/530、本日 07:55 UTC からマイナーがチェーンに届かない**／「**agent testnet allowlist entry and day-1 faucet qualification**」（存在しない仕組みへの行列に「初日」の期待が付いた）。
+> **その他は不変**: flop.finance 8ページ・Yellow Paper・ask コーパス・technocore.chat 3ファイル・raw 11ファイルすべてバイト同一、1語 status も `planned`。
+> `/r/flop-devnet-faucet` が5日ぶりに窓に復帰（**鉄則M: 不在も復帰も事実ではない**）。`flop.network` は**28日連続で到達不能**。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで5日。
+
 > 📜 **2026-11-18 追記 — Yellow Paper が8週間ぶりに動き、リリース窓口が開き、`/official/` が日付を取り込みました。それでも E.38 と E.40 は1文字も動いていません。**
 > **❶ Yellow Paper: `Updated2026-09-24` → `Updated2026-11-18`。** 版は `0.5.0 (draft)` のまま、可視本文 **+14,694 字**、
 > **新決定7件（D-0540〜D-0545・D-0547）**、FCU 29→39・R12.5 29→42、**リポジトリのミラーも同日に追随**（377,134→436,476 B・初）。

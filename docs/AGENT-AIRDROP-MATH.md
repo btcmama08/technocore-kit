@@ -2028,10 +2028,13 @@ third-party installers of the past week than to anything the operator ships.
 **The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
 yesterday; today it runs to `1014020`:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014020`; admission requires exact membership (including no `1014006`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
 
-The documentation did not move: it still says devnet runs 1014014, and `1014020` appears nowhere in
-the `ask.flop.finance` corpus. That is the operator's own warning from 9 November — "source
+**The quote above is the 2026-11-19 text.** On 12 November, when this section was written, the same
+sentence read `1013000..1014020` and excluded only `1014006`; SDK 0.7.0 extended the envelope and
+added a second exclusion. The movement is the point, so the old figure is kept here as dated prose.
+The documentation did not move with either version: it still says devnet runs 1014014, and neither
+`1014020` nor `1014027` appears anywhere in the `ask.flop.finance` corpus. That is the operator's own warning from 9 November — "source
 admission or ratification alone does not establish that devnet has activated a spec" — happening
 in public, three days later, in their own package.
 
@@ -2639,6 +2642,171 @@ windows after yesterday's handful — which is what a sliding window does. `flop
 unreachable for twenty-seven days, so the live faucet limits the documentation points at remain a
 page this watch cannot read. Six days to the target.
 
+## Four packages moved, the third party was right again, and the key rule got an official path
+
+Nothing on `flop.finance` changed on 2026-11-19 — all eight pages byte-identical, the Yellow Paper
+unchanged a day after its eight-week jump, the `ask.flop.finance` corpus unchanged, technocore.chat's
+three files unchanged, all eleven repository files unchanged, the three statuses still `planned`,
+`development`, `planned`. Everything that moved today moved on the registries.
+
+**`@flop-labs/sdk` 0.6.0 → 0.7.0. `@flop-labs/cli` 0.5.0 → 0.6.0. `@flop-labs/pi` 0.3.2 → 0.3.3.
+PyPI `flop-sdk` 0.3.0 → 0.3.2.** Same publisher identity on every one, same CI trusted publisher,
+no install hooks, no attestations, `@flop-labs/tclk-flop` still absent. `contracts` and `client`
+stood still.
+
+### The spec number a stranger named yesterday is now in the operator's own package
+
+Yesterday an issue title this file recorded as unverified said the published SDK and CLI were
+rejecting devnet after an upgrade to spec **1014027**, and noted that the number appeared nowhere in
+anything the operator had published. Today it appears, in the SDK's own admission list:
+
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
+
+Nine specs were added — `1014021` through `1014027` and `1014029` — and a second exclusion appeared,
+`1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
+issue has described the running network a day or more before the operator's own artefacts caught
+up**, and the first time one named an exact number this file had recorded as unverifiable. The
+pattern is now reliable enough to state as a rule: an unverified report about *what devnet is
+running* has a good record; an unverified report about *what the rules are* still has none.
+
+The `ask.flop.finance` corpus did not move with it. The documentation still says the published
+clients admit up to `1014014`, and neither `1014020` nor `1014027` appears in it anywhere. So the
+gap did not close — it moved. Yesterday the newest client was behind the chain; today the newest
+client is ahead of the documentation.
+
+And yesterday's one *verifiable* defect is fixed. `@flop-labs/pi` 0.3.2 declared
+`"@flop-labs/sdk": "^0.5.1"`, a range that could not reach the newer SDK at all. `pi` 0.3.3
+declares `"@flop-labs/sdk": "^0.7.0"`. One day, one caret bump, and the operator's own package can
+reach the operator's own newest client again.
+
+### The rule this file has been repeating now has an official path — in the source tree
+
+The CLI's readme grew by about eight thousand characters, and the most important addition is a
+table. `hermes` now documents three payment modes: **Broker**, paid by the gateway's funded broker
+account against a scoped API key; **Direct**, paid by your own funded wallet through a local
+verified adapter to a named miner; and **Trial**, paid from a sponsor's bounded allowance with
+explicit wallet enrollment. Of the broker path the readme says:
+
+> This path neither creates an agent wallet nor transfers FLOP to one. Its key still has a spending allowance, model scope and any configured expiry. Missing or exhausted keys stop without switching to a trial.
+
+And of the direct path:
+
+> Direct inference requires a funded encrypted wallet, its password environment variable, a reachable miner session endpoint, and an admitted tool-capable model using structured chat v2.
+
+**A funded encrypted wallet and its password environment variable is precisely the shape this file
+told Jack to insist on two days ago**, when the only documented agent path — `agent credential` —
+generated an unencrypted keypair the caller never saw and asked the faucet to fund it. That
+paragraph is unchanged today, word for word. What changed is that there is now a documented
+alternative beside it, and the alternative is the right shape.
+
+With one catch, stated by the operator in the sentence introducing the table:
+
+> The following payment separation is available from the source checkout and is not yet in the released launcher. Build with `pnpm --filter @flop-labs/cli build` and substitute `node sdk/cli/dist/cli.js` for `flop` until release.
+
+So the correct path exists in documentation and in a source tree nobody outside can read — the
+repository is private — while the path that creates a wallet for you is the one in the released
+tool. That is the same ratified-but-not-live shape the whitepaper described about validator seats
+yesterday, applied to key custody. **The rule does not change: hand the tool a wallet you made.
+Until the released launcher carries the direct mode, that means not using the convenience command.**
+
+### The failure vocabulary is the best news in the release
+
+The CLI now emits a versioned diagnostics object with a closed vocabulary: a `failure.stage` of
+`acknowledgement`, `session` or `settlement`; a `failure.code` from a fixed list including
+`ACK_TIMEOUT`, `TRANSACTION_UNCONFIRMED` and `RECONCILIATION_UNKNOWN`; and a `recovery.outcome` of
+confirmed, rejected or unknown. Three of its rules are worth having in front of you before testnet
+opens, because each one is a trap this file has described in the abstract:
+
+> `SETTLEMENT_POSTED` starts the challenge period and does not mean payment finalized; `TERMINAL_OUTCOME` alone does not identify a refund or settlement.
+
+> absence, unsupported versions and `UNCLASSIFIED` never authorize a retry.
+
+> An uncertain request blocks new purchases.
+
+The faucet's problem — a result that cannot be read as paid or unpaid — now has a named shape at
+the session layer, with the only safe response written into the tool: reconcile, read-only, and do
+not buy again while uncertain. For an agent that intends to spend honestly and count what it spent,
+this is more useful than any number the project has published.
+
+It also repeats yesterday's escrow correction without being asked:
+
+> Cooperative close can spend the entire per-completion escrow; chain transaction fees are additional. The total budget conservatively reserves that escrow for every attempted completion, including failed requests, across restart. Reuse the same state directory and authorization; creating another directory starts a new authorization.
+
+Two sentences there are new information. The budget reserves the full escrow **for every attempted
+completion, including failed ones** — so a run that fails often consumes its budget as if it had
+succeeded. And a fresh state directory starts a fresh authorization, which is the kind of detail
+that turns an interrupted session into a second one.
+
+### One new earning identity, named for agents
+
+The SDK's voucher machinery grew a sentence that names the agent leg directly:
+
+> Voucher earning identities are `Agent`, `MinerBlockReward` and `MinerInferenceFee`; fixed/floating mode is a separate, explicitly configured mapping with no production default.
+
+An `Agent` earning identity exists in shipped code. It is the first time the agent side appears as
+a named identity in an implementation artefact rather than as a placeholder in Appendix E. It
+proves nothing about E.40 — the same readme says voucher transaction construction is unavailable on
+the current runtime and the mode mapping has no production default — but it is the first thread
+between the agent leg and something that compiles.
+
+### Where the documentation now points, this watch cannot follow
+
+Both SDKs replaced their internal links with public ones, and the public ones are on
+`docs.flop.network`: an upgrade and budget migration guide, and an SDK reference page. `flop.network`
+and all its subdomains have been unreachable from this session for twenty-eight days. **So the
+operator's own newest pointer for how to migrate across this spec change goes to a host this watch
+cannot read.** That is the clearest cost yet of the one standing request in this file: until the
+allowlist changes, the migration guide can be reported as published and never as read.
+
+Both also added the same two lines, which are worth noting for what they are — the first time the
+packages themselves point at the public tracker, with a warning attached: use the public network
+tracker for a reproducible bug report, and do not include credentials, seed phrases or private
+recovery records.
+
+### The release channel is already a day behind the registries
+
+Yesterday the release channel opened with thirteen tags, all dated 18 November. Today the registries
+carry sdk 0.7.0, cli 0.6.0, pi 0.3.3 and python-sdk 0.3.2 — **and the release channel still shows
+only yesterday's set**, ten entries on its first page, ten in its feed, the feed's own timestamp
+still 18 November. One day old and already not a version source. The rule stands and is now
+demonstrated rather than asserted: read the version from the registry, read the digest from the
+documentation, in the same session you install.
+
+### The founder said the quiet part the other way round
+
+Of four new posts on the founder's account, one is about FLOP:
+
+> To become a miner , validator, KOL, and or user requires no application or approval. Just point your AI agent at https://t.co/MaSlIEqkne to learn how to participate and get setup.
+
+Two of those four nouns disagree with the documentation this file reads every day. **Validator
+enrollment is documented as invitation-only** — "Coordinate enrollment in your existing direct
+conversation with the FLOP team member handling your invitation" — and the intake tracker has
+collected a public queue of validator onboarding requests since yesterday, which is what a closed
+door with no documented knocker produces. **And the KOL programme's own page says the referral link
+is not yet live.** So "no application or approval" is true of the miner path, true of being a user,
+and not supported by any document for the other two.
+
+The link is behind a `t.co` redirect this session cannot resolve, and `/official/` — rewritten
+yesterday — still lists no new destination, so by that page's own rule the target cannot be
+confirmed as official from here. Recorded as published, not as read.
+
+### The rest
+
+The intake tracker went from 298 open to 319, and from #357 to #380 — thirteen pages of issues now.
+Two of today's titles matter to anyone planning to be there on the 24th, and both are third-party
+and unverified: one reports the devnet faucet returning HTTP 503 and leaving grant availability
+unclear, which is exactly the shape of the hole the SDK documents; another reports devnet RPC and
+mailbox endpoints returning 502 and 530, with a miner worker unable to reach the chain since
+roughly 07:55 UTC today. A third asks for an "agent testnet allowlist entry and day-1 faucet
+qualification" — a queue for a mechanism no operator document describes, now with a day-one
+expectation attached to it.
+
+`/r/flop-devnet-faucet` is back in the room window after five days away, which says as much as its
+absence did: the window slides. The machine-made rooms were absent from one of today's two samples
+and ten of 191 in the other. The project account's post count rose by three, but none of the three
+appear in the scraped window, so this file records the count and not the content. And `flop.network`
+has been unreachable for twenty-eight days. Five days to the target.
+
 ## What is still open
 
 E.38 is shorter than it was, and what remains does not include the agent unlock:
@@ -2829,7 +2997,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and fifty-eight block quotes above are verbatim from the six pages in the header, the
+All one hundred and sixty-eight block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of
