@@ -62,6 +62,11 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **誰でも公開で申請できる**（issue 番号が申請 ID）＝「申請不要」は逆向きに誤り。**ただし active になる条件に「explicit signing invitation」が明記**＝「承認不要」も誤り。
 > 文書自身が「these labels record an application, not chain admission」「devnet の実績は testnet の資格にならない」「鍵・私設経路・enrollment 資料を公開 issue に書くな」と書いています。
 > ⚠️ 1点記録: intake 文書が**個人アカウントの gist** を公開 RPC 手順として指しています（`/official/` には載っていない宛先）。
+> **❼ 🚨 受付 issue が 319 → 401（#380 → #487）＝1日で +82・番号 +107。観測史上最大。** 原因は上の申請フォームで、
+> **`intake:operator` の登録簿に既に26件**（都市と席数つきの validator 候補が大半）。**行列が「登録簿」になりました。**
+> **フィードバック報酬は同日に成果を出しています**（いずれも第三者・未検証）: **マイナー経済ページの既定値が自分の base case と 15.7 倍ずれていると算術つきで指摘**／
+> **GPU の非決定性による誤 slashing の緩和提案**／**devnet explorer の `/api/*` が全部 503**（チェーン・faucet・gateway は健全）。
+> **release 窓口は開設2日後も 11-18 のタグのみ**＝今日の9本はどこにも出ていません。
 > **その他は不変**: Yellow Paper・他の flop.finance ページ・technocore.chat 3ファイル・raw 10/11 ファイルがバイト同一、
 > 1語 status は**32日連続 `planned`**、E.38 `[RATIFY]`・E.40 `[TBD]`、hex ルームは2窓とも0件。`flop.network` は**29日連続で到達不能**。
 > **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで4日。**買う・mint・claim は一つも無い。**

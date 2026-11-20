@@ -2976,6 +2976,26 @@ account** for the public devnet RPC guide. It is almost certainly the same perso
 npm packages, and it is still a destination that is not on `/official/`, which by that page's own
 rule makes it unverifiable as official from here.
 
+### The queue the form created, and the criticism the bounty bought
+
+The intake tracker went from 319 open to **401**, and from #380 to **#487** — eighty-two more open
+issues and a hundred and seven numbers in one day, far past anything previously recorded here. The
+cause is the form described above: the `intake:operator` register already holds **twenty-six
+applications**, nearly all of them named validator candidates with a city and a seat count, filed
+within hours of the template appearing. A closed door with no knocker produced a queue in the
+comments; a door with a form produced a register.
+
+The feedback bounty also produced its first results the same day, and they are the right shape.
+One new issue argues that the miner economics page's own defaults imply a mining profit far above
+its own base case, and sets out the arithmetic; another proposes mitigating false-positive slashing
+caused by non-deterministic GPU drift. Both are policy criticism of the kind the post asked for,
+from third parties, within hours. A third reports every `/api/*` endpoint on the devnet explorer
+returning 503 while the chain, faucet and gateway are healthy — the second explorer-disagreement
+report in two days. All unverified, recorded as counts and shapes.
+
+Two days after it opened, the release channel still carries only its 18 November tags. Nine package
+versions shipped today and none of them appears there.
+
 ### The rest
 
 The Yellow Paper, all the other `flop.finance` pages, technocore.chat's three files and ten of the
