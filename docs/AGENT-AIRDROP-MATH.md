@@ -867,11 +867,12 @@ gained a thirty-eighth page whose whole job is to list the published packages.
 
 > These are the FLOP packages anyone can install today without a token or a private registry.
 > Each name links to its registry page, which carries the full reference README for the
-> published version. Versions below are the current releases as of 2026-11-11; the registry is
-> authoritative if they differ.
+> published version.
 
-(The date in the last sentence read 2026-10-30 when this section was written and 2026-11-11
-from 2026-11-13; the sentence is otherwise unchanged, and by then it was a day behind the
+(That paragraph used to end with a dated version list and the sentence "the registry is
+authoritative if they differ". The date read 2026-10-30 when this section was written and
+2026-11-11 from 2026-11-13, and on **2026-11-20 the whole construction was replaced** by a
+versioned "package baseline" string; the old wording is kept here as dated prose. By then it was a day behind the
 registry again.)
 
 It lists the same five at the same versions this watch measured on the registry, plus
@@ -1423,8 +1424,12 @@ that the endpoint you reached is not the chain you think it is.
 
 And one route is explicitly closed:
 
-> `flop chat` in full CLI `0.4.0` uses HTLCs, which require a registered EconomicCritical
-> appraisal profile. Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
+> The `flop chat` HTLC route requires a registered EconomicCritical appraisal profile.
+
+**The version came out of that sentence on 2026-11-20.** Until 19 November it read "`flop chat` in
+full CLI `0.4.0` uses HTLCs, which require a registered EconomicCritical appraisal profile"; the
+page now points at the package-reference page for versions instead of naming one. The requirement
+is unchanged. Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
 
 So the friendliest-looking command in the published CLI does not work on the devnet, by the
 operator's own measurement, at a named block. An agent that tried `flop chat` and concluded the
@@ -1699,8 +1704,12 @@ the name the specification dropped on 2026-10-30.
 package is genuine.** As of today that test rejects the real packages. The operator's own page
 anticipated this and said so in the sentence this file should have leaned on from the start:
 
-> Versions below are the current releases as of 2026-11-11; the registry is authoritative if they
-> differ.
+> The registries carry the current availability of each version; source manifests can prepare releases in advance.
+
+**That is the 2026-11-20 wording.** From 30 October to 19 November the same paragraph carried a
+dated version list and the sentence this file leaned on — "the registry is authoritative if they
+differ" — and the rewrite replaced it with the sentence above, which says the same thing and adds
+why: a source manifest can name a release before the registry has it.
 
 So the rule is the **name**, not the number: six names are FLOP's, the registry decides which
 version is current, and the denylist sentence still rules out everything else. Both files are
@@ -2028,13 +2037,13 @@ third-party installers of the past week than to anything the operator ships.
 **The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
 yesterday; today it runs to `1014020`:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
 
-**The quote above is the 2026-11-19 text.** On 12 November, when this section was written, the same
-sentence read `1013000..1014020` and excluded only `1014006`; SDK 0.7.0 extended the envelope and
-added a second exclusion. The movement is the point, so the old figure is kept here as dated prose.
-The documentation did not move with either version: it still says devnet runs 1014014, and neither
-`1014020` nor `1014027` appears anywhere in the `ask.flop.finance` corpus. That is the operator's own warning from 9 November — "source
+**The quote above is the 2026-11-20 text, and it is the third value in nine days.** On 12 November,
+when this section was written, the sentence read `1013000..1014020` and excluded only `1014006`.
+SDK 0.7.0 made it `..1014029` and excluded `1014028` as well. SDK 0.8.0, published today, makes it
+`..1014031` and excludes `1014030` too. The movement is the point, so the superseded figures are
+kept here as dated prose rather than deleted. That is the operator's own warning from 9 November — "source
 admission or ratification alone does not establish that devnet has activated a spec" — happening
 in public, three days later, in their own package.
 
@@ -2534,9 +2543,14 @@ TGE at Q1 2027 "tracking to early February" — wording this file can no longer 
 page was rewritten today, and which is kept here as dated prose instead. That target had passed
 fifteen days earlier. Today the page reads:
 
-> Testnet launch: the target is 24 November 2026, subject to readiness, running up to about 90 days. This is a target, not a confirmed launch date.
+> Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is subject to readiness, not a launch confirmation. Check the Testnet network status for verified network identity, artifacts and admission inputs before relying on access.
 
-> Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
+**The quote above is the 2026-11-20 text; the 11-18 version lasted two days.** For those two days
+the page read "Testnet launch: the target is 24 November 2026, subject to readiness, running up to
+about 90 days. This is a target, not a confirmed launch date", with "Mainnet and TGE: no confirmed
+date." Both are kept here as dated prose. The rewrite weakens the date twice over — "remains
+planned", the 24th demoted to "not a launch confirmation" — and ends by telling the reader to check
+the network status page, which is the one-word detector this file has used since September.
 
 So the layer count drops. The 24 November date is now on the documentation corpus, on the
 anti-impersonation page, and on X twice; `flop.finance/testnet/` still says "Opens **Q4 2026**"
@@ -2660,10 +2674,12 @@ Yesterday an issue title this file recorded as unverified said the published SDK
 rejecting devnet after an upgrade to spec **1014027**, and noted that the number appeared nowhere in
 anything the operator had published. Today it appears, in the SDK's own admission list:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
 
-Nine specs were added — `1014021` through `1014027` and `1014029` — and a second exclusion appeared,
-`1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
+**That is today's text, 2026-11-20.** When this section was written yesterday the same sentence
+ended at `..1014029` and excluded only `1014006` and `1014028`; SDK 0.8.0 moved it again within a
+day, which is the behaviour the section describes. On 19 November nine specs were added —
+`1014021` through `1014027` and `1014029` — and a second exclusion appeared, `1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
 issue has described the running network a day or more before the operator's own artefacts caught
 up**, and the first time one named an exact number this file had recorded as unverifiable. The
 pattern is now reliable enough to state as a rule: an unverified report about *what devnet is
@@ -2806,6 +2822,170 @@ absence did: the window slides. The machine-made rooms were absent from one of t
 and ten of 191 in the other. The project account's post count rose by three, but none of the three
 appear in the scraped window, so this file records the count and not the content. And `flop.network`
 has been unreachable for twenty-eight days. Five days to the target.
+
+## Four days out, the operator is rewriting its own guarantees — and paying for criticism
+
+Six block quotes in this file stopped existing on 2026-11-20, the largest single day of expiry in
+this record. The quote check caught all six before the diff did, which is the whole reason it runs
+first. What replaced them is the story: a scam test weakened, a date weakened, a verification tier
+demoted to roadmap, a promise about publishing the rules softened, a package baseline published and
+overtaken the same day — and one post offering mainnet FLOP for exactly the kind of criticism this
+document has been accumulating.
+
+### The founder is buying the thing this file produces
+
+> The @flop_labs Testnet/Airdrop is four days away. We want constructive criticism, I want to hear about policy choices the network made that will have unintended consequences. We will be handing out mainnet FLOP tokens to users who provide useful feedback on X and Github.
+
+Two things in one sentence. The first is a **new reward channel that appears in no document**:
+mainnet FLOP, handed out for feedback, on X and GitHub. The airdrop pages describe three cohorts
+and a reserve; the KOL programme is off-chain and its sign-up is still not live; nothing published
+mentions paying for criticism. So this is an operator promise with no written terms, no amount, no
+eligibility rule and no venue beyond "X and Github".
+
+The second is a request for precisely the inventory this file is. "Policy choices the network made
+that will have unintended consequences" is the subject of most of the sections above: a conversion
+rule whose scoring function is explicitly unwritten, an escrow that pays the miner in full on a
+cooperative close, a faucet that cannot tell you whether it paid you, a released CLI that creates
+the wallet it then asks the faucet to fund, a season that governance may end early against a fixed
+pool, a release channel that was a day stale the day after it opened.
+
+**Whether to send any of that is Jack's decision and nobody else's.** This session does not post to
+the tracker or to X, and that rule does not bend because the operator asked — an invitation to
+comment is not a reason for an automated watch to start speaking in Jack's name. What this file can
+do is have the material ready, sourced and dated, which it does. Two cautions belong with it: a
+public issue is the wrong place for anything about keys or hosts, as the operator's own intake
+document says in its own words; and **an announcement that mainnet tokens will be handed out for
+feedback is an unusually good template for a fake "feedback reward" page**, four days before a
+window opens. Nothing on `/official/` mentions this channel.
+
+### The simplest scam test on the official page is gone
+
+`/official/` was rewritten for the second time in three days, and this time the change is in the
+anti-impersonation language itself. Until today the page said there is no FLOP token yet, that
+nothing is trading, and — the line worth memorising — that if you can buy it, trade it, mint it or
+claim it, it is not FLOP. It also said, of anything found trading, that it is a scam because the
+token does not exist yet. **Both sentences are gone**, so neither can be quoted any more and both
+are recorded here as dated prose. What stands in their place is qualified:
+
+> There is no launched or tradable mainnet FLOP token. There is no mainnet mint, claim, presale or airdrop live. Devnet faucet grants are non-tradable test FLOP with no monetary value or airdrop credit; they are not a mainnet token launch.
+
+> A site offering a mainnet FLOP token sale, mint or claim is not an official launch.
+
+The reason for the change is honest and was predictable: devnet now hands out faucet balances, so
+"there is no FLOP token" had become literally untrue, and the page says so plainly, including that
+devnet grants carry no airdrop credit. But look at what the test now requires of the reader.
+Yesterday's test was a property anyone can check — *if you can buy it, it isn't FLOP*. Today's test
+requires distinguishing a mainnet token from a devnet balance, and its verdict on a fake sale is
+"**not an official launch**" rather than "**a scam**". **The word scam left the page in the same
+week the operator started promising mainnet tokens on social media.** For Jack the practical rule
+is unchanged and is now this file's own, not a quotation: nothing can be bought, minted or claimed,
+and anything that offers it is fake, whatever tier it claims to be on.
+
+The same page also walked the date back two days after adopting it:
+
+> Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is subject to readiness, not a launch confirmation. Check the Testnet network status for verified network identity, artifacts and admission inputs before relying on access.
+
+"Remains planned." "Not a launch confirmation." And the Q1 2027 mainnet estimate is now explicitly
+disowned as having been based on the old November target. Worth noting for its own sake: the last
+sentence tells the reader to check the network status page before relying on access. **That is the
+one-word detector this watch has used since September, now recommended by the operator.**
+
+### The attestation story moved to the roadmap
+
+This is the change with the longest reach, and it is easy to miss because it reads as tidying.
+Yesterday the verification page said the design has four independent layers and that TEE is
+"optional per request". Today:
+
+> The design has four verification layers. Public testnet and initial mainnet target the TEE-independent path. Production TEE attestation is roadmap work for a later HARD tier.
+
+Every claim about confidential execution moved into the conditional — "when the HARD tier ships",
+"under the planned HARD tier", "TEE-only routing is planned after initial mainnet launch". And one
+deletion matters more than the additions: the sentence describing what testnet puts behind
+attestation used to list "stake, sampled re-execution, **TEE attestation** and activation
+fingerprinting". It now lists stake, sampled re-execution and activation fingerprinting. **The
+attestation layer came out of the testnet verification story four days before testnet.**
+
+For an agent the consequence is narrow but real. Confidential inference — prompts the miner cannot
+read — is not available at launch and is not scheduled until after mainnet. Anything an agent sends
+through this network during testnet is readable by the miner serving it. That was always true of
+the standard tier; what changed is that the attested alternative is no longer "optional per
+request", it is unbuilt.
+
+### The promise to publish the rules before people spend money got softer
+
+Two pages carried a version of a commitment this file has quoted approvingly. The economics page
+said the cutover rubric would be published "in advance rather than applied privately, so that
+anyone spending money to compete can see the standard before they commit". Both pages now read:
+
+> The team is finalising the full cutover rubric and targets publication before public testnet launches.
+
+> The detailed weights are still unpublished.
+
+The timing moved **earlier** — before testnet launches, not before testnet ends — which is better
+for anyone deciding whether to buy hardware. The commitment moved from "will be published" to
+"targets publication", and **the clause about people spending money being able to see the standard
+first was deleted from both pages.** Four days out, the weights are unpublished and the promise to
+publish them is now a target. E.38, which is where the agent-side scoring actually lives, is
+untouched for the ninth straight day.
+
+### The docs published a package baseline, and the registry overtook it the same day
+
+`sdk-references` grew by about 2,700 characters and now opens with a versioned, dated baseline:
+
+> Package baseline `2026-11-20-sdk-0.7.1-cli-0.7.0`, recorded 2026-11-20 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
+
+That is a real improvement in three ways: the install commands are now **pinned** to exact versions
+instead of floating, the runtime admission list is documented in the docs rather than only in a
+readme, and the operator states plainly which of its own supply-chain checks are not done —
+archive integrity and installed-package smoke checks, both "pending".
+
+It is also, already, wrong. **The registry today carries `sdk` 0.8.0 and `cli` 0.7.2**; the
+baseline recorded today pins 0.7.1 and 0.7.0. Nine releases landed across the five npm packages and
+PyPI in a single day — `sdk` 0.7.1, 0.7.2 and 0.8.0; `cli` 0.7.0, 0.7.1 and 0.7.2; `pi` 0.3.4 and
+0.3.5; `flop-sdk` 0.3.3 — and the page that says "the registries carry the current availability of
+each version" was overtaken by the registries between being written and being read. The docs'
+admission note says the envelope is `1013000..1014029`; the SDK published today says:
+
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+
+Third value in nine days. **The gap this file described yesterday as having inverted has not closed;
+it has narrowed to one version and started oscillating.** The practical rule survives all of it
+intact: the name identifies the package, the registry says what version exists, and the digest
+comes from the documentation in the same session you install. One concrete thing for anyone with
+code: `parsePaymentHeaders` changed signature in 0.8.0, from taking the headers to taking the
+response.
+
+### The validator contradiction resolved, in the direction nobody claimed
+
+Yesterday the founder said becoming a validator "requires no application or approval" while the
+documentation said enrollment is invitation-only, and this file recorded the contradiction. Today
+the repository answered it: `flop-labs/network` gained an **operator application form** and an
+intake document, with a public register of applications and a label set (`status:intake`,
+`intake:operator`) to go with them. Anyone may now apply, in public, with an issue number as the
+application ID — so "no application" is wrong in the opposite direction from yesterday: there is
+now literally an application. And "no approval" is still wrong, because the evidence the intake
+document requires before a validator counts as active includes an **explicit signing invitation**.
+The document is careful about it in its own words — these labels record an application, not chain
+admission; a testnet application expresses interest until its release and intake are announced; and
+devnet evidence does not qualify a testnet node. It also tells applicants to keep keys, private
+routes and enrollment material out of the public issue, which is the right instruction and worth
+repeating to anyone tempted to paste a log.
+
+One detail to watch rather than act on: the intake document points at a **gist under a personal
+account** for the public devnet RPC guide. It is almost certainly the same person who maintains the
+npm packages, and it is still a destination that is not on `/official/`, which by that page's own
+rule makes it unverifiable as official from here.
+
+### The rest
+
+The Yellow Paper, all the other `flop.finance` pages, technocore.chat's three files and ten of the
+eleven repository files are byte-identical; the three one-word statuses have read `planned`,
+`development`, `planned` for thirty-two days. E.38 still awaits ratification and E.40 is still a
+placeholder. The machine-made rooms were absent from both of today's samples. The project account
+posted twice more without either post appearing in the scraped window, so the count is recorded and
+the content is not. Of the founder's four new posts, three are market talk and are not carried here.
+`flop.network` has been unreachable for twenty-nine days, which now also means the migration guide
+the SDKs point at remains unread. Four days to the target.
 
 ## What is still open
 
@@ -2997,7 +3177,7 @@ keeping straight:
 
 ## Checking these quotes yourself
 
-All one hundred and sixty-eight block quotes above are verbatim from the six pages in the header, the
+All one hundred and seventy-six block quotes above are verbatim from the six pages in the header, the
 `ask.flop.finance` corpus, the `tclk` repository's own markdown, the npm and PyPI package
 descriptions and several X posts, checked by
 extracting each quote, normalising whitespace, and grepping every five-word window back out of

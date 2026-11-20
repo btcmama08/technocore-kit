@@ -13,11 +13,67 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🧾 **2026-11-20 追記 — 開始4日前に、運営が自分の保証文を書き換えています。引用6件が同日に失効しました（観測史上最多）。**
+> **❶ 🚨 創業者が「批判に mainnet FLOP を配る」と投稿**（CH:2123705084572008947）:
+>
+> > The @flop_labs Testnet/Airdrop is four days away. We want constructive criticism, I want to hear about policy choices the network made that will have unintended consequences. We will be handing out mainnet FLOP tokens to users who provide useful feedback on X and Github.
+>
+> **＝どの文書にも無い新しい報酬経路**（金額・資格・窓口の定義なし）。求めているのは「意図せぬ結果を生む政策選択」＝**この文書が2か月積んできたものそのもの**です。
+> **📌 出すかどうかは Jack の判断です。** このセッションは tracker にも X にも投稿しません（運営が公募しても変わりません）。**材料は日付と出典つきで揃っています。**
+> ⚠️ 2点だけ添えます: **公開 issue に鍵・ホスト・ログを貼らない**（運営の intake 文書も同じことを書いています）／
+> **「フィードバック報酬を配る」という告知は、偽の「報酬受け取りページ」の雛形として極めて優秀**です（`/official/` にこの経路は載っていません）。
+> **❷ 🚨 `/official/` のいちばん分かりやすい詐欺判定が消えました。** 昨日まであった
+> 「**if you can buy it, trade it, mint it or claim it, it is not FLOP**」と「**it is a scam**」の文が**両方削除**。代わりに:
+>
+> > There is no launched or tradable mainnet FLOP token. There is no mainnet mint, claim, presale or airdrop live. Devnet faucet grants are non-tradable test FLOP with no monetary value or airdrop credit; they are not a mainnet token launch.
+>
+> > A site offering a mainnet FLOP token sale, mint or claim is not an official launch.
+>
+> **書き換えの理由は正当です**（devnet が実際に test FLOP を配り始めたので「トークンは存在しない」が literal に偽になった）。
+> **ただし判定の難度が上がりました**: 昨日は「買えるなら偽物」で済んだのが、今日は **mainnet と devnet の区別**が必要で、偽の販売ページへの評語は「**詐欺**」から「**公式のローンチではない**」に弱まりました。
+> → **Jack 向けの規則は不変（これは我々の文です）: 買う・mint する・claim するものは一つも無い。勧めてくるものは全部偽物。どの tier を名乗っていても同じ。**
+> ＋**日付も2日で弱くなりました**: 「Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is **subject to readiness, not a launch confirmation**.」
+> **最後の一文は「ネットワーク状態ページを確認せよ」＝我々が9月から使っている1語 status 検知器を運営が推奨した形です。**
+> **❸ 🚨 TEE（機密実行）が「ロードマップ」に降格**:
+>
+> > The design has four verification layers. Public testnet and initial mainnet target the TEE-independent path. Production TEE attestation is roadmap work for a later HARD tier.
+>
+> **そして testnet の検証項目リストから `TEE attestation` が削除されました**（stake・sampled re-execution・activation fingerprinting の3つに）。
+> → **エージェントへの影響: 開始時点で「マイナーに中身を読まれない推論」は提供されません。** 送る内容は提供マイナーが読めます（標準 tier では元からそう。**代替手段が「未実装」になったのが変化**）。
+> **❹ 「お金を使う前にルールを見せる」という約束が弱くなりました。** 旧: 「**it will be published before testnet ends, so anyone spending money to compete can see the standard before they commit**」。新:
+>
+> > The team is finalising the full cutover rubric and targets publication before public testnet launches.
+>
+> > The detailed weights are still unpublished.
+>
+> **時期は前倒し（終了前→開始前）、約束は「必ず公開」→「公開を目標」、そして「お金を使う人が基準を見られるように」という節は両ページから削除。** E.38 は9日連続不変。
+> **❺ docs がついに「パッケージ基準」を公開 — 同日にレジストリに抜かれました。**
+>
+> > Package baseline `2026-11-20-sdk-0.7.1-cli-0.7.0`, recorded 2026-11-20 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
+>
+> **改善3点**: install コマンドが**版固定**に／admission リストが docs にも載った／**運営自身が「archive integrity と smoke check は pending」と明記。**
+> **🚨 ただし今日のレジストリは `sdk` 0.8.0・`cli` 0.7.2。** 1日で**9本**公開（sdk 0.7.1/0.7.2/0.8.0・cli 0.7.0/0.7.1/0.7.2・pi 0.3.4/0.3.5・PyPI 0.3.3）。
+> spec の封筒も**9日で3回目**:
+>
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+>
+> → **規則は不変: 名前で判定・版はレジストリ・digest はその run の docs。** ⚠️ コードを書く人向け: **`parsePaymentHeaders` の引数が headers → response に変わりました（0.8.0）。**
+> **❻ ✅ validator の矛盾が解決**（未決20）。`flop-labs/network` に**公開の operator application フォーム**と `OPERATOR-INTAKE.md` ができました。
+> **誰でも公開で申請できる**（issue 番号が申請 ID）＝「申請不要」は逆向きに誤り。**ただし active になる条件に「explicit signing invitation」が明記**＝「承認不要」も誤り。
+> 文書自身が「these labels record an application, not chain admission」「devnet の実績は testnet の資格にならない」「鍵・私設経路・enrollment 資料を公開 issue に書くな」と書いています。
+> ⚠️ 1点記録: intake 文書が**個人アカウントの gist** を公開 RPC 手順として指しています（`/official/` には載っていない宛先）。
+> **その他は不変**: Yellow Paper・他の flop.finance ページ・technocore.chat 3ファイル・raw 10/11 ファイルがバイト同一、
+> 1語 status は**32日連続 `planned`**、E.38 `[RATIFY]`・E.40 `[TBD]`、hex ルームは2窓とも0件。`flop.network` は**29日連続で到達不能**。
+> **📌 Jack の手順は変わりません（`init` まで）。** 11/24 まで4日。**買う・mint・claim は一つも無い。**
+
 > 📦 **2026-11-19 追記 — サイトは1バイトも動かず、パッケージが4本動きました。そして「鍵は自分で作る」に公式の道ができました（ただし未リリース）。**
 > **❶ sdk 0.6.0→0.7.0／cli 0.5.0→0.6.0／pi 0.3.2→0.3.3／PyPI 0.3.0→0.3.2。** publish 主体・install フック無し・attestations 無しは不変、`tclk-flop` も 404。
 > **❷ 🚨 昨日「未検証」と記録した spec 1014027 が、運営自身のパッケージに入りました。**
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014029`; admission requires exact membership (including no `1014006` or `1014028`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+>
+> **（11-20 追記: ここは9日で3回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
+> **今日の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）。** 旧値は日付つきで残します＝鉄則E3。）
 >
 > **＝1014021〜1014027 と 1014029 を追加、1014028 を新たに除外。** Python SDK も同じ変更。
 > **第三者 issue が「devnet の現況」を運営より先に言い当てたのは4回目**です。
@@ -99,7 +155,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > → **判定規則は不変**（ドメイン＋パス＋その run で docs から読んだ digest）。**ただし「公式のリリースページ」という偽装先が増えました（攻撃面④b）。**
 > **❹ `/official/` が15日遅れで日付を取り込みました**（10/23 以来初の改訂・`last updated 2026-11-18`）:
 >
-> > Testnet launch: the target is 24 November 2026, subject to readiness, running up to about 90 days. This is a target, not a confirmed launch date.
+> > Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is subject to readiness, not a launch confirmation. Check the Testnet network status for verified network identity, artifacts and admission inputs before relying on access.
+>
+> **（11-20 追記: 11-18 の文は2日で書き換わりました。** 2日間は「Testnet launch: the target is 24 November 2026, subject to readiness,
+> running up to about 90 days. This is a target, not a confirmed launch date.」でした。**日付は2段弱くなり、最後は「ネットワーク状態ページを見ろ」＝我々の1語 status 検知器です。**）
 >
 > > Mainnet and TGE: no confirmed date. The earlier early-February estimate was based on the old Testnet target and is not a current commitment.
 >
@@ -501,8 +560,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **❸ 🛡 この欄の訂正（重要）。** これまでこの README は**版番号を本物判定に使っていました**が、
 > 今日その判定は**本物を偽物と誤判定します**。運営のページ自身がこう書いています:
 >
-> > Versions below are the current releases as of 2026-11-11; the registry is authoritative if they
-> > differ.
+> > The registries carry the current availability of each version; source manifests can prepare releases in advance.
+>
+> **（11-20 追記: 10-30〜11-19 は「Versions below are the current releases as of …; the registry is authoritative if they differ.」**
+> **でした。今日の書き換えで同趣旨＋理由（ソース側が先に版を用意できる）になりました。判定は名前、版はレジストリ。）**
 >
 > （この文の日付は 2026-10-30 → **2026-11-11**（11-13 確認）と動きました。文そのものは不変です。）
 >
@@ -658,8 +719,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > そして **`flop chat` は devnet では動きません**:
 >
-> > `flop chat` in full CLI `0.4.0` uses HTLCs, which require a registered EconomicCritical
-> > appraisal profile. Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
+> > The `flop chat` HTLC route requires a registered EconomicCritical appraisal profile.
+>
+> **（11-20 追記: 版番号が外れました。** 11-19 までは「in full CLI `0.4.0`」付き。**要件は不変で、版は `sdk-references` に集約。）** Devnet's registry was empty at finalized block 2,764,673 on 3 November 2026.
 >
 > **❸ 公開 pack に SHA-256 が付きました（10-29 にこの欄が求めていたもの）。**
 > `flop-miner-pack-devnet-ts-20261106.tar.gz` / `sha256 35f222f7…b2b514b1`、
