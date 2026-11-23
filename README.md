@@ -13,6 +13,56 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🚀 **2026-11-23 追記 — 開始が「日付」から「時刻」になりました。そして運営自身が「今日リンクは出さない」と宣言しました。**
+> **❶ 公式アカウント（@flop_labs・08:07 UTC）の告知。** 創業者ではなく**プロジェクト本体**が、初めて**時刻つき**で出しました:
+>
+> > Flop Network testnet goes live tomorrow, Tuesday Nov 24, at 07:00 UTC.
+> > Got an agent? There’s no approval and no waitlist. It claims testnet $ FLOP from the faucet every day, in Technocore chat or with one API call. Spend it on inference. The airdrop is measured on what your agent does on testnet, so a wallet full of unspent faucet tokens gets you nowhere.
+> > Miners and validators are sponsored. You don’t need to hold any $ FLOP to join, so that excuse is gone. If you were on Devnet, nothing carries over and you have to rejoin.
+> > Expect a queue on day one. Miners calibrate in turn and validator seats open in daily batches, which is why validators get a 14 day grace period. The ranking for mainnet only starts counting once those two weeks are over, so joining on day 3 costs you nothing.
+> > KOLs, we haven’t forgotten you, and your program switches on at mainnet.
+> > No links today. Setup pages and the Explorer go out at launch.
+>
+> **⚠️ 判定規則は変えません（鉄則A）。** `ask.flop.finance/docs/network-testnet` は**今夜も `planned`**（10/20 から35日連続）、`flop.finance/testnet/` も今なお「Opens Q4 2026」。
+> **開始の合図は「状態ページの1語が変わること」で、「変わると書いた投稿」ではありません。** ただし**この告知の4文は、明日までの過ごし方を変えます**。
+> **❷ 「There’s no approval and no waitlist」＝エージェント側に登録窓口は存在しない。** 11-20 にできた申請フォームは**運営者（validator / miner）用**で、エージェント版は無い、とこの文書は記録してきました。答えは「要らない」でした。
+> → 🛡 **これは最大級の防御情報です。「エージェントを登録する」「枠を押さえる」「allowlist に入れる」「ウォレットを事前承認する」と言ってくる相手は、構造上すべて偽物。** 登録先が存在しないからです。
+> **❸ 「a wallet full of unspent faucet tokens gets you nowhere」＝R8.4 を平語で言い直したもの。** 受け取っただけでは加点ゼロ、**settled session での実支出だけ**が機構です。
+> → **エスクローの実務は不変: 協調 settle はエスクロー全額がマイナーへ。** 実作業より大きいエスクローは**20%ではなく100%の損**。
+> **❹ 「joining on day 3 costs you nothing」＝急ぐ理由が消えた…が、出典はXのみ。** 「14日の猶予」は **Yellow Paper にもエアドロページにも1文字もありません。**
+> しかも文の構造が曖昧で、猶予は validator のものとして導入され、続く ranking の文には主語がありません。
+> → **07:00 に飛びつかない理由としては使う。「3日目は無料」という保証としては使わない。** 判断に効くなら文書に出るまで待つ（鉄則A・Z2）。
+> **❺ 🛡 「No links today. Setup pages and the Explorer go out at launch.」＝運営が自分で「今日出回っているリンクは本物ではない」と宣言しました。**
+> 今夜届くリンク（返信・DM・検索結果・「claim」ページ）は**運営の言葉として偽物**です。実際に今夜、この投稿の返信欄で第三者が **Ethereum アドレスを FLOP のハッシュタグと並べて貼っています。FLOP トークンは存在しないので、アドレスも存在しません。**
+> **❻ 「KOLs … your program switches on at mainnet」＝紹介／KOL は mainnet から**（未決4 の向きが確定）。**つまり今週出回る紹介リンク・KOL 登録はすべて偽物。**
+> **❼ リポジトリ側にも1つ: 受付窓口に3つ目のフォーム `model-upload-sponsorship.yml`（初の `net:testnet` ラベル）。**
+>
+> > FLOP Labs can cover the registration fees and refundable data availability (DA) deposit for an approved model upload on **testnet only**. You can apply before funding your account or using the faucet.
+>
+> > A maintainer will review the estimate and confirm what FLOP will cover before the upload. Model admission and listing are separate decisions.
+>
+> 要求されるのは公開情報だけ（モデルと commit SHA・ライセンス・サイズ・用途・SS58 の publisher アドレス）で、**シード・秘密鍵・アクセストークン・署名済み DL URL は公開 issue に書くなと明記**。**支援は admission ではない**とも書いています。
+> **❽ CLI 0.8.0 が「モデルが tool 対応だと証明する費用」をアップローダー側に移しました。**
+>
+> > The renewer opens no paid channel and holds no signer: the model uploader pays for `tools` with one qualification (below).
+>
+> ＝上の支援フォームと噛み合っています（1回の qualification をアップローダーが払い、その upload を運営が支援する）。**エージェントには「tool 対応モデルの供給」として間接的に効くだけです。**
+> **❾ そして鍵の話は、開始1日前になっても変わっていません。** 0.6.0 から立っているこの但し書きが、**0.8.0 の今夜もそのまま**:
+>
+> > The following payment separation is available from the source checkout and is not yet in the released launcher.
+>
+> → **リリース版 CLI の documented な資格取得は、今も「平文ウォレットを作って faucet に払わせる」1本だけ。** **入金を受ける鍵は、自分が作って今も中身を読める鍵だけにしてください（未決16・攻撃面④f）。**
+> **❿ spec の封筒が11日で4回目**（`sdk` 0.9.0・`flop-sdk` 0.3.4 が**今回は同時に**出ました。`cli` 0.8.0 は `sdk ^0.9.0`、ただし `pi` 0.3.5 は `sdk ^0.8.0` のままで1つ前）:
+>
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+>
+> **⓫ 動かなかったもの（目標日前日に）**: Yellow Paper は5日連続バイト同一（678,766 B・`Updated2026-11-18`）、
+> **E.38 は `[RATIFY]`・E.40 は `[TBD]` のまま12日連続不変＝エアドロの配分を決める2項目だけが、この激動の1週間で一切動いていません。**
+> flop.finance 8ページ・technocore.chat 3ファイル・他の raw ファイルもバイト同一。`/official/` に contract address は0件（「scam」の語も 11-20 以降ゼロのまま）。
+> **運営の release 窓口は5日遅れ**（`cli v0.5.0` が今も「Latest」・レジストリは 0.8.0）。`flop.network` は**31日連続で到達不能**（昨日追加された `snapshots.flop.network` も同じ）。
+> **受付 issue は1日で +78（open 574・最高 #673）**、`intake:operator` は 83件。新しい model-upload ラベルはまだ0件。**第三者投稿＝未検証・件数と形だけ。**
+> **📌 Jack の手順は変わりません（`init` まで）。`register --yes` は Jack の Mac で Jack 自身が打つもの。** 11/24 07:00 UTC まで1日。**買う・mint・claim するものは一つも無い。**
+
 > 🧾 **2026-11-20 追記 — 開始4日前に、運営が自分の保証文を書き換えています。引用6件が同日に失効しました（観測史上最多）。**
 > **❶ 🚨 創業者が「批判に mainnet FLOP を配る」と投稿**（CH:2123705084572008947）:
 >
@@ -53,9 +103,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **改善3点**: install コマンドが**版固定**に／admission リストが docs にも載った／**運営自身が「archive integrity と smoke check は pending」と明記。**
 > **🚨 ただし今日のレジストリは `sdk` 0.8.0・`cli` 0.7.2。** 1日で**9本**公開（sdk 0.7.1/0.7.2/0.8.0・cli 0.7.0/0.7.1/0.7.2・pi 0.3.4/0.3.5・PyPI 0.3.3）。
-> spec の封筒も**9日で3回目**:
+> spec の封筒も**9日で3回目**（**11-23 追記: 下の引用は 11-23 の `..1014034` に差し替え＝11日で4回目。鉄則E3**）:
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 >
 > → **規則は不変: 名前で判定・版はレジストリ・digest はその run の docs。** ⚠️ コードを書く人向け: **`parsePaymentHeaders` の引数が headers → response に変わりました（0.8.0）。**
 > **❻ ✅ validator の矛盾が解決**（未決20）。`flop-labs/network` に**公開の operator application フォーム**と `OPERATOR-INTAKE.md` ができました。
@@ -75,10 +125,11 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **❶ sdk 0.6.0→0.7.0／cli 0.5.0→0.6.0／pi 0.3.2→0.3.3／PyPI 0.3.0→0.3.2。** publish 主体・install フック無し・attestations 無しは不変、`tclk-flop` も 404。
 > **❷ 🚨 昨日「未検証」と記録した spec 1014027 が、運営自身のパッケージに入りました。**
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 >
-> **（11-20 追記: ここは9日で3回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
-> **今日の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）。** 旧値は日付つきで残します＝鉄則E3。）
+> **（11-23 追記: ここは11日で4回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
+> 11-20 の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）、**11-23 の SDK 0.9.0 で `..1014034`（`1014032`・`1014033` を追加除外）。**
+> 旧値は日付つきで残します＝鉄則E3。）
 >
 > **＝1014021〜1014027 と 1014029 を追加、1014028 を新たに除外。** Python SDK も同じ変更。
 > **第三者 issue が「devnet の現況」を運営より先に言い当てたのは4回目**です。

@@ -2037,13 +2037,14 @@ third-party installers of the past week than to anything the operator ships.
 **The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
 yesterday; today it runs to `1014020`:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
-**The quote above is the 2026-11-20 text, and it is the third value in nine days.** On 12 November,
-when this section was written, the sentence read `1013000..1014020` and excluded only `1014006`.
-SDK 0.7.0 made it `..1014029` and excluded `1014028` as well. SDK 0.8.0, published today, makes it
-`..1014031` and excludes `1014030` too. The movement is the point, so the superseded figures are
-kept here as dated prose rather than deleted. That is the operator's own warning from 9 November — "source
+**The quote above is the 2026-11-23 text, and it is the fourth value in eleven days.** On
+12 November, when this section was written, the sentence read `1013000..1014020` and excluded only
+`1014006`. SDK 0.7.0 made it `..1014029` and excluded `1014028` as well. SDK 0.8.0 on 20 November
+made it `..1014031` and excluded `1014030` too. SDK 0.9.0, published on 23 November, makes it
+`..1014034` and names `1014032` and `1014033` as further exclusions. The movement is the point, so
+the superseded figures are kept here as dated prose rather than deleted. That is the operator's own warning from 9 November — "source
 admission or ratification alone does not establish that devnet has activated a spec" — happening
 in public, three days later, in their own package.
 
@@ -2674,11 +2675,12 @@ Yesterday an issue title this file recorded as unverified said the published SDK
 rejecting devnet after an upgrade to spec **1014027**, and noted that the number appeared nowhere in
 anything the operator had published. Today it appears, in the SDK's own admission list:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
-**That is today's text, 2026-11-20.** When this section was written yesterday the same sentence
-ended at `..1014029` and excluded only `1014006` and `1014028`; SDK 0.8.0 moved it again within a
-day, which is the behaviour the section describes. On 19 November nine specs were added —
+**The quote above now carries the 2026-11-23 text.** When this section was written on 19 November
+the same sentence ended at `..1014029` and excluded only `1014006` and `1014028`; SDK 0.8.0 moved it
+to `..1014031` the next day and SDK 0.9.0 moved it to `..1014034` on 23 November, which is the
+behaviour the section describes. On 19 November nine specs were added —
 `1014021` through `1014027` and `1014029` — and a second exclusion appeared, `1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
 issue has described the running network a day or more before the operator's own artefacts caught
 up**, and the first time one named an exact number this file had recorded as unverifiable. The
@@ -2946,10 +2948,11 @@ PyPI in a single day — `sdk` 0.7.1, 0.7.2 and 0.8.0; `cli` 0.7.0, 0.7.1 and 0.
 each version" was overtaken by the registries between being written and being read. The docs'
 admission note says the envelope is `1013000..1014029`; the SDK published today says:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014031`; admission requires exact membership (including no `1014006`, `1014028` or `1014030`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
-Third value in nine days. **The gap this file described yesterday as having inverted has not closed;
-it has narrowed to one version and started oscillating.** The practical rule survives all of it
+Third value in nine days when this was written on 20 November; the quote above has since been
+refreshed to the 23 November text, the fourth value in eleven days. **The gap this file described
+as having inverted has not closed; it has narrowed to one version and started oscillating.** The practical rule survives all of it
 intact: the name identifies the package, the registry says what version exists, and the digest
 comes from the documentation in the same session you install. One concrete thing for anyone with
 code: `parsePaymentHeaders` changed signature in 0.8.0, from taking the headers to taking the
@@ -3006,6 +3009,130 @@ posted twice more without either post appearing in the scraped window, so the co
 the content is not. Of the founder's four new posts, three are market talk and are not carried here.
 `flop.network` has been unreachable for twenty-nine days, which now also means the migration guide
 the SDKs point at remains unread. Four days to the target.
+
+## The day before: a time, a sentence that removes the queue, and a promise of no links
+
+The target date has been five different things in ten days. Tonight it became a clock time, posted
+by the project account rather than the founder, at 08:07 UTC on 23 November:
+
+> Flop Network testnet goes live tomorrow, Tuesday Nov 24, at 07:00 UTC.
+> Got an agent? There’s no approval and no waitlist. It claims testnet $ FLOP from the faucet every day, in Technocore chat or with one API call. Spend it on inference. The airdrop is measured on what your agent does on testnet, so a wallet full of unspent faucet tokens gets you nowhere.
+> Miners and validators are sponsored. You don’t need to hold any $ FLOP to join, so that excuse is gone. If you were on Devnet, nothing carries over and you have to rejoin.
+> Expect a queue on day one. Miners calibrate in turn and validator seats open in daily batches, which is why validators get a 14 day grace period. The ranking for mainnet only starts counting once those two weeks are over, so joining on day 3 costs you nothing.
+> KOLs, we haven’t forgotten you, and your program switches on at mainnet.
+> No links today. Setup pages and the Explorer go out at launch.
+
+**Read the one-word status before you read anything above.** `ask.flop.finance/docs/network-testnet`
+still says `planned` tonight, as it has every day since 20 October — thirty-five days — and the
+public `flop.finance/testnet/` page still says the testnet "Opens Q4 2026". The rule this file has
+used since the 3 November target passed does not change because the announcement got more specific:
+the start is the word on the status page changing, not a post saying the word is about to change.
+What the post does change is what a reader should do with the hours before it.
+
+**Four sentences in it are worth more than the date.**
+
+**"There's no approval and no waitlist."** Until tonight no agent-side admission route existed in
+anything the operator had published. The 20 November intake register created a public application
+form for *operators* — validators and miners — and this file has recorded since then that no
+equivalent existed for agents. The answer is now that none is needed. That is not a small
+convenience: it means **every offer to register an agent, reserve a slot, join an allowlist or
+pre-approve a wallet is false by construction**, because there is nothing to register with.
+
+**"The airdrop is measured on what your agent does on testnet, so a wallet full of unspent faucet
+tokens gets you nowhere."** This is R8.4 in plain words, and it is the first time the operator has
+said it outside the rule book:
+
+> A faucet grant, sponsored bond, or transferred balance MUST NOT by itself create an allocation
+> right; … Agent scoring MUST derive from settled compute-channel spend and Miner scoring from
+> PoI-verified effective-FLOP served; completed job count and active days MUST NOT be scoring terms.
+
+Receiving tokens earns nothing. Spending them in settled sessions is the whole mechanism. Everything
+this file has said about escrow sizing follows from that and is unchanged: a cooperative settle pays
+the entire escrow to the miner, so an escrow set above the work actually bought is a hundred per cent
+loss, not the twenty per cent the refund penalty suggests.
+
+**"Expect a queue on day one … so joining on day 3 costs you nothing."** If that holds it is the
+single most valuable sentence of the week, because it removes the reason to rush — and the rush is
+what the fake setup pages are built to catch. But note exactly what it is: **prose on X, from an
+account, about a fourteen-day grace period that appears in no document.** The Yellow Paper has no
+grace period. The airdrop page has none. `era_t_season_blocks` is still the only published season
+control, and R8.5a still says governance may ratify an earlier snapshot height. The sentence also
+reads ambiguously — the grace period is introduced as the validators' ("which is why validators get
+a 14 day grace period") and the ranking sentence that follows carries no subject. So: treat it as a
+reason not to panic at 07:00, and not as a guarantee that day three is free. If it matters to a
+decision, wait for it to appear in a document.
+
+**"No links today. Setup pages and the Explorer go out at launch."** The operator has pre-committed
+that nothing legitimate is circulating tonight. Anything that arrives before the setup pages do —
+a link in a reply, a DM, a search result, a "claim" page — is fake on the operator's own account of
+it. Under the replies to the project account's own post tonight, a third party had already pasted an
+Ethereum address next to the FLOP hashtag. There is no FLOP token, so there is no address.
+
+**One more thing landed with it, in the repository rather than on X.** The intake register gained a
+third form today, `model-upload-sponsorship.yml`, carrying the first `net:testnet` label this file
+has seen:
+
+> FLOP Labs can cover the registration fees and refundable data availability (DA) deposit for an
+> approved model upload on **testnet only**. You can apply before funding your account or using the
+> faucet.
+
+> A maintainer will review the estimate and confirm what FLOP will cover before the upload. Model
+> admission and listing are separate decisions.
+
+It asks for a model and commit SHA, a licence, the upload size, the purpose and an SS58 publisher
+address — public things — and tells the applicant to keep seed phrases, private keys, access tokens
+and signed download URLs out of the public issue. Sponsorship is explicitly not admission, the same
+distinction the operator intake draws between an application and chain admission.
+
+**The CLI moved the cost of proving a model is tool-capable onto the model's uploader.** CLI 0.8.0,
+published today, deletes the funded probe signer the gateway renewer used to need and replaces it:
+
+> The renewer opens no paid channel and holds no signer: the model uploader pays for `tools` with one
+> qualification (below).
+
+> There is no timer on it; a changed identity withdraws `tools` in the same run, and earlier passes
+> of it stop carrying.
+
+Those two changes fit together: the uploader pays once to certify a tool-capable model, and the
+operator has just offered to sponsor the upload. For an agent this matters only through supply —
+`hermes direct` needs "an admitted tool-capable model using structured chat v2" — and the caveat
+that has stood since 0.6.0 still stands tonight, at 0.8.0, on the eve of launch:
+
+> The following payment separation is available from the source checkout and is not yet in the
+> released launcher.
+
+So the released CLI still has exactly one documented way to get a credential, and it is the one that
+creates an unencrypted wallet and asks the faucet to fund it. The rule is unchanged and it is the
+rule to carry into tomorrow: **the key that receives money is one you made and can still read.**
+
+**The spec envelope moved for the fourth time in eleven days**, to `..1014034`, with three newly
+named exclusions:
+
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+
+Both SDKs shipped it together this time — `sdk` 0.9.0 and `flop-sdk` 0.3.4 — which is an improvement
+on 20 November, when the Python package lagged. `cli` 0.8.0 tracks `sdk ^0.9.0`; `pi` 0.3.5 still
+pins `sdk ^0.8.0`, so installing `pi` tonight gets an SDK one envelope behind. The superseded
+figures stay here as dated prose: `..1014020` on 12 November, `..1014029` on 19 November,
+`..1014031` on 20 November, `..1014034` tonight.
+
+**What did not move, on the last full day before the target.** The Yellow Paper is byte-identical
+for the fifth day: 678,766 bytes, `Updated2026-11-18`. **E.38 is still `[RATIFY]` and E.40 is still
+`[TBD]`** — twelve days unchanged, through a week in which the operator rewrote its guarantees,
+published an intake register, opened a model-upload sponsorship, moved the spec envelope twice and
+announced a launch time. The two items that decide how an agent's spending converts into an
+allocation have not been touched. All eight `flop.finance` pages, technocore.chat's three files and
+the rest of the repository are unchanged; `/official/` has no contract address and, since
+20 November, no longer contains the word "scam". The operator's own release page is five days stale,
+still showing `cli v0.5.0` as "Latest" while the registry serves 0.8.0. `flop.network` has been
+unreachable for thirty-one days, and `snapshots.flop.network`, added to the validator guide
+yesterday, with it.
+
+The public tracker took another 78 open issues today, to 574, with the newest numbered #673 — titles
+asking for testnet miner sponsor allowlist entries and testnet validator seats. Those are
+third-party requests, unverified here, and they are recorded as counts and shapes only. The new
+model-upload label has no issues against it yet. One day to the target, and the thing to do with
+the next twelve hours is nothing: no link is real until the setup pages exist.
 
 ## What is still open
 
