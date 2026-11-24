@@ -13,6 +13,42 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🟢 **2026-11-24 追記 — テストネットは6時間遅れで開きました。ただし「unscored（採点なし）」で、運営は「今の活動はゼロ、遡及もしない」と明記しています。**
+> **❶ 経過（UTC）**: 06:46 に「slightly delayed」→ 07:46 に「10:00 までに」→ それも過ぎて **12:56 に公式が開始を告知**:
+>
+> > FLOP Testnet is live! This is a very early release. We’ll be activating features over the coming hours.
+>
+> **❷ 状態ページが10/20以来はじめて変わりました。** `Status: planned.` の行は消え、見出しはこうなっています:
+>
+> > testnet · next · live, unscored
+>
+> **判定: 開始はした。ただし「採点なし」の開始です。** FAQ の本文:
+>
+> > Six founding validators launched FLOP Testnet on 24 November 2026. You can follow finalized blocks on FLOPScan, query the public RPC, and register a validator or RPC team. This early network is unscored. Test FLOP has no monetary value. Outages, upgrades and resets are possible.
+>
+> **❸ 🚨 Jack にとって一番重要な一文**:
+>
+> > Earning begins at the publicly announced finalized activation block of a future tested runtime upgrade. There is no announced block or date yet. Earlier activity earns zero, with no backfill. Voucher trading, orders and swaps remain disabled.
+>
+> **＝採点は「まだ日程の出ていない将来のランタイム更新」の起動ブロックから。それより前の活動はゼロで、後から遡って数えることもしない。**
+> 創業者は同じ日に「It’s time to feed your AI agent」と書きましたが、**文書の答えは逆です。今エージェントにお金を使っても1単位も数えられません。**
+> 公開ページも同じ線を引いています:
+>
+> > The planned scored phase is the sole route to the genesis airdrop.
+>
+> **❹ 今エージェントが触れるものは、まだテストネットではありません**:
+>
+> > The generic faucet chain identity reported Devnet at the opening check. Always compare its genesis with the Testnet hash above before requesting funds.
+>
+> > Testnet has no verified public Self claim at this opening.
+>
+> ＝**開始時点で faucet は Devnet を指していました。** 運営自身が「資金を受ける前に genesis を自分で照合しろ」と書いています。
+> → **ツールに鍵を作らせて入金させる既定の道（リリース版 CLI の `agent credential`）は、今日の 0.8.2 でもそのまま。使わない理由がまた1つ増えました。**
+> **❺ SDK は開始時点でチェーンに追いついていませんでした**（FAQ「Its published runtime allowlist stops at 1014034. The opening runtime is 1014035.」）。同日に **`sdk` 0.10.0** が出て封筒は `..1014035`（**12日で5回目**）。`cli` 0.8.2・PyPI 0.3.5 も同日。`pi` は `sdk ^0.8.0` のままで2つ遅れ。
+> **❻ 動かなかったもの**: **E.38 `[RATIFY]`・E.40 `[TBD]` は開始日を越えて13日連続不変。** `/official/` も不変で、前日に約束された Setup ページも Explorer も**載っていません**（FLOPScan へのリンクは `t.co` 越しの X 投稿だけ）。
+> technocore.chat の3ファイルにも faucet は無し。release 窓口も 11-18 のまま（testnet の spec も node kit も無し）。受付 issue は **1日で +459（open 1,033・最高 #1156）**。`flop.network` は32日連続で到達不能なので、**チェーンそのものはこちらから確かめられません。**
+> **📌 Jack の手順は変わりません（`init` まで）。今日お金を使う・受け取る・登録する理由は一つもありません。** 採点開始のブロックが発表されたら、それが次の合図です。**買う・mint・claim するものは一つも無い。**
+
 > 🚀 **2026-11-23 追記 — 開始が「日付」から「時刻」になりました。そして運営自身が「今日リンクは出さない」と宣言しました。**
 > **❶ 公式アカウント（@flop_labs・08:07 UTC）の告知。** 創業者ではなく**プロジェクト本体**が、初めて**時刻つき**で出しました:
 >
@@ -52,9 +88,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 > > The following payment separation is available from the source checkout and is not yet in the released launcher.
 >
 > → **リリース版 CLI の documented な資格取得は、今も「平文ウォレットを作って faucet に払わせる」1本だけ。** **入金を受ける鍵は、自分が作って今も中身を読める鍵だけにしてください（未決16・攻撃面④f）。**
-> **❿ spec の封筒が11日で4回目**（`sdk` 0.9.0・`flop-sdk` 0.3.4 が**今回は同時に**出ました。`cli` 0.8.0 は `sdk ^0.9.0`、ただし `pi` 0.3.5 は `sdk ^0.8.0` のままで1つ前）:
+> **❿ spec の封筒が11日で4回目**（**11-24 追記: 下の引用は翌日の `..1014035` に差し替え＝12日で5回目**／`sdk` 0.9.0・`flop-sdk` 0.3.4 が**今回は同時に**出ました。`cli` 0.8.0 は `sdk ^0.9.0`、ただし `pi` 0.3.5 は `sdk ^0.8.0` のままで1つ前）:
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 >
 > **⓫ 動かなかったもの（目標日前日に）**: Yellow Paper は5日連続バイト同一（678,766 B・`Updated2026-11-18`）、
 > **E.38 は `[RATIFY]`・E.40 は `[TBD]` のまま12日連続不変＝エアドロの配分を決める2項目だけが、この激動の1週間で一切動いていません。**
@@ -103,9 +139,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **改善3点**: install コマンドが**版固定**に／admission リストが docs にも載った／**運営自身が「archive integrity と smoke check は pending」と明記。**
 > **🚨 ただし今日のレジストリは `sdk` 0.8.0・`cli` 0.7.2。** 1日で**9本**公開（sdk 0.7.1/0.7.2/0.8.0・cli 0.7.0/0.7.1/0.7.2・pi 0.3.4/0.3.5・PyPI 0.3.3）。
-> spec の封筒も**9日で3回目**（**11-23 追記: 下の引用は 11-23 の `..1014034` に差し替え＝11日で4回目。鉄則E3**）:
+> spec の封筒も**9日で3回目**（**11-24 追記: 下の引用は 11-24 の `..1014035` に差し替え＝12日で5回目。鉄則E3**）:
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 >
 > → **規則は不変: 名前で判定・版はレジストリ・digest はその run の docs。** ⚠️ コードを書く人向け: **`parsePaymentHeaders` の引数が headers → response に変わりました（0.8.0）。**
 > **❻ ✅ validator の矛盾が解決**（未決20）。`flop-labs/network` に**公開の operator application フォーム**と `OPERATOR-INTAKE.md` ができました。
@@ -125,10 +161,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **❶ sdk 0.6.0→0.7.0／cli 0.5.0→0.6.0／pi 0.3.2→0.3.3／PyPI 0.3.0→0.3.2。** publish 主体・install フック無し・attestations 無しは不変、`tclk-flop` も 404。
 > **❷ 🚨 昨日「未検証」と記録した spec 1014027 が、運営自身のパッケージに入りました。**
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 >
-> **（11-23 追記: ここは11日で4回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
-> 11-20 の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）、**11-23 の SDK 0.9.0 で `..1014034`（`1014032`・`1014033` を追加除外）。**
+> **（11-24 追記: ここは12日で5回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
+> 11-20 の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）、11-23 の SDK 0.9.0 で `..1014034`（`1014032`・`1014033` を追加除外）、**11-24 の SDK 0.10.0 で `..1014035`（testnet の開始 runtime）。**
 > 旧値は日付つきで残します＝鉄則E3。）
 >
 > **＝1014021〜1014027 と 1014029 を追加、1014028 を新たに除外。** Python SDK も同じ変更。
@@ -1224,7 +1260,7 @@ is never required to verify anything. Japanese documentation follows; commands a
 >   E.38 の「whether spend-to-unlock ships」と「projected inference demand を超える」は**どちらも消滅**
 > - **DID と technocore.chat が公式に参加経路として名指しされました。** `/testnet/` の onboarding:
 >   「Agents — **create a DID and a wallet, draw from the faucet, and begin purchasing inference
->   or transacting with other agents on technocore.chat**」。以前ここに書いていた「どちらの文書にも
+>   or transacting with other agents on technocore.chat**」（**11-24 追記: 開始日に「draw from the faucet」が削除され、今は「create a DID and a wallet, then purchase inference…」**）。以前ここに書いていた「どちらの文書にも
 >   書かれていない」は**もはや正しくありません**（Yellow Paper 側は今も `technocore` / `did:key` が0件）
 > - **得点は「settled sessions で購入した計算」だけ。** さらに公平性4規則が公開: **共通支配下の
 >   ウォレットは1参加者として集計**、**自分が支配するマイナーへの支出・自分のウォレット間の循環は

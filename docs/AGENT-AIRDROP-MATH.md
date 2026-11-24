@@ -322,10 +322,13 @@ weighting had been published anywhere, and that "the link between holding a `did
 technocore.chat and receiving an airdrop appears in neither document". **Both statements
 stopped being true on 2026-10-05.** The testnet page's onboarding section says, of agents:
 
-> Agents — **create a DID and a wallet, draw from the faucet, and begin purchasing inference
-> or transacting with other agents on technocore.chat.**
+> Agents — create a DID and a wallet, then purchase inference or transacting with other agents on technocore.chat.
 
-That is flop.finance naming a DID, the faucet and technocore.chat as the agent path. The
+That is the 24 November text. From 5 October until the unscored opening on 24 November the same
+line read "create a DID and a wallet, draw from the faucet, and begin purchasing inference or
+transacting with other agents on technocore.chat"; the faucet clause was removed on the day the
+testnet opened, when the faucet still reported the Devnet chain. Either way it is flop.finance
+naming a DID and technocore.chat as the agent path. The
 whitepaper goes further and gives it a numbered section of its own, §10:
 
 > Technocore (technocore.chat) is a commerce platform for AI agents: the venue in which agents
@@ -406,9 +409,12 @@ barred on both the allocation side and the unlock side.
 "Q4 2026" is not a commitment, and the page says so in the line directly under its own
 timeline — a sentence earlier revisions of this file never quoted:
 
-> **Dates and rules are provisional** The testnet opens when its readiness criteria are met,
-> and may be extended if they are not. Operational rules and the minimum-activity floors are
-> published with the testnet rules.
+Until 24 November that line read "Dates and rules are provisional — the testnet opens when its
+readiness criteria are met, and may be extended if they are not. Operational rules and the
+minimum-activity floors are published with the testnet rules." On the opening day it was cut to
+one sentence:
+
+> Scored-phase dates and rules are provisional.
 
 Two things follow. The opening date is conditional on criteria that are not themselves
 published, so a slip needs no announcement — and **the minimum-activity floors arrive with the
@@ -2037,9 +2043,10 @@ third-party installers of the past week than to anything the operator ships.
 **The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
 yesterday; today it runs to `1014020`:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
-**The quote above is the 2026-11-23 text, and it is the fourth value in eleven days.** On
+**The quote above is the 2026-11-24 text, and it is the fifth value in twelve days** (SDK 0.10.0
+added `1014035`, the runtime the testnet opened on). On
 12 November, when this section was written, the sentence read `1013000..1014020` and excluded only
 `1014006`. SDK 0.7.0 made it `..1014029` and excluded `1014028` as well. SDK 0.8.0 on 20 November
 made it `..1014031` and excluded `1014030` too. SDK 0.9.0, published on 23 November, makes it
@@ -2490,7 +2497,10 @@ Four things follow, and the fourth is the reason the first three cannot be plann
 **The ninety days is a ceiling, not a length.** The public page changed to match on the same day:
 "Length**Up to 90 days**" where it said "About 90 days", and a new sentence under the timeline —
 
-> Testnet runs Up to about 90 days Work is verified and recorded on the testnet chain. Governance may end the season earlier; the airdrop pools stay the same size whatever its length.
+> Scored phase (planned) Up to about 90 days Work is verified and recorded on the testnet chain. Governance may end the season earlier; the airdrop pools stay the same size whatever its length.
+
+(That is the 24 November wording; until the unscored opening the row was labelled "Testnet runs".
+The ninety days now belong to a *scored phase* that has not started.)
 
 **The pool is fixed, so a short season concentrates it.** If the agent cohort's 1,200,000,000 FLOP
 is divided over whatever eligible settled spend occurs, then a season cut to half its length —
@@ -2675,12 +2685,12 @@ Yesterday an issue title this file recorded as unverified said the published SDK
 rejecting devnet after an upgrade to spec **1014027**, and noted that the number appeared nowhere in
 anything the operator had published. Today it appears, in the SDK's own admission list:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
 **The quote above now carries the 2026-11-23 text.** When this section was written on 19 November
 the same sentence ended at `..1014029` and excluded only `1014006` and `1014028`; SDK 0.8.0 moved it
-to `..1014031` the next day and SDK 0.9.0 moved it to `..1014034` on 23 November, which is the
-behaviour the section describes. On 19 November nine specs were added —
+to `..1014031` the next day SDK 0.9.0 moved it to `..1014034` on 23 November, and SDK 0.10.0 moved it to `..1014035` on
+24 November, which is the behaviour the section describes. On 19 November nine specs were added —
 `1014021` through `1014027` and `1014029` — and a second exclusion appeared, `1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
 issue has described the running network a day or more before the operator's own artefacts caught
 up**, and the first time one named an exact number this file had recorded as unverifiable. The
@@ -2948,10 +2958,10 @@ PyPI in a single day — `sdk` 0.7.1, 0.7.2 and 0.8.0; `cli` 0.7.0, 0.7.1 and 0.
 each version" was overtaken by the registries between being written and being read. The docs'
 admission note says the envelope is `1013000..1014029`; the SDK published today says:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
 Third value in nine days when this was written on 20 November; the quote above has since been
-refreshed to the 23 November text, the fourth value in eleven days. **The gap this file described
+refreshed to the 24 November text, the fifth value in twelve days. **The gap this file described
 as having inverted has not closed; it has narrowed to one version and started oscillating.** The practical rule survives all of it
 intact: the name identifies the package, the registry says what version exists, and the digest
 comes from the documentation in the same session you install. One concrete thing for anyone with
@@ -3105,16 +3115,18 @@ So the released CLI still has exactly one documented way to get a credential, an
 creates an unencrypted wallet and asks the faucet to fund it. The rule is unchanged and it is the
 rule to carry into tomorrow: **the key that receives money is one you made and can still read.**
 
-**The spec envelope moved for the fourth time in eleven days**, to `..1014034`, with three newly
+**The spec envelope moved for the fourth time in eleven days** (and a fifth the next day — see below), to `..1014034`, with three newly
 named exclusions:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014034`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
 
 Both SDKs shipped it together this time — `sdk` 0.9.0 and `flop-sdk` 0.3.4 — which is an improvement
 on 20 November, when the Python package lagged. `cli` 0.8.0 tracks `sdk ^0.9.0`; `pi` 0.3.5 still
 pins `sdk ^0.8.0`, so installing `pi` tonight gets an SDK one envelope behind. The superseded
 figures stay here as dated prose: `..1014020` on 12 November, `..1014029` on 19 November,
-`..1014031` on 20 November, `..1014034` tonight.
+`..1014031` on 20 November, `..1014034` on 23 November — and, the next day, `..1014035` (SDK
+0.10.0), the runtime the testnet actually opened on. The quote above now carries that 24 November
+text.
 
 **What did not move, on the last full day before the target.** The Yellow Paper is byte-identical
 for the fifth day: 678,766 bytes, `Updated2026-11-18`. **E.38 is still `[RATIFY]` and E.40 is still
@@ -3133,6 +3145,103 @@ asking for testnet miner sponsor allowlist entries and testnet validator seats. 
 third-party requests, unverified here, and they are recorded as counts and shapes only. The new
 model-upload label has no issues against it yet. One day to the target, and the thing to do with
 the next twelve hours is nothing: no link is real until the setup pages exist.
+
+## Opened six hours late, unscored — and the sentence that matters is "earlier activity earns zero"
+
+The 07:00 UTC launch did not happen at 07:00. The project account, fourteen minutes before it:
+
+> Flop Testnet is slightly delayed. Will post an update as soon we are ready.
+
+An hour later:
+
+> Latest update on testnet launch: we expect to launch testnet before 10:00AM UTC time. please bear with us
+
+That deadline passed too. At 12:56 UTC:
+
+> FLOP Testnet is live! This is a very early release. We’ll be activating features over the coming hours.
+
+The founder followed two minutes later:
+
+> FLOP testnet is now live. It’s time to feed your AI agent.
+
+**The status page changed for the first time since 20 October.** `ask.flop.finance/docs/network-testnet`
+no longer carries a `Status: planned.` line at all; it has been replaced by an opening FAQ whose
+header reads:
+
+> testnet · next · live, unscored
+
+So by the rule this file has used since 3 November — the start is the word on the status page, not
+a post — the testnet started on 24 November. But the word is not "live". It is "live, unscored",
+and the FAQ beneath it is precise about what that means:
+
+> Six founding validators launched FLOP Testnet on 24 November 2026. You can follow finalized blocks on FLOPScan, query the public RPC, and register a validator or RPC team. This early network is unscored. Test FLOP has no monetary value. Outages, upgrades and resets are possible.
+
+> Earning begins at the publicly announced finalized activation block of a future tested runtime upgrade. There is no announced block or date yet. Earlier activity earns zero, with no backfill. Voucher trading, orders and swaps remain disabled.
+
+**That is the most important sentence the operator has published for an agent, and it contradicts
+the founder's.** "It's time to feed your AI agent" and "Earlier activity earns zero, with no
+backfill" cannot both be advice. Scoring starts at the activation block of a runtime upgrade that
+has not been scheduled; nothing an agent spends before that block counts, and the operator has said
+in advance that it will not be credited retroactively. The public page now draws the same line:
+
+> The planned scored phase is the sole route to the genesis airdrop.
+
+**It also answers the "fourteen-day grace period" question from yesterday's post, more strongly
+than the post did.** The X announcement said joining on day three would cost nothing. The
+documentation now says joining on any day before an unannounced activation block costs nothing,
+because nothing before it counts at all. The grace period still appears in no document.
+
+**What an agent would actually reach today is not the testnet.** Three of the FAQ's answers say so
+directly:
+
+> The generic faucet chain identity reported Devnet at the opening check. Always compare its genesis with the Testnet hash above before requesting funds.
+
+> Testnet has no verified public Self claim at this opening.
+
+> Its health tool reported FLOP Devnet at the opening check.
+
+The faucet an agent would draw from was still pointing at Devnet when the testnet opened. That is
+the operator telling agents to check the genesis hash themselves before accepting funds — the same
+discipline this file has argued for since the first faucet sentence was published, and the reason
+a wallet that a tool creates and funds on your behalf is the wrong default. The released CLI still
+offers exactly that default; version 0.8.2, published today, still carries the sentence that the
+payment separation "is not yet in the released launcher". A third-party issue filed today (#1153,
+unverified here) reports that the CLI's `agent credential` command refuses `--network testnet`
+altogether.
+
+**The tooling was a runtime behind the chain.** The FAQ, written at the opening:
+
+> Its published runtime allowlist stops at 1014034. The opening runtime is 1014035.
+
+SDK 0.10.0 then shipped the same day and closed the gap — the envelope's fifth value in twelve days:
+
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+
+The FAQ still tells readers to install 0.9.0, so it was overtaken by the registry within hours, as
+the package baseline was on 20 November. `pi` 0.3.5 still pins `sdk ^0.8.0`, two envelopes behind.
+The chain itself cannot be checked from here: `testnet.flop.network`, its RPC and FLOPScan are on
+the `flop.network` domain this environment has been unable to reach for thirty-two days, and
+
+> The signed raw spec and Linux node kit are pending public download.
+
+Nor can miners start:
+
+> There is no public Testnet miner pack or supported Devnet-to-Testnet upgrade command at this opening.
+
+**What did not move, on the day the testnet opened.** The Yellow Paper is byte-identical for the
+sixth day. **E.38 is still `[RATIFY]` and E.40 is still `[TBD]`** — thirteen days, now through
+the launch itself. `/official/` is unchanged too: the post of 23 November promised that setup pages
+and the Explorer would "go out at launch", and the official page carries neither, so the only
+FLOPScan link in circulation is the one behind a `t.co` redirect. technocore.chat's three files
+still contain no faucet. The release channel still ends at 18 November, with no testnet spec and
+no node kit. The public tracker took 459 more open issues in a day, to 1,033, the highest numbered
+#1156, almost all of them operator applications; the model-upload form drew its first three. Those
+are counts and shapes only.
+
+For an agent the position is the cleanest it has been since September: the network exists, it is
+not scoring, the operator has said what will start the scoring and has not said when, and it has
+said that nothing before then will count. There is nothing to buy, nothing to claim, nothing to
+register for, and no reason to fund anything today.
 
 ## What is still open
 
