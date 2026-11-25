@@ -13,6 +13,41 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🔑 **2026-11-25 追記 — テストネット2日目。faucet に住所と正しい鍵の扱いができました。ただし推論先がまだ無く、採点も始まっていません。**
+> **❶ 「14日の猶予」の答えが出ました。** 公式の day 2 投稿:
+>
+> > Nothing is scored yet. Validators have a two-week grace period. Miner and agent work counts from the voucher start block, to be announced.
+>
+> **＝猶予は validator だけ。エージェントの活動は「まだ発表されていない voucher 開始ブロック」から数えます。** 今は1日目も3日目も同じくゼロです。
+> **❷ 🔑 faucet の正しい道ができました。** `/official/`（11-25 更新）:
+>
+> > There is one faucet per network: https://faucet.flop.network serves FLOP Testnet and https://faucet.devnet.flop.network serves Devnet.
+>
+> > The Testnet faucet takes signed agent claims: 10 test FLOP per wallet in a rolling 24 hours.
+>
+> > It never asks for a seed phrase, a deposit or a payment.
+>
+> リリース版 CLI 0.9.0 の testnet 用 faucet は、**自分の暗号化 keystore で署名し、先に genesis を照合し、送るのは住所・nonce・署名だけ**です:
+>
+> > On Testnet, `faucet request` makes a signed D10 agent claim of 10 FLOP for the `--signer` or `--keystore` wallet, limited to 10 FLOP per wallet per rolling 24 hours. It first reads the faucet's `/limits` and checks `/chain` against the signed D10 genesis, then signs the claim locally. Only the address, nonce and signature are sent.
+>
+> > To check an earlier claim, or reconcile one whose answer was lost, repeat it with the same `--nonce`; a repeat never pays twice. Faucet refusals come back with their `reason`, `action` and retry-after, and nothing is retried automatically.
+>
+> **＝これまで勧めてきた「入金を受ける鍵は自分で作る」が、testnet では公式の道になりました。** devnet 用の `agent credential`（平文の鍵を勝手に作る）は今も残っているので、使い分けてください。
+> ⚠️ ただし同じ日の公式投稿には「Testnet faucet, not live yet」とあり、文書と食い違っています。こちらからは faucet に到達できず（そもそも叩かないルール）、どちらが今の状態かは確かめられません。
+> **❸ 使い道がまだありません**:
+>
+> > No Testnet inference gateway is published yet, so Testnet inference is not open; api.flop.network and mcp.flop.network serve Devnet.
+>
+> ＝**testnet の推論は未開放。** 受け取った test FLOP は使えず、採点もありません。**今 faucet を回す理由はありません。**
+> **❹ Yellow Paper が 11-18 以来はじめて動きました（日付は 11-18 のまま）。** 新しい決定が4つ、批准待ちが2つ（E.62・E.63）。エージェントに関係するのは**提案段階の2点**:
+>   - **D-0554（批准待ち）: 推論に値段がつく案**。「20 FLOP per billion G_n, about half a public Qwen3-14B list price for the measured agent mix at the devnet-ts reference FLOP rate.」（これまでは実質タダの仮料金）
+>   - **E.63（批准待ち）: タイムアウトの全額返金をやめる案**。「At timeout, charge R12.1d's φ on unused escrow when the miner acked and stayed live, and refund in full only when it never acked.」→ **エスクローは実作業量に合わせる、の重要度がさらに上がります。**
+> **E.38 `[RATIFY]`・E.40 `[TBD]` は14日連続不変**（60文が書き換わった今日も触れられていません）。
+> **❺ 初めてこちらで照合できた値**: `flop-labs/network` の `networks/testnet.md`（GitHub）・docs・`/official/` の3か所で **testnet genesis が一致**、Vault の検証鍵も GitHub と docs で一致、鍵の SHA-256 もこちらで計算して一致しました（**チェーンそのものとの照合ではありません**）。
+> **❻ その他**: `/official/` に FLOPScan（`flopscan.io`・`testnet.flopscan.io`）が載りました（公式は「unreliable while we fix it」と言っています）。`sdk` 0.12.0（封筒 `..1014038`・13日で6回目）・`cli` 0.9.0・PyPI 0.4.0。release 窓口は 11-18 のまま。受付 issue は open 1,273。TechnoCore に **testnet FLOP の OTC（相対取引）を名乗るルーム**が出ました。**test FLOP に価値はないので、売り買いを持ちかける相手は全部詐欺です。**
+> **📌 Jack の手順は変わりません（`init` まで）。** 採点が始まったら、faucet は**自分で作った暗号化 keystore** で受け取る。今日やることはありません。**買う・mint・claim するものは一つも無い。**
+
 > 🟢 **2026-11-24 追記 — テストネットは6時間遅れで開きました。ただし「unscored（採点なし）」で、運営は「今の活動はゼロ、遡及もしない」と明記しています。**
 > **❶ 経過（UTC）**: 06:46 に「slightly delayed」→ 07:46 に「10:00 までに」→ それも過ぎて **12:56 に公式が開始を告知**:
 >
@@ -20,15 +55,15 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **❷ 状態ページが10/20以来はじめて変わりました。** `Status: planned.` の行は消え、見出しはこうなっています:
 >
-> > testnet · next · live, unscored
+> （**11-24 の FAQ 原文・11-25 に書き換え**）「testnet · next · live, unscored」
 >
 > **判定: 開始はした。ただし「採点なし」の開始です。** FAQ の本文:
 >
-> > Six founding validators launched FLOP Testnet on 24 November 2026. You can follow finalized blocks on FLOPScan, query the public RPC, and register a validator or RPC team. This early network is unscored. Test FLOP has no monetary value. Outages, upgrades and resets are possible.
+> （**11-24 の FAQ 原文・11-25 に書き換え**）「Six founding validators launched FLOP Testnet on 24 November 2026. You can follow finalized blocks on FLOPScan, query the public RPC, and register a validator or RPC team. This early network is unscored. Test FLOP has no monetary value. Outages, upgrades and resets are possible.」
 >
 > **❸ 🚨 Jack にとって一番重要な一文**:
 >
-> > Earning begins at the publicly announced finalized activation block of a future tested runtime upgrade. There is no announced block or date yet. Earlier activity earns zero, with no backfill. Voucher trading, orders and swaps remain disabled.
+> （**11-24 の FAQ 原文・11-25 に書き換え**）「Earning begins at the publicly announced finalized activation block of a future tested runtime upgrade. There is no announced block or date yet. Earlier activity earns zero, with no backfill. Voucher trading, orders and swaps remain disabled.」
 >
 > **＝採点は「まだ日程の出ていない将来のランタイム更新」の起動ブロックから。それより前の活動はゼロで、後から遡って数えることもしない。**
 > 創業者は同じ日に「It’s time to feed your AI agent」と書きましたが、**文書の答えは逆です。今エージェントにお金を使っても1単位も数えられません。**
@@ -38,9 +73,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 >
 > **❹ 今エージェントが触れるものは、まだテストネットではありません**:
 >
-> > The generic faucet chain identity reported Devnet at the opening check. Always compare its genesis with the Testnet hash above before requesting funds.
+> （**11-24 の FAQ 原文・11-25 に書き換え**）「The generic faucet chain identity reported Devnet at the opening check. Always compare its genesis with the Testnet hash above before requesting funds.」
 >
-> > Testnet has no verified public Self claim at this opening.
+> （**11-24 の FAQ 原文・11-25 に書き換え**）「Testnet has no verified public Self claim at this opening.」
 >
 > ＝**開始時点で faucet は Devnet を指していました。** 運営自身が「資金を受ける前に genesis を自分で照合しろ」と書いています。
 > → **ツールに鍵を作らせて入金させる既定の道（リリース版 CLI の `agent credential`）は、今日の 0.8.2 でもそのまま。使わない理由がまた1つ増えました。**
@@ -88,9 +123,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 > > The following payment separation is available from the source checkout and is not yet in the released launcher.
 >
 > → **リリース版 CLI の documented な資格取得は、今も「平文ウォレットを作って faucet に払わせる」1本だけ。** **入金を受ける鍵は、自分が作って今も中身を読める鍵だけにしてください（未決16・攻撃面④f）。**
-> **❿ spec の封筒が11日で4回目**（**11-24 追記: 下の引用は翌日の `..1014035` に差し替え＝12日で5回目**／`sdk` 0.9.0・`flop-sdk` 0.3.4 が**今回は同時に**出ました。`cli` 0.8.0 は `sdk ^0.9.0`、ただし `pi` 0.3.5 は `sdk ^0.8.0` のままで1つ前）:
+> **❿ spec の封筒が11日で4回目**（**11-25 追記: 下の引用は `..1014038` に差し替え＝13日で6回目**／`sdk` 0.9.0・`flop-sdk` 0.3.4 が**今回は同時に**出ました。`cli` 0.8.0 は `sdk ^0.9.0`、ただし `pi` 0.3.5 は `sdk ^0.8.0` のままで1つ前）:
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 >
 > **⓫ 動かなかったもの（目標日前日に）**: Yellow Paper は5日連続バイト同一（678,766 B・`Updated2026-11-18`）、
 > **E.38 は `[RATIFY]`・E.40 は `[TBD]` のまま12日連続不変＝エアドロの配分を決める2項目だけが、この激動の1週間で一切動いていません。**
@@ -135,13 +170,15 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **時期は前倒し（終了前→開始前）、約束は「必ず公開」→「公開を目標」、そして「お金を使う人が基準を見られるように」という節は両ページから削除。** E.38 は9日連続不変。
 > **❺ docs がついに「パッケージ基準」を公開 — 同日にレジストリに抜かれました。**
 >
-> > Package baseline `2026-11-20-sdk-0.7.1-cli-0.7.0`, recorded 2026-11-20 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
+> > Package baseline `2026-11-25-sdk-0.10.0-cli-0.8.2-py-0.3.6`, recorded 2026-11-25 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
+>
+> （**11-25 追記: 上は 11-25 の文。** 11-20 の基準は `2026-11-20-sdk-0.7.1-cli-0.7.0` でした。5日後もサプライチェーン検査は2つとも「pending」のまま。）
 >
 > **改善3点**: install コマンドが**版固定**に／admission リストが docs にも載った／**運営自身が「archive integrity と smoke check は pending」と明記。**
 > **🚨 ただし今日のレジストリは `sdk` 0.8.0・`cli` 0.7.2。** 1日で**9本**公開（sdk 0.7.1/0.7.2/0.8.0・cli 0.7.0/0.7.1/0.7.2・pi 0.3.4/0.3.5・PyPI 0.3.3）。
-> spec の封筒も**9日で3回目**（**11-24 追記: 下の引用は 11-24 の `..1014035` に差し替え＝12日で5回目。鉄則E3**）:
+> spec の封筒も**9日で3回目**（**11-25 追記: 下の引用は 11-25 の `..1014038` に差し替え＝13日で6回目。鉄則E3**）:
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 >
 > → **規則は不変: 名前で判定・版はレジストリ・digest はその run の docs。** ⚠️ コードを書く人向け: **`parsePaymentHeaders` の引数が headers → response に変わりました（0.8.0）。**
 > **❻ ✅ validator の矛盾が解決**（未決20）。`flop-labs/network` に**公開の operator application フォーム**と `OPERATOR-INTAKE.md` ができました。
@@ -161,10 +198,10 @@ is never required to verify anything. Japanese documentation follows; commands a
 > **❶ sdk 0.6.0→0.7.0／cli 0.5.0→0.6.0／pi 0.3.2→0.3.3／PyPI 0.3.0→0.3.2。** publish 主体・install フック無し・attestations 無しは不変、`tclk-flop` も 404。
 > **❷ 🚨 昨日「未検証」と記録した spec 1014027 が、運営自身のパッケージに入りました。**
 >
-> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014035`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032` or `1014033`).
+> > `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 >
-> **（11-24 追記: ここは12日で5回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
-> 11-20 の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）、11-23 の SDK 0.9.0 で `..1014034`（`1014032`・`1014033` を追加除外）、**11-24 の SDK 0.10.0 で `..1014035`（testnet の開始 runtime）。**
+> **（11-25 追記: ここは13日で6回目の値です。** 11-12 は `..1014020`（除外は `1014006` のみ）、11-19 は `..1014029`（`1014028` を追加除外）、
+> 11-20 の SDK 0.8.0 で `..1014031`（`1014030` を追加除外）、11-23 の SDK 0.9.0 で `..1014034`（`1014032`・`1014033` を追加除外）、11-24 の SDK 0.10.0 で `..1014035`（testnet の開始 runtime）、**11-25 の SDK 0.12.0 で `..1014038`（`1014036` を追加除外）。**
 > 旧値は日付つきで残します＝鉄則E3。）
 >
 > **＝1014021〜1014027 と 1014029 を追加、1014028 を新たに除外。** Python SDK も同じ変更。
@@ -247,7 +284,7 @@ is never required to verify anything. Japanese documentation follows; commands a
 > → **判定規則は不変**（ドメイン＋パス＋その run で docs から読んだ digest）。**ただし「公式のリリースページ」という偽装先が増えました（攻撃面④b）。**
 > **❹ `/official/` が15日遅れで日付を取り込みました**（10/23 以来初の改訂・`last updated 2026-11-18`）:
 >
-> > Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is subject to readiness, not a launch confirmation. Check the Testnet network status for verified network identity, artifacts and admission inputs before relying on access.
+> 当時の文（**11-25 に削除**・開始翌日に「The Testnet opening is unscored.」へ置換）:「Testnet remains planned: 3 November 2026 was a historical target. The later 24 November 2026 target is subject to readiness, not a launch confirmation. Check the Testnet network status for verified network identity, artifacts and admission inputs before relying on access.」
 >
 > **（11-20 追記: 11-18 の文は2日で書き換わりました。** 2日間は「Testnet launch: the target is 24 November 2026, subject to readiness,
 > running up to about 90 days. This is a target, not a confirmed launch date.」でした。**日付は2段弱くなり、最後は「ネットワーク状態ページを見ろ」＝我々の1語 status 検知器です。**）
@@ -290,7 +327,9 @@ is never required to verify anything. Japanese documentation follows; commands a
 > `@flop-labs/cli` **0.5.0**（11-12 公開・以後バイト同一）の readme に、こう書いてあります
 > — `flop --network devnet agent credential` を**初回に実行したとき**の挙動です:
 >
-> > On first use it creates a local sr25519 account in `~/.flop/devnet-enroll-wallet.json` (unencrypted, devnet only, mode 0600; its secret is never printed). If that account holds less than 1 FLOP, it requests a grant from `https://faucet.flop.network/fund` and waits for the grant to finalize on `wss://rpc.devnet.flop.network`
+> > On first use it creates a local sr25519 account in `~/.flop/devnet-enroll-wallet.json` (unencrypted, devnet only, mode 0600; its secret is never printed). If that account holds less than 1 FLOP, it requests a grant from `https://faucet.devnet.flop.network/fund` and waits for the grant to finalize on `wss://rpc.devnet.flop.network`
+>
+> （**11-25 追記**: 上の faucet の宛先は `faucet.flop.network` → `faucet.devnet.flop.network` に変わりました。`faucet.flop.network` は今 Testnet 用です。）
 >
 > **起きる順に読んでください。** ①**呼び出し側が見たこともない鍵を生成する** ②**暗号化せずに書く**
 > ③**その鍵に faucet から送金させる** ④着金を待つ。**全部ドキュメント通りの意図された挙動で、devnet 限定です。**
