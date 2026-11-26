@@ -2043,11 +2043,11 @@ third-party installers of the past week than to anything the operator ships.
 **The SDK also quietly admits six more runtime specs.** The accepted list ran to `1014014`
 yesterday; today it runs to `1014020`:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014040`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 
-**The quote above is the 2026-11-25 text, and it is the sixth value in thirteen days** (SDK 0.10.0
+**The quote above is the 2026-11-26 text, and it is the seventh value in fourteen days** (SDK 0.10.0
 added `1014035`, the runtime the testnet opened on, on 24 November; SDK 0.12.0 reached `1014038` the
-next day). On
+next day, and SDK 0.13.1 `1014040` the day after). On
 12 November, when this section was written, the sentence read `1013000..1014020` and excluded only
 `1014006`. SDK 0.7.0 made it `..1014029` and excluded `1014028` as well. SDK 0.8.0 on 20 November
 made it `..1014031` and excluded `1014030` too. SDK 0.9.0, published on 23 November, makes it
@@ -2688,13 +2688,13 @@ Yesterday an issue title this file recorded as unverified said the published SDK
 rejecting devnet after an upgrade to spec **1014027**, and noted that the number appeared nowhere in
 anything the operator had published. Today it appears, in the SDK's own admission list:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014040`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 
 **The quote above now carries the 2026-11-23 text.** When this section was written on 19 November
 the same sentence ended at `..1014029` and excluded only `1014006` and `1014028`; SDK 0.8.0 moved it
 to `..1014031` the next day SDK 0.9.0 moved it to `..1014034` on 23 November, SDK 0.10.0 moved it to `..1014035` on
-24 November, and SDK 0.12.0 moved it to `..1014038` on 25 November, which is the behaviour the section
-describes. On 19 November nine specs were added —
+24 November, SDK 0.12.0 moved it to `..1014038` on 25 November, and SDK 0.13.1 moved it to `..1014040` on
+26 November, which is the behaviour the section describes. On 19 November nine specs were added —
 `1014021` through `1014027` and `1014029` — and a second exclusion appeared, `1014028`. The Python SDK shipped the identical change. **That is the fourth time a third-party
 issue has described the running network a day or more before the operator's own artefacts caught
 up**, and the first time one named an exact number this file had recorded as unverifiable. The
@@ -2947,9 +2947,10 @@ untouched for the ninth straight day.
 
 `sdk-references` grew by about 2,700 characters and now opens with a versioned, dated baseline:
 
-> Package baseline `2026-11-25-sdk-0.10.0-cli-0.8.2-py-0.3.6`, recorded 2026-11-25 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
+> Package baseline `2026-11-25-sdk-0.12.0-cli-0.9.0-py-0.4.0`, recorded 2026-11-25 against public registry metadata. Independent archive integrity: pending. Installed-package smoke checks: pending.
 
-(That is the 25 November text. On 20 November, when this was written, the baseline was
+(That is the second baseline recorded on 25 November: the docs updated it twice that day, the first time
+to `2026-11-25-sdk-0.10.0-cli-0.8.2-py-0.3.6`. On 20 November, when this was written, the baseline was
 `2026-11-20-sdk-0.7.1-cli-0.7.0`; five days and a testnet opening later, both of the operator's own
 supply-chain checks still read "pending".)
 
@@ -2965,10 +2966,10 @@ PyPI in a single day — `sdk` 0.7.1, 0.7.2 and 0.8.0; `cli` 0.7.0, 0.7.1 and 0.
 each version" was overtaken by the registries between being written and being read. The docs'
 admission note says the envelope is `1013000..1014029`; the SDK published today says:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014040`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 
 Third value in nine days when this was written on 20 November; the quote above has since been
-refreshed to the 25 November text, the sixth value in thirteen days. **The gap this file described
+refreshed to the 26 November text, the seventh value in fourteen days. **The gap this file described
 as having inverted has not closed; it has narrowed to one version and started oscillating.** The practical rule survives all of it
 intact: the name identifies the package, the registry says what version exists, and the digest
 comes from the documentation in the same session you install. One concrete thing for anyone with
@@ -3125,15 +3126,15 @@ rule to carry into tomorrow: **the key that receives money is one you made and c
 **The spec envelope moved for the fourth time in eleven days** (and a fifth the next day — see below), to `..1014034`, with three newly
 named exclusions:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014040`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 
 Both SDKs shipped it together this time — `sdk` 0.9.0 and `flop-sdk` 0.3.4 — which is an improvement
 on 20 November, when the Python package lagged. `cli` 0.8.0 tracks `sdk ^0.9.0`; `pi` 0.3.5 still
 pins `sdk ^0.8.0`, so installing `pi` tonight gets an SDK one envelope behind. The superseded
 figures stay here as dated prose: `..1014020` on 12 November, `..1014029` on 19 November,
 `..1014031` on 20 November, `..1014034` on 23 November — and, the next day, `..1014035` (SDK
-0.10.0), the runtime the testnet actually opened on. Then `..1014038` (SDK 0.12.0) on 25 November; the quote
-above now carries that 25 November text.
+0.10.0), the runtime the testnet actually opened on. Then `..1014038` (SDK 0.12.0) on 25 November and `..1014040` (SDK 0.13.1) on
+26 November; the quote above now carries that 26 November text.
 
 **What did not move, on the last full day before the target.** The Yellow Paper is byte-identical
 for the fifth day: 678,766 bytes, `Updated2026-11-18`. **E.38 is still `[RATIFY]` and E.40 is still
@@ -3226,7 +3227,7 @@ altogether.
 SDK 0.10.0 then shipped the same day and closed the gap — the envelope's fifth value in twelve days. The
 quote below is the 25 November text, from SDK 0.12.0, the sixth:
 
-> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014038`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
+> `SUPPORTED_SPEC_VERSION_RANGE` retains its exported shape as the envelope `1013000..1014040`; admission requires exact membership (including no `1014006`, `1014028`, `1014030`, `1014032`, `1014033` or `1014036`).
 
 The FAQ still tells readers to install 0.9.0, so it was overtaken by the registry within hours, as
 the package baseline was on 20 November. `pi` 0.3.5 still pins `sdk ^0.8.0`, two envelopes behind.
@@ -3304,11 +3305,12 @@ So the documentation describes a faucet the project account said was not yet liv
 earlier. This environment cannot reach `faucet.flop.network` to check which is current, and the
 rule here is not to call faucets in any case. What does not depend on that answer:
 
-> No Testnet inference gateway is published yet, so Testnet inference is not open; api.flop.network and mcp.flop.network serve Devnet.
+On 25 November `/official/` said "No Testnet inference gateway is published yet, so Testnet inference is not open; api.flop.network and mcp.flop.network serve Devnet." and the CLI readme said "Hermes setup is devnet-only until Testnet has a public gateway." A day later both had
+changed (dated prose; see the next section):
 
-> Hermes setup is devnet-only until Testnet has a public gateway.
+> The Testnet inference gateway is https://gateway.testnet.flop.network; api.flop.network and mcp.flop.network serve Devnet.
 
-**There is nothing to spend test FLOP on.** No inference gateway is published for Testnet, and the
+**On 25 November there was nothing to spend test FLOP on.** No inference gateway is published for Testnet, and the
 agent tooling is Devnet-only until one is. A wallet that claims ten FLOP a day today accumulates a
 balance that cannot be spent, in a phase that scores nothing, under an announcement that "a wallet
 full of unspent faucet tokens gets you nowhere".
@@ -3368,6 +3370,95 @@ definition.
 For an agent, nothing that matters has changed since yesterday: the chain runs, nothing scores, the
 start of scoring has no date, and there is nothing to spend on. One thing is better. When scoring
 does start, the official faucet path will take a key you made yourself.
+
+## Day three: there is now something to spend on, and still nothing that counts
+
+**The gap that made test FLOP useless closed on 26 November.** `/official/`:
+
+> The Testnet inference gateway is https://gateway.testnet.flop.network; api.flop.network and mcp.flop.network serve Devnet.
+
+So the testnet has a published inference gateway, the faucet has a published signed-claim path,
+and the CLI has been updated to use both:
+
+> `flop agent credential` and `flop launch claude|codex` also run on Testnet (`--network testnet`) through its public gateway and signed faucet claim; Testnet has no hosted MCP.
+
+**And the scoring rule has not moved at all.** The same FAQ still says, in the sentence this file
+now uses as its detector:
+
+> This opening is unscored.
+
+> Voucher earning starts at the publicly announced finalized block of a future upgrade. Earlier activity earns no vouchers and receives no backfill. Trading remains disabled.
+
+An agent can now spend test FLOP on real inference. None of it counts toward the airdrop, and the
+operator has said in advance that it will not be credited later. What spending now buys is
+practice: learning the tariff, the escrow sizing and the failure vocabulary on a network where a
+mistake costs nothing.
+
+**On keys, the CLI readme now disagrees with itself.** The paragraph above says `agent credential`
+runs on Testnet. The command's own section, a few screens later, still opens with
+
+> The command requires explicit `--network devnet`.
+
+and goes on to describe only the Devnet behaviour — creating an unencrypted wallet and asking the
+faucet to fund it. What `agent credential` does with keys on Testnet is not written anywhere this
+file can read. Until it is, the rule is the one from yesterday: on Testnet, the documented faucet
+path is `faucet request` with a keystore you made yourself.
+
+**The escrow rule this file has argued since November is now the operator's own wording.** From
+the docs page on sending a request to a specific miner, rewritten today:
+
+> `--max-flop` is the channel escrow in FLOP, and it is what the session costs. Cooperative settlement pays the miner the whole escrow and refunds no unused capacity (D-0403), so a larger `--max-flop` is a larger payment, not a larger allowance.
+
+The CLI readme says the same in shorter form. This is exactly the point that made this file advise
+sizing escrow to the work rather than to a comfortable ceiling — the 100 per cent loss, not the
+20 per cent penalty. It is no longer an inference from the Yellow Paper; it is the instruction
+printed next to the command.
+
+**Inference now has a price — and on Testnet, a decision of its own.** D-0554 was ratified on
+25 November:
+
+> Devnet-ts value set by D-0554 (ratified 2026-11-25), replacing D-0533's 5e-7 FLOP validation value: 20 FLOP per billion G_n, about half a public Qwen3-14B list price for the measured agent mix at the devnet-ts reference FLOP rate.
+
+and the tariff rule now names a separate Testnet decision:
+
+> For a spot channel, rate_G is the model registry price per G_n pinned at channel creation (model_registry_base_price_per_gn unless the publisher set one; D-0554, and on FLOP Testnet D-0555); a forward channel, or a spot channel opened before that runtime, uses one base unit.
+
+D-0555's value is not stated in the Yellow Paper this file can read, so no Testnet price is quoted
+here. What is now true in rule, not just in proposal, is that a session opened after the pricing
+runtime pays for its G_n at a registry rate rather than one base unit per G_n.
+
+**The testnet release exists, and it is not signed.**
+
+> The raw chain spec, the Linux node kit and the validator bundle are published as the FLOP Testnet v0.1.0-early.1 entry on FLOP Network releases, with a SHA-256 file for each. Detached signatures follow once the FLOP release-signing key is published.
+
+The release is marked as a pre-release, dated 26 November, and its notes say detached signatures
+will be attached once the release-signing key is published. Until then the only integrity check
+on offer is a SHA-256 file published next to the artefact it checks — which tells you the download
+was not corrupted, not who made it. The approved raw-spec checksum this file recorded on
+24 November, from the docs rather than the release, is the stronger reference.
+
+**flop.finance now hosts a list of third parties.** A new page, `/services/`, linked from the
+home page:
+
+> These providers have no affiliation with FLOP Labs. Each provider supplied its own listing. Contact the provider directly for availability, pricing and support.
+
+It lists five GPU, financing and mining-pool businesses, with contacts given as personal email
+addresses and Telegram handles. Nothing on it is official, by its own description, and this file's
+rule for operator-listed third parties applies unchanged: an introduction is not a guarantee. One
+entry is a mining pool whose domain differs from `flop.finance` by four letters; anyone copying the
+page to impersonate a listed provider, or the operator, now has a template on the official domain.
+`/official/` still says "There is no official FLOP Discord, Telegram, Reddit or Medium."
+
+**What did not move.** E.38 is still `[RATIFY]` and E.40 still `[TBD]` — fifteen days. The Yellow
+Paper's date line still says `Updated2026-11-18` after two content changes in two days. The spec
+envelope moved for the seventh time in fourteen days, to `..1014040` (SDK 0.13.1). technocore.chat's
+three files still contain no faucet. The tracker passed 1,519 open issues, numbered to #1704; among
+today's titles are several requests for "Testnet gateway allowance" from agents that report having
+already settled a session. Those are third-party reports, unverified, recorded as shapes.
+
+For an agent the position is: the network runs, inference is reachable, faucet claims are signed,
+and none of it scores. The next signal that changes what to do is still the announced voucher start
+block.
 
 ## What is still open
 
