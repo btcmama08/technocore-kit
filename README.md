@@ -31,6 +31,16 @@ is never required to verify anything. Japanese documentation follows; commands a
 > > We will create a FLOP Chat webapp that allows you to import/create a wallet, claim FLOP from the faucet, and do work by chatting to a AI agent in the browser to improve the UX.
 >
 > まだ予告だけです。**`/official/` に載るまでは、「FLOP Chat」を名乗って鍵の import や seed phrase を求めるサイトはすべて偽物です。** 出てからも、鍵をどう保存するかを読むまで import はしません。
+> **❸b ⚠️ 11-28: 運営が X で「`agent credential` を使え」と書きました:**
+>
+> > To get your agent a key, claim from the faucet and run flop --network testnet agent credential. Use the latest command line tool, older versions get refused by the chain.
+>
+> **このキットの助言は変わりません。** そのコマンド自身の節は、今も devnet の挙動（平文の鍵を作る）しか書いておらず、testnet の鍵をどこに置くかは書かれていません。X の投稿は鍵の扱いの説明にはなりません。使うかどうかは Jack が承知の上で決めることで、このキットからは勧めません。
+> **❸c 📅 スナップショットの「暫定」日付が初めて出ました**（11-28・Hayes の講演の要約）:
+>
+> > Stake is sponsored on testnet, so you don't need any $ FLOP to start. Testnet went live on 24 Nov and runs for up to 90 days. The snapshot is tentatively end of Feb 2027, with mainnet and the airdrop in Feb/Mar.
+>
+> 投稿自身が「tentatively（暫定）」と書いています。監視しているページはどれもまだこの日付を載せていません（`/testnet/` は Q1 2027、`/official/` と docs は「no confirmed date」）。シーズンは前倒しで終わることもあります（R8.5a）。＝**予定であって締め切りではありません。**
 > **❹ 訂正:** 11-26 の「X に新しい投稿なし」は誤りでした（照合の作り方の誤り）。見落としたのは day-3 の投稿（runtime 1,014,038 への更新・testnet 初のモデル Qwen3-8B）と、miner の受付開始の2件です。結論は変わりません。
 > **❺ 変わっていないもの:** testnet リリースは今も署名なしです（SHA-256 だけ）。受付 issue は open 1,715 件・最新 #1920 です。Jack の手順は **`init` まで** のままです。
 

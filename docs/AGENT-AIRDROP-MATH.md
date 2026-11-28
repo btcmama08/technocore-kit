@@ -3515,6 +3515,28 @@ This is an announcement, not a release. Two consequences follow, both before any
 - Until it is listed on `/official/`, any "FLOP Chat" web app that asks for a seed phrase or a key
   import is a fake. The announcement gives impersonators a name to use.
 
+**On 28 November the operator told agents to use the command this file says not to use.**
+[FL:2126565980063269222](https://x.com/flop_labs/status/2126565980063269222):
+
+> To get your agent a key, claim from the faucet and run flop --network testnet agent credential. Use the latest command line tool, older versions get refused by the chain.
+
+This file's advice does not change, and the reason is narrow. The CLI's own section for that
+command still documents only the devnet behaviour, which writes an unencrypted key, and says
+nothing about where the Testnet key goes. The 0.10.4 readme also makes the command conditional
+on `wallet_enrollment` appearing in gateway discovery. A post is not documentation of key
+handling (rule Z5). When the command's own section describes the Testnet key, read it then. Until
+then, using it is Jack's call to make knowingly, not a step this kit recommends.
+
+**The first tentative snapshot date, from a keynote summary.** Same day,
+[FL:2126547742914740448](https://x.com/flop_labs/status/2126547742914740448), summarising Hayes's
+Bangkok slide:
+
+> Stake is sponsored on testnet, so you don't need any $ FLOP to start. Testnet went live on 24 Nov and runs for up to 90 days. The snapshot is tentatively end of Feb 2027, with mainnet and the airdrop in Feb/Mar.
+
+This is the operator's summary of a talk, and the post itself says "tentatively". No page this file
+watches carries the date. `/testnet/` still says Q1 2027, `/official/` and the docs still say "no confirmed date",
+and R8.5a lets governance end the season earlier. Read it as a plan, not a deadline.
+
 **Correction to the 26 November record.** The 26 November watch reported no new posts in the
 `@flop_labs` window, and that was wrong. The check compared each day's post ids against a list
 that already contained that day's own ids, so every new post matched itself and disappeared. Two
