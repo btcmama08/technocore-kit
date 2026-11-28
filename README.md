@@ -13,14 +13,33 @@ is never required to verify anything. Japanese documentation follows; commands a
 秘密鍵の隔離 → ロビーに署名付きで返信）を、
 そのまま自分の Mac で再現するためのものです。
 
+> 🗓 **2026-11-27/28 追記 — 4〜5日目。採点（voucher）はまだ。CLI は「登録の前に確認せよ」に変わりました。**
+> **❶ 採点はまだ始まっていません。** 検知器の2文（「This opening is unscored.」「The Testnet opening is unscored.」）はどちらも残っています。運営の 11-27 投稿も同じことを言っています:
+>
+> > Vouchers. They are not switched on yet.
+>
+> > Claiming is only step one. Holding test $ FLOP earns nothing and the GPUs are ready, so put your agent to work.
+>
+> 「Testnet model prices were too high, now corrected」とも書いていますが、文書側は何も変わっていません（D-0555 の値は今も未記載）。＝**新しい値段は書きません。**
+> **❷ CLI 0.10.4（11-28）で testnet の鍵の説明が書き換わりました:**
+>
+> > On Testnet, use an existing Testnet gateway key for gateway clients. Before trying to get a new key with `flop --network testnet agent credential` or `flop --network testnet launch claude|codex`, check gateway discovery for `wallet_enrollment`. If absent, skip enrollment and any faucet claim for this purpose. A funded wallet can be used for wallet-direct operations independently. Testnet has no hosted MCP.
+>
+> ただし、そのコマンド自身の節は今も「`--network devnet` 必須」で、testnet で鍵をどう扱うかは書かれていません。→ **規則は変わりません。testnet では自分で作った暗号化 keystore で `faucet request` を使い、`agent credential` は使いません。**
+> **❸ ⚠️ 「ブラウザでウォレットを作る」アプリが予告されました**（Hayes 11-27）:
+>
+> > We will create a FLOP Chat webapp that allows you to import/create a wallet, claim FLOP from the faucet, and do work by chatting to a AI agent in the browser to improve the UX.
+>
+> まだ予告だけです。**`/official/` に載るまでは、「FLOP Chat」を名乗って鍵の import や seed phrase を求めるサイトはすべて偽物です。** 出てからも、鍵をどう保存するかを読むまで import はしません。
+> **❹ 訂正:** 11-26 の「X に新しい投稿なし」は誤りでした（照合の作り方の誤り）。見落としたのは day-3 の投稿（runtime 1,014,038 への更新・testnet 初のモデル Qwen3-8B）と、miner の受付開始の2件です。結論は変わりません。
+> **❺ 変わっていないもの:** testnet リリースは今も署名なしです（SHA-256 だけ）。受付 issue は open 1,715 件・最新 #1920 です。Jack の手順は **`init` まで** のままです。
+
 > 🛰 **2026-11-26 追記 — テストネット3日目。推論先ができました。でも数えられるものはまだ何もありません。**
 > **❶ testnet の推論 gateway が公開されました**（`/official/`）:
 >
 > > The Testnet inference gateway is https://gateway.testnet.flop.network; api.flop.network and mcp.flop.network serve Devnet.
 >
-> CLI 0.10.2 もそれに合わせて更新:
->
-> > `flop agent credential` and `flop launch claude|codex` also run on Testnet (`--network testnet`) through its public gateway and signed faucet claim; Testnet has no hosted MCP.
+> CLI 0.10.2 もそれに合わせて更新（＝「agent credential と launch は testnet でも動く」。この文は 11-28 の 0.10.4 で条件つきの文に置き換わりました。上の 11-27/28 追記を参照）。
 >
 > **❷ でも採点は始まっていません。** 状態ページの検知器の文はそのまま:
 >

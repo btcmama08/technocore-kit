@@ -223,7 +223,8 @@ R8.3 closes the supply side —
 > governance-ratified, finalized snapshot height. The per-account allocation and its hash
 > MUST be published before the genesis specification is locked; the snapshot MUST remain
 > revocable and correctable until that lock. The snapshot MUST identify each account's
-> cohort, activity, fraud flag, and cluster identity.
+> cohort, activity, fraud flag, and cluster identity; the published allocation MUST bind the
+> inputs used to filter and score each account.
 
 "Cluster identity" is the sybil term: accounts are grouped before they are scored.
 
@@ -3378,9 +3379,10 @@ does start, the official faucet path will take a key you made yourself.
 > The Testnet inference gateway is https://gateway.testnet.flop.network; api.flop.network and mcp.flop.network serve Devnet.
 
 So the testnet has a published inference gateway, the faucet has a published signed-claim path,
-and the CLI has been updated to use both:
-
-> `flop agent credential` and `flop launch claude|codex` also run on Testnet (`--network testnet`) through its public gateway and signed faucet claim; Testnet has no hosted MCP.
+and the CLI has been updated to use both. *(On 26 November the CLI readme said `flop agent
+credential` and `flop launch claude|codex` "also run on Testnet" through the public gateway and
+signed faucet claim. CLI 0.10.4 replaced that sentence on 28 November with the conditional one
+quoted in the next section.)*
 
 **And the scoring rule has not moved at all.** The same FAQ still says, in the sentence this file
 now uses as its detector:
@@ -3459,6 +3461,87 @@ already settled a session. Those are third-party reports, unverified, recorded a
 For an agent the position is: the network runs, inference is reachable, faucet claims are signed,
 and none of it scores. The next signal that changes what to do is still the announced voucher start
 block.
+
+## Days four and five: "vouchers are not switched on yet", and the CLI now says check before you enroll
+
+*Recorded on the 27 November run, which finished on 28 November after the session's container was
+rebuilt.*
+
+**Nothing that scores has moved.** Both detector sentences are still on their pages: "This
+opening is unscored." on the Testnet status page, and "The Testnet opening is unscored." on
+`/official/`. Neither changed between the 27 November 23:07 UTC fetch and the 28 November
+re-fetch. The operator's day-four post says the same thing in its own words
+([FL:2126216024689393846](https://x.com/flop_labs/status/2126216024689393846), 27 November):
+
+> Vouchers. They are not switched on yet.
+
+The same post lists that as "Next", alongside a signed miner pack, and closes:
+
+> Claiming is only step one. Holding test $ FLOP earns nothing and the GPUs are ready, so put your agent to work.
+
+The rest of the post is the operator's own count of wallets, miners and GPUs. It is not a rule,
+and this file does not reproduce the numbers. One line touches pricing:
+
+> Testnet model prices were too high, now corrected
+
+No published document changed with it. The Yellow Paper still names D-0555 for the Testnet price
+without stating its value, and the `ask.flop.finance` corpus was byte-identical on both days. So
+the corrected price is not something this file can quote. The post's "Agent faucet refills on a
+rolling 24 hours" matches the `/official/` rule already quoted ("10 test FLOP per wallet in a
+rolling 24 hours").
+
+**The CLI rewrote the Testnet credential sentence twice in two days.** 0.10.3 (27 November) left
+the readme unchanged. 0.10.4 (28 November) replaced the 26 November "also run on Testnet" line
+with a conditional:
+
+> On Testnet, use an existing Testnet gateway key for gateway clients. Before trying to get a new key with `flop --network testnet agent credential` or `flop --network testnet launch claude|codex`, check gateway discovery for `wallet_enrollment`. If absent, skip enrollment and any faucet claim for this purpose. A funded wallet can be used for wallet-direct operations independently. Testnet has no hosted MCP.
+
+The command's own section still says "The command requires explicit `--network devnet`" and
+still describes only the devnet behaviour: an unencrypted local key, created on first use and
+funded by the devnet faucet. How it handles a key on Testnet is still not written down, so this
+file's rule stands. On Testnet, fund a wallet you created yourself, through `faucet request` with
+your own encrypted keystore, and do not let `agent credential` make one. The new readme sentence
+also points this way: "A funded wallet can be used for wallet-direct operations independently."
+
+**A wallet made in a browser is coming, and that is a new thing to be careful about.** Hayes,
+27 November ([CH:2126189816937410916](https://x.com/CryptoHayes/status/2126189816937410916)):
+
+> We will create a FLOP Chat webapp that allows you to import/create a wallet, claim FLOP from the faucet, and do work by chatting to a AI agent in the browser to improve the UX.
+
+This is an announcement, not a release. Two consequences follow, both before anything ships:
+
+- When it ships, read how it stores the key before you import one. "Import" means pasting an
+  existing secret into a web page.
+- Until it is listed on `/official/`, any "FLOP Chat" web app that asks for a seed phrase or a key
+  import is a fake. The announcement gives impersonators a name to use.
+
+**Correction to the 26 November record.** The 26 November watch reported no new posts in the
+`@flop_labs` window, and that was wrong. The check compared each day's post ids against a list
+that already contained that day's own ids, so every new post matched itself and disappeared. Two
+operator posts from 26 November were missed. The day-three summary
+([FL:2125781862459253065](https://x.com/flop_labs/status/2125781862459253065)):
+
+> Runtime upgraded to 1,014,038 on Devnet and Testnet, signed by the 2-of-3 founder multisig and checked against live state before enactment
+
+> First model registered and verified on Testnet: Qwen3-8B
+
+The miner-onboarding post ([FL:2126001291466043715](https://x.com/flop_labs/status/2126001291466043715)):
+
+> FLOP Testnet miner onboarding is open. 50+ miners online, RTX 3090 to H200 and B300, calibrated on-chain and ready to serve. Bring a GPU.
+
+Neither changes this file's conclusions. The runtime number fits inside the 26 November SDK
+envelope (`..1014040`). The check now excludes the current day's own list.
+
+**Intake and releases.** On 27 November `flop-labs/network` showed 1,715 open issues, with the
+newest at #1920. There were 565 `intake:operator` issues and 5 `intake:model-upload` issues.
+These counts were read through a summarising fetch and are not quoted. The releases list still
+has 14 entries. `testnet/v0.1.0-early.1` is still a Pre-release with twelve assets: SHA-256 files
+and no detached signatures. Its notes still say signatures will follow once the release-signing
+key is published.
+
+**R8.5, quoted whole.** The R8.5 quote above used to end at "cluster identity." The Yellow Paper
+continues that sentence after a semicolon ("the published allocation MUST bind the inputs used
+to filter and score each account"), so the quote now carries the whole sentence.
 
 ## What is still open
 
